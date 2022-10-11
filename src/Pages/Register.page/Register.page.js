@@ -22,23 +22,24 @@ import Logo from "../../Components/Logo.component/Logo.component";
 
 const theme = createTheme();
 
-export default function Login({setToken}) {
+export default function Register() {
   
   const [emailPass, setEmailPass] = useState({ email: "", password: "" });
   const navigate = useNavigate();
 
-  const login = async () => {
+  const register = async () => {
     await axios
-      .post("http://localhost:8800/login", emailPass)
+      .post("http://localhost:8800/signup", emailPass)
       .then((response) => {
-        setToken(response.data);
-        console.log("logged in succesfully");
-        navigate("/success");
+        console.log(response.data);
+        console.log("signup succesfull");
+        alert("signup success");
+        navigate("/login");  
       })
       .catch((error) => {
         if (error.response.status == 500) {
-          console.log({ message: "Login Failed" });
-          alert("login failed");        }
+          console.log({ message: "signup Failed" });
+                }
       });
   };
 
@@ -53,7 +54,7 @@ export default function Login({setToken}) {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    await login();
+    await register();
   };
 
   return (
@@ -68,9 +69,11 @@ export default function Login({setToken}) {
             alignItems: "center",
           }}
         >
-          <Logo />
+          
+            <Logo />
+          
           <Typography component="h1" variant="h5">
-            Sign in
+            Sign Up
           </Typography>
           <Box
             component="form"
@@ -110,20 +113,8 @@ export default function Login({setToken}) {
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              Sign In
+              Sign Up
             </Button>
-            <Grid container>
-              <Grid item xs>
-                <Link href="#" variant="body2">
-                  Forgot password?
-                </Link>
-              </Grid>
-              <Grid item>
-                <Link href="/register" variant="body2">
-                  {"Don't have an account? Sign Up"}
-                </Link>
-              </Grid>
-            </Grid>
           </Box>
         </Box>
         <Copyright sx={{ mt: 8, mb: 4 }} />
