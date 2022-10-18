@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Link from "@mui/material/Link";
 import Typography from "@mui/material/Typography";
@@ -75,9 +75,10 @@ export default function Login({setToken}) {
           <Box
             component="form"
             onSubmit={handleSubmit}
-            noValidate
+            
             sx={{ mt: 1 }}
           >
+            
             <TextField
               margin="normal"
               required
@@ -88,6 +89,7 @@ export default function Login({setToken}) {
               autoComplete="email"
               autoFocus
               onChange={handleChange}
+             
             />
             <TextField
               margin="normal"

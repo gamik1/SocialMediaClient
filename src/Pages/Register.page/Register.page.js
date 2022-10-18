@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Link from "@mui/material/Link";
 import Typography from "@mui/material/Typography";
@@ -24,7 +24,16 @@ const theme = createTheme();
 
 export default function Register() {
   
-  const [emailPass, setEmailPass] = useState({ email: "", password: "" });
+  const [validation, setValidation] = useState({
+    
+    email: "Valid",
+    password: "Valid",
+    confirmPassword: "Valid",
+  });
+  const [emailPass, setEmailPass] = useState({ 
+  email: "",
+  password: "",
+  confirmPassword: "", });
   const navigate = useNavigate();
 
   const register = async () => {
@@ -43,9 +52,79 @@ export default function Register() {
       });
   };
 
+ 
+
+  //handle submit updates
+  
+  const setErrors = (name,value) => {
+    setValidation(prevVal => {
+      return {...prevVal, [name]:value}
+    });
+  }
+
+  const checkValidation = () => {
+    //let validation = errors;
+
+    
+
+    // email validation
+    const emailCond =
+      "^[a-zA-Z0-9.!#$%&\'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$";
+    if (!emailPass.email.trim()) {
+      setValidation(prev=>{
+        return {...prev, email : "Email is required !!"}
+      });
+    } else if (!emailPass.email.match(emailCond)) {
+      setErrors("email", "Please enter a valid email address");
+    } else {
+      setErrors("email", "Valid");
+    }
+
+    //password validation
+    const cond1 = "^(?=.*[a-z]).{6,20}$";
+    const cond2 = "^(?=.*[A-Z]).{6,20}$";
+    const cond3 = "^(?=.*[0-9]).{6,20}$";
+    const password = emailPass.password;
+    if (!password) {
+      //errors.password = "password is required";
+      setErrors("password", "Password is Required");
+    } else if (password.length < 6) {
+      // errors.password = "Password must be longer than 6 characters";
+      setErrors("password", "Password must be longer than 6 characters");
+    } else if (password.length >= 20) {
+      //errors.password = "Password must shorter than 20 characters";
+      setErrors("password", "Password must shorter than 20 characters");
+    } else if (!password.match(cond1)) {
+      //errors.password = "Password must contain at least one lowercase";
+      setErrors("password", "Password must contain at least one lowercase");
+    } else if (!password.match(cond2)) {
+      //errors.password = "Password must contain at least one capital letter";
+      setErrors("password", "Password must contain at least one capital letter");
+    } else if (!password.match(cond3)) {
+      //errors.password = "Password must contain at least a number";
+      setErrors("password", "Password must contain at least a number");
+    } else {
+
+      setErrors("password", "Valid");
+    }
+
+    //matchPassword validation
+    if (!emailPass.confirmPassword) {
+     
+      setErrors("confirmPassword", "Password confirmation is required");
+    } else if (emailPass.confirmPassword !== emailPass.password) {
+      //errors.confirmPassword = "Password does not match confirmation password";
+      setErrors("confirmPassword", "Password does not match confirmation password");
+    } else {
+      setErrors("confirmPassword", "Valid");
+    }
+
+    
+  };
+  
   const handleChange = async (event) => {
     let { name, value } = event.target;
-
+    // setEmailPass({ ...emailPass, [name]: value });
     await setEmailPass((prevEmailPass) => {
       return { ...prevEmailPass, [name]: value };
     });
@@ -54,8 +133,17 @@ export default function Register() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    await register();
+    if(validation.email == "Valid" && validation.password == "Valid" && validation.confirmPassword == "Valid"){
+      await register();
+    }else{
+      alert("you have errors");
+    }
+    
   };
+
+  useEffect(() => {
+    checkValidation();
+  }, [emailPass]);
 
   return (
     <ThemeProvider theme={theme}>
@@ -73,7 +161,7 @@ export default function Register() {
             <Logo />
           
           <Typography component="h1" variant="h5">
-            Sign Up
+            Register Now
           </Typography>
           <Box
             component="form"
@@ -81,7 +169,7 @@ export default function Register() {
             noValidate
             sx={{ mt: 1 }}
           >
-            <TextField
+             <TextField
               margin="normal"
               required
               fullWidth
@@ -91,7 +179,9 @@ export default function Register() {
               autoComplete="email"
               autoFocus
               onChange={handleChange}
+              value={emailPass.email}
             />
+             {validation.email && <p>{validation.email}</p>}
             <TextField
               margin="normal"
               required
@@ -102,10 +192,20 @@ export default function Register() {
               id="password"
               autoComplete="current-password"
               onChange={handleChange}
+              value={emailPass.password}
             />
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
+            {validation.password && <p>{validation.password}</p>}
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              name="confirmPassword"
+              label="Confirm Password"
+              type="password"
+              id="confirmPassword"
+              autoComplete="current-password"
+              onChange={handleChange}
+              value={emailPass.confirmPassword}
             />
             <Button
               type="submit"
