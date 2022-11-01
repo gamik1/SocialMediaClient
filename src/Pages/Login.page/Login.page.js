@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React, { useState, useContext } from "react";
+//import axios from "axios";
 import Link from "@mui/material/Link";
 import Typography from "@mui/material/Typography";
-import Avatar from "@mui/material/Avatar";
+//import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
@@ -11,7 +11,7 @@ import Checkbox from "@mui/material/Checkbox";
 //import Link from '@mui/material/Link';
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+//import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 //import Typography from '@mui/material/Typography';
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
@@ -20,27 +20,31 @@ import {Routes, Route, useNavigate} from 'react-router-dom';
 import Logo from "../../Components/Logo.component/Logo.component";
 
 
+import { loginCall } from "../../API/apiCalls";
+import { AuthContext } from "../../context/AuthContext";
+
 const theme = createTheme();
 
 export default function Login({setToken}) {
   
   const [emailPass, setEmailPass] = useState({ email: "", password: "" });
   const navigate = useNavigate();
-
-  const login = async () => {
-    await axios
-      .post("http://localhost:8800/login", emailPass)
-      .then((response) => {
-        setToken(response.data);
-        console.log("logged in succesfully");
-        navigate("/success");
-      })
-      .catch((error) => {
-        if (error.response.status == 500) {
-          console.log({ message: "Login Failed" });
-          alert("login failed");        }
-      });
-  };
+  const { isFetching,error, dispatch } = useContext(AuthContext);
+  console.log(useContext(AuthContext));
+  // const login = async () => {
+  //   await axios
+  //     .post("http://localhost:8800/login", {email : email.current.value , password : password.current.value})
+  //     .then((response) => {
+  //       setToken(response.data);
+  //       console.log("logged in succesfully");
+  //       navigate("/success");
+  //     })
+  //     .catch((error) => {
+  //       if (error.response.status == 500) {
+  //         console.log({ message: "Login Failed" });
+  //         alert("login failed");        }
+  //     });
+  // };
 
   const handleChange = async (event) => {
     let { name, value } = event.target;
@@ -53,9 +57,14 @@ export default function Login({setToken}) {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    await login();
+    console.log(emailPass);
+    loginCall(
+      { ...emailPass },
+      dispatch
+    );
   };
 
+  //console.log(user);
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
@@ -89,7 +98,7 @@ export default function Login({setToken}) {
               autoComplete="email"
               autoFocus
               onChange={handleChange}
-             
+
             />
             <TextField
               margin="normal"
@@ -101,6 +110,7 @@ export default function Login({setToken}) {
               id="password"
               autoComplete="current-password"
               onChange={handleChange}
+
             />
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}

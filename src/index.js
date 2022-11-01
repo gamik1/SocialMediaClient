@@ -1,16 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-//import App from './App';
+import App from './App';
 import reportWebVitals from './reportWebVitals';
 //import Login from './Pages/Login.page/Login.page';
-import MyHomePage from './Pages/MyHomePage.page/MyHomePage.page';
+//import PageRoutes from './Components/PageRoutes/PageRoutes';
+import { AuthContextProvider } from './context/AuthContext';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
   <React.StrictMode>
-  <MyHomePage />
+  <AuthContextProvider>
+    <App />
+  </AuthContextProvider>
   </React.StrictMode>
 );
 
