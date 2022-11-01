@@ -1,0 +1,8 @@
+.topbar-logo{
+    background-image: url("../../../images/ping.png");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 48px;
+    width: 48px;
+}
