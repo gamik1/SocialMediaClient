@@ -1,9 +1,9 @@
 .logo-main{
-    background-image: url("../../../images/ping.png");
+    background-image: url("./ping.png");
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
-    height: 140px;
-    width: 140px;
+    height: 40px;
+    width: 40px;
 
 }

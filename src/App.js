@@ -1,13 +1,14 @@
 import React from "react";
-import logo from './logo.svg';
 import './App.css';
-import Geolocation from "./Geolocation";
+import Navigation from './Components/Navigation.component/Navigation.component';
+import PageRoutes from './Components/PageRoutes/PageRoutes';
+//import Geolocation from "./Geolocation";
 
 function App() {
   return (
     <div className="App">
-      
-      <Geolocation></Geolocation>
+      <Navigation />
+      <PageRoutes />
     </div>
   );
 }
