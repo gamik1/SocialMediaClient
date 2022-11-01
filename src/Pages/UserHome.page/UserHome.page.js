@@ -25,7 +25,6 @@ const Item = styled(Paper)(({ theme }) => ({
 export default function Index() {
     return (
         <ThemeProvider theme={theme}>
-            <TopBar />
             <CssBaseline />
             <Grid container spacing={3} sx={{px:5}}>
                 <Grid item xs={0} md={3} sx={{ display: { xs: 'none', md: 'flex' } }}>

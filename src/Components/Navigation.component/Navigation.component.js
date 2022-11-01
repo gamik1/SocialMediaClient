@@ -1,7 +1,7 @@
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import { TbActivity } from "react-icons/tb";
+//import { TbActivity } from "react-icons/tb";
 import Logo from '../Logo.component/Logo.component';
 
 import React , {useContext} from "react";
@@ -25,6 +25,8 @@ function Navigation() {
             <Nav.Link href="/login">Login</Nav.Link>
             <Nav.Link href="/register">Register</Nav.Link>
             { user ?  <Nav.Link href="/success">Success</Nav.Link> : "" }
+            { user ?  <Nav.Link href="/userHome">User Home</Nav.Link> : "" }
+            { user ?  <Nav.Link href="/profile">Profile</Nav.Link> : "" }
             { user ?  <Nav.Link onClick={handleLogout}>Logout</Nav.Link> : "" }
           </Nav>
         </Container>
