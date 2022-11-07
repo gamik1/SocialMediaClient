@@ -112,10 +112,7 @@ export default function Login({setToken}) {
               onChange={handleChange}
 
             />
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            />
+
             <Button
               type="submit"
               fullWidth

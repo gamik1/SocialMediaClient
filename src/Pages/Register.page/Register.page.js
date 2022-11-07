@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import Link from "@mui/material/Link";
 import Typography from "@mui/material/Typography";
@@ -18,7 +18,8 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Copyright from "../../Components/Copyright.component/Copyright.component";
 import {Routes, Route, useNavigate} from 'react-router-dom';
 import Logo from "../../Components/Logo.component/Logo.component";
-
+import { loginCall, registerCall } from "../../API/apiCalls";
+import { AuthContext } from "../../context/AuthContext";
 
 const theme = createTheme();
 
@@ -35,21 +36,25 @@ export default function Register() {
   password: "",
   confirmPassword: "", });
   const navigate = useNavigate();
+  const { isFetching,error, dispatch } = useContext(AuthContext);
 
   const register = async () => {
-    await axios
-      .post("http://localhost:8800/signup", emailPass)
-      .then((response) => {
-        console.log(response.data);
-        console.log("signup succesfull");
-        alert("signup success");
-        navigate("/login");  
-      })
-      .catch((error) => {
-        if (error.response.status == 500) {
-          console.log({ message: "signup Failed" });
-                }
-      });
+    const response = await registerCall(emailPass);
+    if(response){
+      if(response.registerResponse){
+        if(response.registerResponse.alreadyUsed){
+          alert("This Email is already used !!");
+        }else {
+          alert("Successfully Registered");
+          loginCall({email:emailPass.email,password:emailPass.password}, dispatch);
+        }
+      }else{
+        alert("some error occured please try again later!!");
+      }
+    }else{
+      alert("some error occured please try again later!!");
+    }
+    
   };
 
  

@@ -24,6 +24,7 @@ const AuthReducer = (state, action) => {
           isFetching:false,
           error:false
       };
+
     case "FOLLOW":
       return {
         ...state,

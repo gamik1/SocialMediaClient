@@ -11,6 +11,9 @@ import LeftBar from "../../Components/LeftBar.component/LeftBar.component";
 import RightBar from "../../Components/RightBar.component/RightBar.component";
 import Posts from "../../Components/Posts.comonent/Posts.component";
 import { ProfileContextProvider } from "../../context/ProfileContext";
+import Profile from "./Profile.page";
+import ProfileShow from "./Profile.Show.Page";
+import ProfileUpdate from "./Profile.page";
 
 const theme = createTheme();
 
@@ -23,7 +26,8 @@ const Item = styled(Paper)(({ theme }) => ({
     color: theme.palette.text.secondary,
 }));
 
-export default function Index() {
+export default function ProfileMain() {
+    const [current,setCurrent] = useState("show");
     return (
         <ThemeProvider theme={theme}>
             <ProfileContextProvider>
@@ -33,7 +37,8 @@ export default function Index() {
                         <LeftBar/>
                     </Grid>
                     <Grid item xs={12} md={6}>
-                        <Posts/>
+                        <div><button onClick={()=> setCurrent("show")}>show</button> <button onClick={()=> setCurrent("update")}>update</button></div>
+                        { current === "update" ? <ProfileUpdate/> : <ProfileShow/>}
                     </Grid>
                     <Grid item xs={0} md={3} sx={{ display: { xs: 'none', md: 'flex' } }}>
                         <RightBar/>
