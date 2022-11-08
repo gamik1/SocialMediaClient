@@ -69,3 +69,37 @@ export const profileGet = async (secret_token) => {
 }
 
 
+export const postAddCall = async (post, secret_token) => {
+  console.log({...post, secret_token: secret_token})
+  return await axios
+    .post(`${API_URL}/user/post/add`, post, {
+      headers: {
+        Authorization: `Bearer ${secret_token}`,
+      },
+    })
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error)=>{
+      console.log(error.response.data);
+    })
+
+}
+
+export const postListCall = async (secret_token) => {
+
+  console.log(secret_token);
+  return await axios
+    .get(`${API_URL}/user/post/list`,{
+      headers: {
+        Authorization: `Bearer ${secret_token}`,
+      },
+    })
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error)=>{
+      console.log(error.response.data);
+    })
+
+}

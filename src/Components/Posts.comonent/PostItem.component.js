@@ -11,6 +11,8 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import ShareIcon from '@mui/icons-material/Share';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
+import { profileGet } from "../../API/apiCalls";
+import { AuthContext } from "../../context/AuthContext";
 
 const ExpandMore = styled((props) => {
     const { expand, ...other } = props;
@@ -23,19 +25,30 @@ const ExpandMore = styled((props) => {
     }),
 }));
 
-export default function PostItem() {
+export default function PostItem({ post }) {
     const [expanded, setExpanded] = React.useState(false);
+    const [avatarLetter, setAvatarLetter] = React.useState('');
+    const { user } = React.useContext(AuthContext);
 
     const handleExpandClick = () => {
         setExpanded(!expanded);
     };
+
+    React.useEffect(() => {
+        async function fetchData() {
+            let response = await profileGet(user.token);
+            let s = response.userProfile.firstName ? response.userProfile.firstName : response.user.email;
+            setAvatarLetter(s.slice(0, 1).toUpperCase());
+        }
+        fetchData();
+    }, []);
 
     return (
         <Card sx={{ maxWidth: 3450 }}>
             <CardHeader
                 avatar={
                     <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-                        R
+                        {avatarLetter}
                     </Avatar>
                 }
                 action={
@@ -43,20 +56,17 @@ export default function PostItem() {
                         <MoreVertIcon />
                     </IconButton>
                 }
-                title="Shrimp and Chorizo Paella"
-                subheader="October 31, 2022"
+                subheader=""//show time TODO
             />
-            <CardMedia
+            {/* <CardMedia
                 component="img"
                 height="294"
                 image="https://images.unsplash.com/photo-1444418776041-9c7e33cc5a9c"
                 alt="Paella dish"
-            />
+            /> */}
             <CardContent>
                 <Typography variant="body2" color="text.secondary">
-                    This impressive paella is a perfect party dish and a fun meal to cook
-                    together with your guests. Add 1 cup of frozen peas along with the mussels,
-                    if you like.
+                    {post.postContent}
                 </Typography>
             </CardContent>
             <CardActions disableSpacing>
