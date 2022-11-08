@@ -22,9 +22,11 @@ const Item = styled(Paper)(({ theme }) => ({
 
 export default function BasicGrid() {
   const [data, setData] = useState([]);
+  // const API_KEY = process.env.NEWS_API_KEY;
+  // console.log("newsapi", process.env.REACT_APP_NEWS_API_KEY);
   axios
     .get(
-      "https://newsapi.org/v2/top-headlines?country=us&apiKey=fd4dda2d2051451b8424a24ad7395085"
+      `https://newsapi.org/v2/top-headlines?country=us&apiKey=fd4dda2d2051451b8424a24ad7395085`
     )
 
     .then((response) => {

@@ -8,7 +8,7 @@ const Geolocation = () => {
   // const [latLong, setLatLong] = useState({ latitude: "", longitude: "" });
   const [locAddress, setLocAddress] = useState("");
 
-  Geocode.setApiKey("AIzaSyCMf5u90MmUIk0RD4K_puY1inNcps-KbXA");
+  Geocode.setApiKey(process.env.REACT_APP_GEOCODEAPI);
   Geocode.setLanguage("en");
 
   //   const set = (aaa) => {
