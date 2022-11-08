@@ -1,22 +1,19 @@
 import React, { useState, useContext } from "react";
-import axios from "axios";
+
 import Geolocation from "../../Components/Geolocation.componemt/Geolocation.component";
 import Typography from "@mui/material/Typography";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
-import EditIcon from "@mui/icons-material/Edit";
-import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
+import Paper from "@mui/material/Paper";
 
-//import Typography from '@mui/material/Typography';
-import Container from "@mui/material/Container";
+
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Copyright from "../../Components/Copyright.component/Copyright.component";
 
 import { ProfileContext } from "../../context/ProfileContext";
 
-import { red } from "@mui/material/colors";
 
 import "../Profile.page/Profile.page.css";
 import { AuthContext } from "../../context/AuthContext";
@@ -58,52 +55,52 @@ export default function ProfileUpdate() {
   };
 
   return (
-    <ThemeProvider theme={theme} sx={{ bgcolor: red }}>
-      <Container component="main" maxWidth="xs">
-        <CssBaseline />
-        <Box
-          sx={{
-            marginTop: 6,
-            paddingTop: 10,
-            marginLeft: -10,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            width: 600,
-            height: "auto",
-            color: "#fffff",
-            bgcolor: "#F0F0F0",
-            borderRadius: 10,
-          }}
-        >
-          <Typography component="h1" variant="h5">
-            HOWDY User!!!
-          </Typography>
-          <br />
-          <Avatar src="/broken-image.jpg" sx={{ width: 200, height: 200 }} />
-
-          <Box
-            component="form"
-            // onSubmit={handleSubmit}
-            sx={{ mt: 1 }}
-          >
-            <Box sx={{ display: "flex", alignItems: "flex-end" }}>
+    <Paper
+    sx={{
+      
+      p: 2,
+      marginTop: 10,
+      width:"auto",
+      height: "auto",
+      flexGrow: 1,
+      backgroundColor: (theme) =>
+        theme.palette.mode === "dark" ? "#1A2027" : "#fff",
+    }}
+  >
+    <Grid container spacing={1} mt={2} mb={5} paddingLeft={1}>
+      <Grid item>
+        <Avatar
+          src="/broken-image.jpg"
+          sx={{ width: 250, height: 250 ,marginLeft:15}}
+          
+          padding={2}
+        />
+      </Grid>
+      <Grid item xs={12} sm container>
+        <Grid item  container direction="row" spacing={2}>
+          <Grid item >
+            <Typography gutterBottom variant="h4" component="div">
+              PROFILE INFO
+            </Typography>
+            <Typography variant="body2" gutterBottom>
               <TextField
+             
                 margin="normal"
                 required
                 fullWidth
+                onChange={handleChange}
                 id="firstName"
                 label="First Name"
                 name="firstName"
                 autoComplete="firstName"
                 autoFocus
-                onChange={handleChange}
               />
               <TextField
-                sx={{ marginLeft: 3 }}
+              fullWidth
+               
+               
                 margin="normal"
                 required
-                fullWidth
                 id="lastName"
                 label="Last Name"
                 name="lastName"
@@ -111,57 +108,12 @@ export default function ProfileUpdate() {
                 autoFocus
                 onChange={handleChange}
               />
-            </Box>
-            
-            <Box sx={{ display: "flex", alignItems: "flex-end" }}>
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
               <TextField
+               fullWidth
                 margin="normal"
                 required
-                type="date"
-                defaultValue="2019-05-24"
-                inputProps={{ min: "2019-01-24", max: "2020-05-31" }}
-                fullWidth
-                id="dob"
-                name="dob"
-                autoComplete="dob"
-                autoFocus
-                onChange={handleChange}
-              />
-            </Box>
-            <Box sx={{ display: "flex", alignItems: "flex-end" }}>
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                id="bio"
-                multiline
-                label="Bio"
-                name="bio"
-                rows={2}
-                autoComplete="bio"
-                autoFocus
-                onChange={handleChange}
-              />
-            </Box>
-            
-            <Box sx={{ display: "flex", alignItems: "flex-end" }}>
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                id="profession"
-                label="Profession"
-                name="profession"
-                autoComplete="profession"
-                autoFocus
-                onChange={handleChange}
-              />
-            </Box>
-            <Box sx={{ display: "flex", alignItems: "flex-end" }}>
-              <TextField
-                margin="normal"
-                required
-                fullWidth
                 id="hobby"
                 label="Hobbies"
                 name="hobby"
@@ -169,30 +121,81 @@ export default function ProfileUpdate() {
                 autoFocus
                 onChange={handleChange}
               />
-            </Box>
+           
+            </Typography>
+          </Grid>
+          <Grid item>
+            
+            <Typography variant="body2" color="text.secondary">
+            <TextField
+                
+                fullWidth
+                margin="normal"
+                required
+                type="date"
+                defaultValue="Date Of Birth"
+                inputProps={{ min: "2019-01-24", max: "2020-05-31" }}
+               
+                id="dob"
+                name="dob"
+                autoComplete="dob"
+                autoFocus
+                onChange={handleChange}
+              />
+              
+              <TextField
+                margin="normal"
+                required
+                
+                fullWidth
+                
+                id="bio"
+              multiline
+              label="Bio"
+              name="bio"
+              rows={2}
+              autoComplete="bio"
+              autoFocus
+              onChange={handleChange}
+              />
+            </Typography>
+          </Grid>
 
-            <Button
-              onClick={handleSubmit}
-              variant="contained"
-              sx={{
-                mt: 3,
-                mb: 4,
+          <Grid item>
+            <Typography variant="body2" color="text.secondary"></Typography>
+          </Grid>
+          <Grid item>
+            <Typography variant="body2" color="text.secondary">
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+               
+                style={{ width: 530 }}
+                id="profession"
+              label="Profession"
+              name="profession"
+              autoComplete="profession"
+              autoFocus
+              onChange={handleChange}
+              />
+            </Typography>
+          </Grid>
+          <Grid item>
+          <Button onClick={handleSubmit} variant="contained" sx={{ mt: 3, mb: 4,
 
-                bgColor: "#FF3CAC",
-                paddingTop: 1,
-                fontSize: 21,
-                paddingBottom: 1,
-                fontWeight: 700,
-                letterSpacing: 3,
-              }}
-              fullWidth
-            >
-              Save
-            </Button>
-          </Box>
-        </Box>
-        <Copyright sx={{ mt: 8, mb: 4 }} />
-      </Container>
-    </ThemeProvider>
+  bgColor: '#000',
+  paddingTop: 1,
+  fontSize: 15,
+  paddingBottom: 1,
+  fontWeight: 400,
+  letterSpacing: 3,
+  
+  }}  style={{ width: 530 }} >SAVE PROFILE</Button>
+          </Grid>
+        </Grid>
+      </Grid>
+    </Grid>
+  </Paper>
   );
 }

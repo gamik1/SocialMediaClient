@@ -5,6 +5,7 @@ import Register from "../../Pages/Register.page/Register.page";
 import Success from "../../Pages/Success.page/Success.page";
 import UserHome from "../../Pages/UserHome.page/UserHome.page";
 import ProfileMain from "../../Pages/Profile.page/Profile.Main.Page";
+import News from "../../Pages/News.page/News.page"
 
 import { AuthContext } from "../../context/AuthContext";
 
@@ -21,7 +22,8 @@ export default function PageRoutes() {
       <Route path="/success" element={user ? <Success /> : <Navigate replace to="/login" />} />
       <Route path="/userHome" element={user? <UserHome/> : <Navigate replace to="/login"/>} />
       <Route path="/profile" element={user? <ProfileMain/> : <Navigate replace to="/login" />} />
-    </Routes>
+      <Route path="/news" element={user? <News/> : <Navigate replace to="/news" />} />
+   </Routes>
     </Router>
     
   );

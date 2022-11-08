@@ -13,7 +13,9 @@ import BookmarkIcon from '@mui/icons-material/Bookmark';
 import HelpIcon from '@mui/icons-material/Help';
 import WorkIcon from '@mui/icons-material/Work';
 import EventIcon from '@mui/icons-material/Event';
-import SchoolIcon from '@mui/icons-material/School';
+import NewspaperIcon from '@mui/icons-material/Newspaper';
+import Link from '@mui/material/Link';
+
 
 export default function LeftBar() {
   return (
@@ -86,9 +88,9 @@ export default function LeftBar() {
           <ListItem disablePadding>
             <ListItemButton>
               <ListItemIcon>
-                <SchoolIcon />
+                <NewspaperIcon />
               </ListItemIcon>
-              <ListItemText primary="Courses" />
+              <Link href="/news"><ListItemText primary="News" /></Link>
             </ListItemButton>
           </ListItem>
         </List>
