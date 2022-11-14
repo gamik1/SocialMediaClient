@@ -3,7 +3,7 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 //import { TbActivity } from "react-icons/tb";
 import Logo from '../Logo.component/Logo.component';
-
+import jwt from "jwt-decode";
 import React , {useContext} from "react";
 import { AuthContext } from "../../context/AuthContext";
 
@@ -11,7 +11,11 @@ import {logoutCall} from "../../API/apiCalls";
 
 function Navigation() {
     const { user , dispatch } = useContext(AuthContext);
-
+    let _id = "noUser";
+    if(user){
+    const decoded = jwt(user.token);
+     _id = decoded.user._id;
+    }
     const handleLogout = ()=>{
       logoutCall(dispatch);
     };
@@ -26,7 +30,7 @@ function Navigation() {
             <Nav.Link href="/register">Register</Nav.Link>
             { user ?  <Nav.Link href="/success">Success</Nav.Link> : "" }
             { user ?  <Nav.Link href="/userHome">User Home</Nav.Link> : "" }
-            { user ?  <Nav.Link href="/profile">Profile</Nav.Link> : "" }
+            { user ?  <Nav.Link href={`/profile/${_id}`}>Profile</Nav.Link> : "" }
             { user ?  <Nav.Link onClick={handleLogout}>Logout</Nav.Link> : "" }
           </Nav>
         </Container>

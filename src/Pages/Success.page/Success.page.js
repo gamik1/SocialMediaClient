@@ -5,7 +5,7 @@ import { AuthContext } from "../../context/AuthContext";
 
 export default function Success(){
     const {user} = useContext(AuthContext);
-
+    
     const decoded = jwt(user.token);
     const {_id,email} = decoded.user;
     return (

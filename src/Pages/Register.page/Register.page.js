@@ -1,14 +1,8 @@
 import React, { useEffect, useState, useContext } from "react";
-import axios from "axios";
-import Link from "@mui/material/Link";
 import Typography from "@mui/material/Typography";
-import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
-//import Link from '@mui/material/Link';
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
@@ -16,68 +10,74 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Copyright from "../../Components/Copyright.component/Copyright.component";
-import {Routes, Route, useNavigate} from 'react-router-dom';
+import { Routes, Route, useNavigate } from "react-router-dom";
 import Logo from "../../Components/Logo.component/Logo.component";
 import { loginCall, registerCall } from "../../API/apiCalls";
 import { AuthContext } from "../../context/AuthContext";
+import Alert from '@mui/material/Alert';
+import AlertTitle from '@mui/material/AlertTitle';
 
-const theme = createTheme();
+
+const theme = createTheme({
+  palette: {
+    buttonPrimary: {
+      main: "#32CD32",
+      darker: "#299617",
+    },
+  },
+});
 
 export default function Register() {
-  
   const [validation, setValidation] = useState({
-    
-    email: "Valid",
-    password: "Valid",
-    confirmPassword: "Valid",
+    email: "Initial",
+    password: "Initial",
+    confirmPassword: "Initial",
   });
-  const [emailPass, setEmailPass] = useState({ 
-  email: "",
-  password: "",
-  confirmPassword: "", });
+  const [emailPass, setEmailPass] = useState({
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
+  const [regErr, setRegErr] = useState("");
   const navigate = useNavigate();
-  const { isFetching,error, dispatch } = useContext(AuthContext);
-
+  const { isFetching, error, dispatch } = useContext(AuthContext);
   const register = async () => {
     const response = await registerCall(emailPass);
-    if(response){
-      if(response.registerResponse){
-        if(response.registerResponse.alreadyUsed){
-          alert("This Email is already used !!");
-        }else {
+    if (response) {
+      if (response.registerResponse) {
+        if (response.registerResponse.alreadyUsed) {
+          setRegErr("This Email is already used !!");
+        } else {
           alert("Successfully Registered");
-          loginCall({email:emailPass.email,password:emailPass.password}, dispatch);
+          loginCall(
+            { email: emailPass.email, password: emailPass.password },
+            dispatch
+          );
         }
-      }else{
-        alert("some error occured please try again later!!");
+      } else {
+        setRegErr("some error occured please try again later!!");
       }
-    }else{
-      alert("some error occured please try again later!!");
+    } else {
+      setRegErr("some error occured please try again later!!");
     }
-    
   };
 
- 
-
   //handle submit updates
-  
-  const setErrors = (name,value) => {
-    setValidation(prevVal => {
-      return {...prevVal, [name]:value}
+
+  const setErrors = (name, value) => {
+    setValidation((prevVal) => {
+      return { ...prevVal, [name]: value };
     });
-  }
+  };
 
   const checkValidation = () => {
-    //let validation = errors;
-
     
-
     // email validation
     const emailCond =
-      "^[a-zA-Z0-9.!#$%&\'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$";
+      "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$";
     if (!emailPass.email.trim()) {
-      setValidation(prev=>{
-        return {...prev, email : "Email is required !!"}
+      setValidation((prev) => {
+        return { ...prev, email: "Email is required !!" };
       });
     } else if (!emailPass.email.match(emailCond)) {
       setErrors("email", "Please enter a valid email address");
@@ -104,51 +104,65 @@ export default function Register() {
       setErrors("password", "Password must contain at least one lowercase");
     } else if (!password.match(cond2)) {
       //errors.password = "Password must contain at least one capital letter";
-      setErrors("password", "Password must contain at least one capital letter");
+      setErrors(
+        "password",
+        "Password must contain at least one capital letter"
+      );
     } else if (!password.match(cond3)) {
       //errors.password = "Password must contain at least a number";
       setErrors("password", "Password must contain at least a number");
     } else {
-
       setErrors("password", "Valid");
     }
 
     //matchPassword validation
-    if (!emailPass.confirmPassword) {
-     
-      setErrors("confirmPassword", "Password confirmation is required");
-    } else if (emailPass.confirmPassword !== emailPass.password) {
-      //errors.confirmPassword = "Password does not match confirmation password";
-      setErrors("confirmPassword", "Password does not match confirmation password");
+    if (validation.password === "Valid") {
+      if (!emailPass.confirmPassword) {
+        setErrors("confirmPassword", "Password confirmation is required");
+      } else if (emailPass.confirmPassword !== emailPass.password) {
+        //errors.confirmPassword = "Password does not match confirmation password";
+        setErrors("confirmPassword", "Passwords does not match");
+      } else {
+        setErrors("confirmPassword", "Valid");
+      }
     } else {
-      setErrors("confirmPassword", "Valid");
+      setErrors("confirmPassword", validation.password);
     }
-
-    
   };
-  
+
   const handleChange = async (event) => {
+    setRegErr("");
     let { name, value } = event.target;
-    // setEmailPass({ ...emailPass, [name]: value });
     await setEmailPass((prevEmailPass) => {
       return { ...prevEmailPass, [name]: value };
     });
-    console.log(emailPass);
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    if(validation.email == "Valid" && validation.password == "Valid" && validation.confirmPassword == "Valid"){
+    if (
+      validation.email === "Valid" &&
+      validation.password === "Valid" &&
+      validation.confirmPassword === "Valid"
+    ) {
       await register();
-    }else{
-      alert("you have errors");
+    } else {
+      setRegErr("Please type inputs correctly");
     }
-    
   };
 
-  useEffect(() => {
+  const alertErr = () => { 
+    return(
+      <Alert fullWidth severity="error">
+          
+          {`${regErr}`}
+        </Alert>
+    )
+  }
+
+  useEffect(()=>{
     checkValidation();
-  }, [emailPass]);
+  },[emailPass]);
 
   return (
     <ThemeProvider theme={theme}>
@@ -162,19 +176,26 @@ export default function Register() {
             alignItems: "center",
           }}
         >
-          
-            <Logo />
-          
+          <Logo />
+
           <Typography component="h1" variant="h5">
             Register Now
           </Typography>
+          
+          {regErr !== "" && alertErr() }
+          
           <Box
             component="form"
             onSubmit={handleSubmit}
             noValidate
             sx={{ mt: 1 }}
           >
-             <TextField
+            <TextField
+              error = {validation.email === "Initial" ? false : validation.email === "Valid" ? false : true}
+              helperText={
+                validation.email === "Valid" ? false : validation.email
+              }
+              variant="filled"
               margin="normal"
               required
               fullWidth
@@ -186,8 +207,12 @@ export default function Register() {
               onChange={handleChange}
               value={emailPass.email}
             />
-             {validation.email && <p>{validation.email}</p>}
             <TextField
+              error={validation.password === "Initial" ? false : validation.password === "Valid" ? false : true}
+              helperText={
+                validation.password === "Initial" ? false : validation.password === "Valid" ? false : validation.password
+              }
+              variant="filled"
               margin="normal"
               required
               fullWidth
@@ -199,8 +224,12 @@ export default function Register() {
               onChange={handleChange}
               value={emailPass.password}
             />
-            {validation.password && <p>{validation.password}</p>}
             <TextField
+            error={validation.confirmPassword === "Initial" ? false : validation.confirmPassword === "Valid" ? false : true}
+            helperText={
+              validation.confirmPassword === "Initial" ? false : validation.confirmPassword === "Valid" ? false : validation.confirmPassword
+            }
+              variant="filled"
               margin="normal"
               required
               fullWidth
@@ -213,7 +242,9 @@ export default function Register() {
               value={emailPass.confirmPassword}
             />
             <Button
+              color="buttonPrimary"
               type="submit"
+              size= "large"
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
