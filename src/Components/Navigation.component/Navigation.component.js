@@ -22,10 +22,19 @@ function Navigation() {
 
     return (  
         
-        <Navbar bg="light" variant="light">
-        <Container>
+        <Navbar bg="light"  expand="lg">
+        <Container fliud>
           <Navbar.Brand href="/"><Logo width="50" height="50" /></Navbar.Brand>
-          <Nav className="me-auto">
+          <Navbar.Toggle aria-controls="navbarScroll" />
+        <Navbar.Collapse id="navbarScroll">
+        <Nav
+            className="me-auto my-2 my-lg-0"
+            style={{ maxHeight: '100px' }}
+            navbarScroll
+          >
+          </Nav>
+          <Nav className="d-flex" style={{ maxHeight: '100px' }}
+          navbarScroll>
             <Nav.Link href="/login">Login</Nav.Link>
             <Nav.Link href="/register">Register</Nav.Link>
             { user ?  <Nav.Link href="/success">Success</Nav.Link> : "" }
@@ -33,6 +42,7 @@ function Navigation() {
             { user ?  <Nav.Link href={`/profile/${_id}`}>Profile</Nav.Link> : "" }
             { user ?  <Nav.Link onClick={handleLogout}>Logout</Nav.Link> : "" }
           </Nav>
+          </Navbar.Collapse>
         </Container>
       </Navbar>
     
