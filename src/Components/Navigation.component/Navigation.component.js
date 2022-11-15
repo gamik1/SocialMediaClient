@@ -35,9 +35,8 @@ function Navigation() {
           </Nav>
           <Nav className="d-flex" style={{ maxHeight: '100px' }}
           navbarScroll>
-            <Nav.Link href="/login">Login</Nav.Link>
-            <Nav.Link href="/register">Register</Nav.Link>
-            { user ?  <Nav.Link href="/success">Success</Nav.Link> : "" }
+            {!user ? <Nav.Link href="/login">Login</Nav.Link> : ""}
+            {!user ? <Nav.Link href="/register">Register</Nav.Link> : "" }
             { user ?  <Nav.Link href="/userHome">User Home</Nav.Link> : "" }
             { user ?  <Nav.Link href={`/profile/${_id}`}>Profile</Nav.Link> : "" }
             { user ?  <Nav.Link onClick={handleLogout}>Logout</Nav.Link> : "" }

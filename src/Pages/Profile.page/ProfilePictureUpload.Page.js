@@ -1,6 +1,8 @@
 import React, { useContext, useState } from "react";
 import axios from "axios";
 import { AuthContext } from "../../context/AuthContext";
+import Button from '@mui/material/Button';
+import { Typography } from '@mui/material';
 
 export default function ProfilePictureUpload({ uploadedFile }) {
   const [file, setFile] = useState(null);
@@ -39,7 +41,9 @@ export default function ProfilePictureUpload({ uploadedFile }) {
       )}
       <form className="" onSubmit={submitHandler}>
         <label htmlFor="file">
-          <span>Photo</span>
+          <Typography style={{cursor: "pointer"}} sx={{ borderBottom: 1, fontWeight: 'light', p:1}} variant="h6" component="span">
+          Upload Profile Picture  
+            </Typography>
           <input
             style={{ display: "none" }}
             type="file"
@@ -47,10 +51,10 @@ export default function ProfilePictureUpload({ uploadedFile }) {
             accept=".png,.jpeg,.jpg"
             onChange={(e) => setFile(e.target.files[0])}
           />
-        </label>
-        <button className="shareButton" type="submit">
-          Update profile Picture
-        </button>
+        </label>&nbsp;&nbsp;
+        <Button variant="contained" className="shareButton" type="submit">
+          Update
+        </Button>
       </form>
     </div>
   );

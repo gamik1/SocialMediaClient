@@ -30,7 +30,7 @@ const theme = createTheme({
   },
 });
 
-export default function ProfileUpdate({id}) {
+export default function ProfileUpdate({ id }) {
   const [profileFormData, setProfileFormData] = useState({});
   const { updateProfile } = useContext(ProfileContext);
   const { user } = useContext(AuthContext);
@@ -69,128 +69,105 @@ export default function ProfileUpdate({id}) {
       }}
     >
       <Grid container spacing={1} mt={2} mb={5} paddingLeft={1}>
-        <Grid item>
-          <Avatar
-            src="/broken-image.jpg"
-            sx={{ width: 250, height: 250, marginLeft: 15 }}
-            padding={2}
-          />
-        </Grid>
         <Grid item xs={12} sm container>
           <Grid item container direction="row" spacing={2}>
             <Grid item>
               <Typography gutterBottom variant="h4" component="div">
                 PROFILE INFO
               </Typography>
-              <Typography variant="body2" gutterBottom>
-                <TextField
-                  margin="normal"
-                  required
-                  fullWidth
-                  onChange={handleChange}
-                  id="firstName"
-                  label="First Name"
-                  name="firstName"
-                  autoComplete="firstName"
-                  autoFocus
-                />
-                <TextField
-                  fullWidth
-                  margin="normal"
-                  required
-                  id="lastName"
-                  label="Last Name"
-                  name="lastName"
-                  autoComplete="lastName"
-                  autoFocus
-                  onChange={handleChange}
-                />
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
-                <TextField
-                  fullWidth
-                  margin="normal"
-                  required
-                  id="hobby"
-                  label="Hobbies"
-                  name="hobby"
-                  autoComplete="hobby"
-                  autoFocus
-                  onChange={handleChange}
-                />
-              </Typography>
-            </Grid>
-            <Grid item>
-              <Typography variant="body2" color="text.secondary">
-                <TextField
-                  fullWidth
-                  margin="normal"
-                  required
-                  type="date"
-                  defaultValue="Date Of Birth"
-                  inputProps={{ min: "2019-01-24", max: "2020-05-31" }}
-                  id="dob"
-                  name="dob"
-                  autoComplete="dob"
-                  autoFocus
-                  onChange={handleChange}
-                />
 
-                <TextField
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="bio"
-                  multiline
-                  label="Bio"
-                  name="bio"
-                  rows={2}
-                  autoComplete="bio"
-                  autoFocus
-                  onChange={handleChange}
-                />
-              </Typography>
-            </Grid>
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                onChange={handleChange}
+                id="firstName"
+                label="First Name"
+                name="firstName"
+                autoComplete="firstName"
+                autoFocus
+              />
+              <TextField
+                fullWidth
+                margin="normal"
+                required
+                id="lastName"
+                label="Last Name"
+                name="lastName"
+                autoComplete="lastName"
+                autoFocus
+                onChange={handleChange}
+              />
 
-            <Grid item>
-              <Typography variant="body2" color="text.secondary"></Typography>
-            </Grid>
-            <Grid item>
-              <Typography variant="body2" color="text.secondary">
-                <TextField
-                  margin="normal"
-                  required
-                  fullWidth
-                  style={{ width: 530 }}
-                  id="profession"
-                  label="Profession"
-                  name="profession"
-                  autoComplete="profession"
-                  autoFocus
-                  onChange={handleChange}
-                />
-              </Typography>
-            </Grid>
-            <Grid item>
+              <TextField
+                fullWidth
+                margin="normal"
+                required
+                id="hobby"
+                label="Hobbies"
+                name="hobby"
+                autoComplete="hobby"
+                autoFocus
+                onChange={handleChange}
+              />
+
+              <TextField
+                fullWidth
+                margin="normal"
+                required
+                type="date"
+                defaultValue="Date Of Birth"
+                inputProps={{ min: "2019-01-24", max: "2020-05-31" }}
+                id="dob"
+                name="dob"
+                autoComplete="dob"
+                autoFocus
+                onChange={handleChange}
+              />
+
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                id="bio"
+                multiline
+                label="Bio"
+                name="bio"
+                rows={2}
+                autoComplete="bio"
+                autoFocus
+                onChange={handleChange}
+              />
+
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                id="profession"
+                label="Profession"
+                name="profession"
+                autoComplete="profession"
+                autoFocus
+                onChange={handleChange}
+              />
               <Button
                 onClick={handleSubmit}
+                type="submit"
+                fullWidth
                 variant="contained"
-                sx={{
-                  mt: 3,
-                  mb: 4,
-
-                  bgColor: "#000",
-                  paddingTop: 1,
-                  fontSize: 15,
-                  paddingBottom: 1,
-                  fontWeight: 400,
-                  letterSpacing: 3,
-                }}
-                style={{ width: 530 }}
+                sx={{ mt: 3, mb: 2 }}
+                style={{ height: 60 }}
               >
                 SAVE PROFILE
               </Button>
-              <Button onClick={()=>{navigate("/profile/"+id)}}>return to profile</Button>
+              <br />
+              <Button
+                onClick={() => {
+                  navigate("/profile/" + id);
+                }}
+              >
+                return to profile
+              </Button>
             </Grid>
           </Grid>
         </Grid>
