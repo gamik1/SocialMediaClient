@@ -8,14 +8,6 @@ import PostItem from "../../Components/Posts.comonent/PostItem.component";
 import { AuthContext } from "../../context/AuthContext";
 import { postListCall } from "../../API/apiCalls";
 
-const Item = styled(Paper)(({ theme }) => ({
-    backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-    ...theme.typography.body2,
-    padding: theme.spacing(1),
-    textAlign: 'center',
-    color: theme.palette.text.secondary,
-}));
-
 export default function Posts() {
     const [postList, setPostList] = useState([]);
     const { user } = useContext(AuthContext);
@@ -40,7 +32,7 @@ export default function Posts() {
     return (
         <Box sx={{ width: '100%', mt: 2 }}>
             <PostAdd />
-            <Stack spacing={2}>
+            <Stack spacing={2} sx={{ mb: 4 }}>
                 {postList.map((p) => (<PostItem key={p._id} post={p} />))}
             </Stack>
         </Box>

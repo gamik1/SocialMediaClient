@@ -11,6 +11,7 @@ import Success from "../../Pages/Success.page/Success.page";
 import UserHome from "../../Pages/UserHome.page/UserHome.page";
 import ProfileMain from "../../Pages/Profile.page/Profile.Main.Page";
 import News from "../../Pages/News.page/News.page";
+import PostDetail from "../../Pages/PostDetail.page/PostDetail.page"
 
 import { AuthContext } from "../../context/AuthContext";
 
@@ -46,6 +47,10 @@ export default function PageRoutes() {
         <Route
           path="/news"
           element={user ? <News /> : <Navigate replace to="/news" />}
+        />
+        <Route 
+          path="/post/:id" 
+          element={user? <PostDetail/> : <Navigate replace to="/login" />} 
         />
       </Routes>
     </Router>

@@ -9,12 +9,15 @@ import Paper from '@mui/material/Paper';
 import TopBar from "../../Components/TopBar.component/TopBar.component";
 import LeftBar from "../../Components/LeftBar.component/LeftBar.component";
 import RightBar from "../../Components/RightBar.component/RightBar.component";
-import Posts from "../../Components/Posts.comonent/Posts.component";
+import PostDetail from "../../Components/Posts.comonent/PostDetail.component";
 import { ProfileContextProvider } from "../../context/ProfileContext";
+import { Route, useParams } from "react-router-dom";
 
 const theme = createTheme();
 
-export default function Index() {
+export default function PostsDetail() {
+    const {id} = useParams();
+
     return (
         <ThemeProvider theme={theme}>
             <ProfileContextProvider>
@@ -24,7 +27,7 @@ export default function Index() {
                         <LeftBar/>
                     </Grid>
                     <Grid item xs={12} md={6}>
-                        <Posts/>
+                        <PostDetail postId={id}/>
                     </Grid>
                     <Grid item xs={0} md={3} sx={{ display: { xs: 'none', md: 'flex' } }}>
                         <RightBar/>
