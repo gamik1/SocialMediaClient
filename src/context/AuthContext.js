@@ -1,4 +1,4 @@
-import { createContext, useEffect, useReducer } from "react";
+import { createContext, useEffect, useReducer, useState } from "react";
 import AuthReducer from "./AuthReducer";
 
 const INITIAL_STATE = {
@@ -12,10 +12,18 @@ export const AuthContext = createContext(INITIAL_STATE);
 
 export const AuthContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(AuthReducer, INITIAL_STATE);
+  const [uid, setUid] = useState(null);
   
   useEffect(()=>{
     localStorage.setItem("user", JSON.stringify(state.user))
   },[state.user])
+
+  const getUid = () => {
+    return uid;
+  }
+  const initUid = async (id) => {
+    await setUid(id);
+  }
   
   return (
     <AuthContext.Provider
@@ -24,6 +32,8 @@ export const AuthContextProvider = ({ children }) => {
         isFetching: state.isFetching,
         error: state.error,
         dispatch,
+        initUid,
+        getUid,
       }}
     >
       {children}
