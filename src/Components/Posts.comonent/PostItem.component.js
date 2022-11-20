@@ -127,14 +127,7 @@ export default function PostItem({ post, isMain, friends, askings }) {
                                 aria-label={profile.displayName}
                                 onClick={openAvatarPopover}>
                             </Avatar>
-                            <Typography sx={{ ml: 2 }}>{profile.displayName}</Typography>
-                            <AvatarPopover
-                                profile={profile}
-                                anchorEl={avatarPopoverAnchor}
-                                onClose={closeAvatarPopover}
-                                isSelf={isSelf}
-                                isAsking={isAsking}
-                                isFriend={isFriend} />
+                            <Typography variant="h6">{post._user_name}</Typography>
                         </Box>
                     }
                     action={
