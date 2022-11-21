@@ -1,12 +1,17 @@
 import React, { useContext, useState } from "react";
 import axios from "axios";
 import { AuthContext } from "../../context/AuthContext";
-import Button from '@mui/material/Button';
-import { Typography } from '@mui/material';
+import Button from "@mui/material/Button";
+import { Typography } from "@mui/material";
+import Stack from "@mui/material/Stack";
+import Card from "@mui/material/Card";
+import CardMedia from "@mui/material/CardMedia";
+import { ProfileContext } from "../../context/ProfileContext";
 
-export default function ProfilePictureUpload({ uploadedFile }) {
+export default function ProfilePictureUpload({ updateEdit }) {
   const [file, setFile] = useState(null);
-  const {user} = useContext(AuthContext);
+  const {getProfile} = useContext(ProfileContext);
+  const { user } = useContext(AuthContext);
   const secret_token = user.token;
 
   const submitHandler = async (e) => {
@@ -29,21 +34,37 @@ export default function ProfilePictureUpload({ uploadedFile }) {
           console.log(error.response.data);
         });
     }
+    await getProfile(user.token);
+    updateEdit(false);
   };
 
   return (
-    <div>
-      <hr className="shareHr" />
+    <Stack
+      direction="column"
+      spacing={1}
+      justifyContent="center"
+      alignItems="center"
+    >
       {file && (
-        <div className="shareImgContainer">
-          <img className="uploadImg" src={URL.createObjectURL(file)} alt="" />
-        </div>
+        <Card sx={{ maxWidth: 345 }}>
+          <CardMedia
+            component="img"
+            alt="profile pic"
+            height="400"
+            image={URL.createObjectURL(file)}
+          />
+        </Card>
       )}
       <form className="" onSubmit={submitHandler}>
         <label htmlFor="file">
-          <Typography style={{cursor: "pointer"}} sx={{ borderBottom: 1, fontWeight: 'light', p:1}} variant="h6" component="span">
-          Upload Profile Picture  
-            </Typography>
+          <Typography
+            style={{ cursor: "pointer" }}
+            sx={{ borderBottom: 1, fontWeight: "light", p: 1 }}
+            variant="h6"
+            component="span"
+          >
+            Upload Profile Picture
+          </Typography>
           <input
             style={{ display: "none" }}
             type="file"
@@ -51,11 +72,12 @@ export default function ProfilePictureUpload({ uploadedFile }) {
             accept=".png,.jpeg,.jpg"
             onChange={(e) => setFile(e.target.files[0])}
           />
-        </label>&nbsp;&nbsp;
+        </label>
+        &nbsp;&nbsp;
         <Button variant="contained" className="shareButton" type="submit">
           Update
         </Button>
       </form>
-    </div>
+    </Stack>
   );
 }
