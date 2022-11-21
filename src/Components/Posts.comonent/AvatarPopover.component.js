@@ -1,5 +1,5 @@
 import React from 'react'
-import { blue } from '@mui/material/colors';
+import { red, blue } from '@mui/material/colors';
 import {
     Avatar,
     Box, Button,
@@ -11,15 +11,17 @@ import {
     Typography
 } from '@mui/material';
 import { AuthContext } from "../../context/AuthContext";
-import { friendAddCall } from "../../API/apiCalls";
+import { friendAddCall, friendRemoveCall } from "../../API/apiCalls";
 import TransitionAlert from "./TransitionAlert.component";
 
-export default function AvatarPopover({ profile, anchorEl, onClose, isSelf, isFriend, isAsking }) {
+export default function AvatarPopover({ profile, anchorEl, onClose, isSelf, friends, askings, updateAskings, updateFriends }) {
 
     const { user } = React.useContext(AuthContext);
+    const [alertMsg, setAlertMsg] = React.useState(null);
     const avatarPopoverOpen = Boolean(anchorEl);
     const avatarPopoverId = avatarPopoverOpen ? 'profile_' + profile._user_Id : undefined;
-    const [alertMsg, setAlertMsg] = React.useState(null);
+    const isAsking = askings.includes(profile._user_Id);
+    const isFriend = friends.includes(profile._user_Id);
 
     const handlePopoverClick = (e) => {
         e.stopPropagation();
@@ -28,7 +30,9 @@ export default function AvatarPopover({ profile, anchorEl, onClose, isSelf, isFr
     const handleAddFriend = async (e) => {
         onClose(e);
         const got = await friendAddCall(profile._user_Id, user.token);
-        console.log(got);
+        // console.log(got);
+        askings.push(profile._user_Id);
+        updateAskings(askings);
         got.friend.error
             ? setAlertMsg(got.friend.error)
             : setAlertMsg('Adding friend request has been sent');
@@ -36,7 +40,13 @@ export default function AvatarPopover({ profile, anchorEl, onClose, isSelf, isFr
 
     const handleRemoveFriend = async (e) => {
         onClose(e);
-
+        const got = await friendRemoveCall(profile._user_Id, user.token);
+        // console.log(got);
+        friends = friends.filter((v) => {
+            return v !== profile._user_Id;
+        });
+        updateFriends(friends);
+        setAlertMsg('Your friend has been removed');
     }
 
     const closeAlert = (e) => {
@@ -57,7 +67,7 @@ export default function AvatarPopover({ profile, anchorEl, onClose, isSelf, isFr
         if (isSelf) {
             return '';
         } else if (isFriend) {
-            return <Button size="small" onClick={handleRemoveFriend}>Remove Friend</Button>
+            return <Button sx={{ color: red[500] }} size="small" onClick={handleRemoveFriend}>Remove Friend</Button>
         } else if (isAsking) {
             return <Typography sx={{ fontSize: 14 }} color={blue[500]} gutterBottom>
                 You've sent friend request

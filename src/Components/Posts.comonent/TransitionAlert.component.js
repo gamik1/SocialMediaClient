@@ -20,7 +20,7 @@ export default function TransitionAlert({ msg, closeAlert }) {
             >
                 <DialogContent>
                     <DialogContentText id="alert-dialog-description">
-                        <Typography variant="h6" >
+                        <Typography component={'span'}  variant="h6" >
                             {msg}
                         </Typography>
                     </DialogContentText>

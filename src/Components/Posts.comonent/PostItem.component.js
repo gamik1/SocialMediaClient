@@ -1,13 +1,12 @@
 import * as React from 'react';
 import { red } from '@mui/material/colors';
-import { styled, alpha } from '@mui/material/styles';
+import { alpha } from '@mui/material/styles';
 import {
     Avatar,
     Box,
-    Card, CardActions, CardContent, CardHeader, CardMedia, Collapse,
+    Card, CardActions, CardContent, CardHeader,
     IconButton,
-    Link,
-    Paper, Popover,
+    Paper,
     Tooltip,
     Typography
 } from '@mui/material';
@@ -20,34 +19,21 @@ import { AuthContext } from "../../context/AuthContext";
 import CommentDialog from "./CommentDialog.component";
 import AvatarPopover from "./AvatarPopover.component";
 import MoreActionPopover from "./MoreActionPopover.component";
-import TransitionAlert from "./TransitionAlert.component";
 import moment from 'moment'
 
-export default function PostItem({ post, isMain, friends, askings }) {
+export default function PostItem({ post, isMain, friends, askings, updateAskings, updateFriends }) {
     const { user, getUid } = React.useContext(AuthContext);
     const [profile, setProfile] = React.useState({});
     const [avatarPopoverAnchor, setAvatarPopoverAnchor] = React.useState(null);
     const [moreActionPopoverAnchor, setMoreActionPopoverAnchor] = React.useState(null);
     const [dialogOpen, setDialogOpen] = React.useState(false);
     const isSelf = post._user_Id === getUid() ? true : false;
-    const isAsking = askings.includes(post._user_Id);
-    const isFriend = friends.includes(post._user_Id);
 
     React.useEffect(() => {
         async function fetchData() {
             const got = await profleByIdCall(post._user_Id, user.token);
             // console.log(got);
-            const p = got.userProfile.firstName
-                ? {
-                    ...got.userProfile,
-                    email: got.user.email,
-                    displayName: got.userProfile.firstName + ' ' + got.userProfile.lastName
-                }
-                : {
-                    ...got.user,
-                    displayName: got.user.email.substring(0, got.user.email.indexOf('@')),
-                }
-            setProfile(p);
+            setProfile(got.userProfile);
         }
         fetchData();
     }, []);
@@ -127,7 +113,16 @@ export default function PostItem({ post, isMain, friends, askings }) {
                                 aria-label={profile.displayName}
                                 onClick={openAvatarPopover}>
                             </Avatar>
-                            <Typography variant="h6">{post._user_name}</Typography>
+                            <Typography sx={{ ml: 2 }}>{profile.displayName}</Typography>
+                            <AvatarPopover
+                                profile={profile}
+                                anchorEl={avatarPopoverAnchor}
+                                onClose={closeAvatarPopover}
+                                isSelf={isSelf}
+                                askings={askings}
+                                friends={friends}
+                                updateAskings={updateAskings}
+                                updateFriends={updateFriends} />
                         </Box>
                     }
                     action={
@@ -136,12 +131,14 @@ export default function PostItem({ post, isMain, friends, askings }) {
                                 <MoreVertIcon />
                             </IconButton>
                             <MoreActionPopover
-                                moreBtnId={'more_' + post._id}
+                                post={post}
                                 anchorEl={moreActionPopoverAnchor}
                                 onClose={closeMoreActionPopover}
                                 isSelf={isSelf}
-                                isAsking={isAsking}
-                                isFriend={isFriend} />
+                                askings={askings}
+                                friends={friends}
+                                updateAskings={updateAskings}
+                                updateFriends={updateFriends} />
                         </Box>
                     }
                     subheader={moment(post.createDate).format('h:mm a, MMM Do')}
@@ -166,7 +163,7 @@ export default function PostItem({ post, isMain, friends, askings }) {
                         </IconButton>
                     </Tooltip>
                     <Typography sx={{ mr: 2 }}>
-                        {post.countOfLike == 0 ? '' : post.countOfLike}
+                        {post.countOfLike === 0 ? '' : post.countOfLike}
                     </Typography>
                     <Tooltip title="Comment">
                         <IconButton aria-label="comment" onClick={handleComment}>
@@ -174,7 +171,7 @@ export default function PostItem({ post, isMain, friends, askings }) {
                         </IconButton>
                     </Tooltip>
                     <Typography sx={{ mr: 2 }}>
-                        {post.countOfComment == 0 ? '' : post.countOfComment}
+                        {post.countOfComment === 0 ? '' : post.countOfComment}
                     </Typography>
                     <Tooltip title="Share">
                         <IconButton aria-label="share" onClick={handleShare}>

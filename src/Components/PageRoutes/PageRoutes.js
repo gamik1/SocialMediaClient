@@ -11,6 +11,7 @@ import Success from "../../Pages/Success.page/Success.page";
 import UserHome from "../../Pages/UserHome.page/UserHome.page";
 import ProfileMain from "../../Pages/Profile.page/Profile.Main.Page";
 import News from "../../Pages/News.page/News.page";
+import Events from "../../Pages/Events.page/Events.page";
 import PostDetail from "../../Pages/PostDetail.page/PostDetail.page"
 
 import { AuthContext } from "../../context/AuthContext";
@@ -39,6 +40,10 @@ export default function PageRoutes() {
         <Route
           path="/userHome"
           element={user ? <UserHome /> : <Navigate replace to="/login" />}
+        />
+        <Route
+          path="/events"
+          element={user ? <Events /> : <Navigate replace to="/login" />}
         />
         <Route
           path="/profile/:param"
