@@ -53,6 +53,9 @@ export default function DateBlock({ data, infoTitle, title }) {
       justifyContent="center"
       alignItems="center"
     >
+    <Typography variant="h6" sx={{ fontWeight: "bold" }}>
+          {`${title}`}{" "}
+        </Typography>
       {edit ? (
         <Stack
           direction={"row"}
@@ -93,9 +96,7 @@ export default function DateBlock({ data, infoTitle, title }) {
           justifyContent="center"
           alignItems="center"
         >
-        <Typography variant="h6" sx={{ fontWeight: "bold" }}>
-          {`${title}`}{" "}
-        </Typography>
+        
           <ViewInfo
             data={`${inputInfo[infoTitle]}`}
             title=""
