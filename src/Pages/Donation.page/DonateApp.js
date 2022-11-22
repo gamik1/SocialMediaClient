@@ -24,8 +24,15 @@ const theme = createTheme({
   },
 });
 const amount = "2";
-const currency = "USD";
-const style = {"layout":"vertical"};
+const currency = "CAD";
+const style={
+  layout: "horizontal",
+  size:"small",
+  label: "pay",
+  height: 48,
+  tagline: "false",
+  borderRadius:10,
+}
 
 
 const ButtonWrapper = ({ currency, showSpinner }) => {
@@ -46,7 +53,8 @@ const ButtonWrapper = ({ currency, showSpinner }) => {
     return (<>
             { (showSpinner && isPending) && <div className="spinner" /> }
             <PayPalButtons
-                style={style}
+           
+                
                 disabled={false}
                 forceReRender={[amount, currency, style]}
                 fundingSource={undefined}
@@ -69,7 +77,7 @@ const ButtonWrapper = ({ currency, showSpinner }) => {
                 }}
                 onApprove={function (data, actions) {
                     return actions.order.capture().then(function () {
-                        // Your code here after capture the order
+                      alert('Transaction completed Successfully');
                     });
                 }}
             />
@@ -93,13 +101,14 @@ export default function Donate() {
           }}
         >
           
-          <Typography component="h1" variant="h5">
-          Only 3 days left to fund this project.
+          <Typography component="h1" variant="h4">
+          Welcome to the Donation Box
           
           </Typography>
 
-          <Typography variant="body2" gutterBottom mt={3}>
+          <Typography variant="body1"  mt={3}>
           Join the 42 other donors tho have already supported this project. Every dollar helps.
+          We do whatever it takes for a cause but we can't do it without you.
       </Typography>
 
           <Box component="form"  sx={{ mt: 3}}>
@@ -108,6 +117,7 @@ export default function Donate() {
           fullWidth
   id="outlined-name"
   label="Amount"
+  mb={10}
   
  
 />
@@ -121,20 +131,11 @@ export default function Donate() {
             >
 				<ButtonWrapper
                     currency={currency}
-                    showSpinner={false}
+                    showSpinner={true}
                 />
 			</PayPalScriptProvider>
       
-            {/* <Button
-             
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-              style={{ height: 50 }}
-            >
-              DONATE
-            </Button> */}
+           
            
           </Box>
         </Box>
@@ -143,3 +144,7 @@ export default function Donate() {
     </ThemeProvider>
   );
 }
+
+
+
+
