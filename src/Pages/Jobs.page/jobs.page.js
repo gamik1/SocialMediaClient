@@ -20,7 +20,7 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary
 }));
 
-export default function BasicGrid() {
+export default function Jobs() {
   const [data, setData] = useState([]);
   // const API_KEY = process.env.NEWS_API_KEY;
   // console.log("newsapi", process.env.REACT_APP_NEWS_API_KEY);

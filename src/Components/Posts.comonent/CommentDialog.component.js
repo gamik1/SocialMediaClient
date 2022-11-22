@@ -55,15 +55,24 @@ MyDialogTitle.propTypes = {
     onClose: PropTypes.func.isRequired,
 };
 
+const headerSX = {
+    '.MuiBox-root': {
+        display: 'flex',
+        alignItems: 'center',
+    },
+    '.MuiCardHeader-content': {
+        textAlign: 'left',
+    }
+}
 
-export default function CommentDialog({ isOpen, closeComment, avatar, post }) {
+export default function CommentDialog({ isOpen, closeComment, profile, post }) {
     const { user } = React.useContext(AuthContext);
 
     const handleComment = async (event) => {
         event.preventDefault();
         const postContent = document.getElementById('comment-text').value;
         closeComment();
-        const response = await commentAddCall({'comment-text': postContent, 'post-id': post._id}, user.token);
+        const response = await commentAddCall({ 'comment-text': postContent, 'post-id': post._id }, user.token);
         if (response) {
             console.log(response.newComment);
             console.log("comment added");
@@ -80,11 +89,12 @@ export default function CommentDialog({ isOpen, closeComment, avatar, post }) {
                     Add Comment
                 </MyDialogTitle>
                 <DialogContent>
-                    <CardHeader
+                    <CardHeader sx={headerSX}
                         avatar={
-                            <Avatar sx={{ bgcolor: red[500] }} aria-label={avatar}>
-                                {avatar.slice(0, 1).toUpperCase()}
-                            </Avatar>
+                            <Box>
+                                <Avatar sx={{ bgcolor: red[500] }} src={`http://localhost:8800/images/${profile.displayImage}`} aria-label={profile.displayName} />
+                                <Typography sx={{ ml: 2 }}>{profile.displayName}</Typography>
+                            </Box>
                         }
                         subheader={moment(post.createDate).format('h:mm a, MMM Do')}
                     />

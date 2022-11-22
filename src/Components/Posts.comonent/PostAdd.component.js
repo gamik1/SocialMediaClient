@@ -12,10 +12,12 @@ import PermMediaIcon from '@mui/icons-material/PermMedia';
 import EmojiEmotionsIcon from '@mui/icons-material/EmojiEmotions';
 import { AuthContext } from "../../context/AuthContext";
 import { postAddCall } from "../../API/apiCalls";
+import TransitionAlert from "./TransitionAlert.component";
 
 export default function PostAdd() {
     const [postContent, setPostContent] = useState({'post-text': ''});
     const { user } = useContext(AuthContext);
+    const [alertMsg, setAlertMsg] = React.useState(null);
 
     const handleChange = async (event) => {
         let { name, value } = event.target;
@@ -24,18 +26,29 @@ export default function PostAdd() {
         });
     };
 
+    const closeAlert = (e) => {
+        e.stopPropagation();
+        setAlertMsg(null);
+    }
+
     const handleSubmit = async (event) => {
         event.preventDefault();
-        const response = await postAddCall(postContent, user.token);
-        if (response) {
-            console.log(response.newPost);
-            console.log("post added");
-            await setPostContent(() => {
-                return { 'post-text': '' };
-            });
-            window.location.reload();
+        if (postContent['post-text'].length < 1) {
+            setAlertMsg('The content cannot be empty');
+        } else if (postContent['post-text'].length > 512) {
+            setAlertMsg('The content length of the post cannot be greater than 512');
         } else {
-            console.log("some error occured");
+            const response = await postAddCall(postContent, user.token);
+            if (response) {
+                console.log(response.newPost);
+                console.log("post added");
+                await setPostContent(() => {
+                    return { 'post-text': '' };
+                });
+                window.location.reload();
+            } else {
+                console.log("some error occured");
+            }
         }
     };
 
@@ -66,6 +79,7 @@ export default function PostAdd() {
                 <Box sx={{ flexGrow: 1 }} />
                 <Button variant="contained" onClick={ handleSubmit } sx={{ flexGrow: 0, borderRadius: 5, mr: 2 }}>Post</Button>
             </CardActions>
+            <TransitionAlert msg={alertMsg} closeAlert={closeAlert} />
         </Card>
     );
 }

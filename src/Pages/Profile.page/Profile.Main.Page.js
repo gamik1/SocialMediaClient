@@ -15,6 +15,8 @@ import Profile from "./Profile.page";
 import ProfileShow from "./Profile.Show.Page";
 import ProfileUpdate from "./Profile.page";
 import { Route, useParams } from "react-router-dom";
+import { AuthContext } from "../../context/AuthContext";
+import { friendProfilesCall } from "../../API/apiCalls";
 
 const theme = createTheme();
 
@@ -30,8 +32,25 @@ const Item = styled(Paper)(({ theme }) => ({
 export default function ProfileMain() {
     const {param} = useParams();
     const {profile} = useContext(ProfileContext);
-    console.log("param",param);
+    console.log("param 11",param);
     const [current,setCurrent] = useState("show");
+    const { user } = React.useContext(AuthContext);
+    const [friendProfiles, setFriendProfiles] = React.useState([]);
+
+    React.useEffect(() => {
+        loadFriends();
+    },[]);
+
+    const loadFriends = async () => {
+        let response = await friendProfilesCall(user.token);
+        if (response) {
+            // console.log(response);
+            setFriendProfiles(response.profiles);
+        } else {
+            console.log("some error occured");
+        }
+    }
+
     return (
         <ThemeProvider theme={theme}>
             <ProfileContextProvider>
@@ -41,10 +60,10 @@ export default function ProfileMain() {
                         <LeftBar/>
                     </Grid>
                     <Grid item xs={12} md={6}>
-                        {profile !== {} ? param==="update" ? <ProfileUpdate/> : <ProfileShow/> : <ProfileUpdate/>}
+                        {profile !== {} ? param==="" ? <ProfileUpdate/> : <ProfileShow/> : <ProfileUpdate/>}
                     </Grid>
                     <Grid item xs={0} md={3} sx={{ display: { xs: 'none', md: 'flex' } }}>
-                        <RightBar/>
+                        <RightBar itemData={friendProfiles}/>
                     </Grid>
                 </Grid>
             </ProfileContextProvider>

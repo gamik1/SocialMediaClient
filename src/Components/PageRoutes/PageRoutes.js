@@ -11,9 +11,14 @@ import Success from "../../Pages/Success.page/Success.page";
 import UserHome from "../../Pages/UserHome.page/UserHome.page";
 import ProfileMain from "../../Pages/Profile.page/Profile.Main.Page";
 import News from "../../Pages/News.page/News.page";
+
 import PostDetail from "../../Pages/PostDetail.page/PostDetail.page";
 import DonateApp from "../../Pages/Donation.page/DonateApp";
 import Jobs from "../../Pages/Jobs.page/Jobs.page";
+
+import Events from "../../Pages/Events.page/Events.page";
+
+import ProfileOther from "../../Pages/Profile.page/ProfileOther.page";
 import { AuthContext } from "../../context/AuthContext";
 
 export default function PageRoutes() {
@@ -42,8 +47,16 @@ export default function PageRoutes() {
           element={user ? <UserHome /> : <Navigate replace to="/login" />}
         />
         <Route
+          path="/events"
+          element={user ? <Events /> : <Navigate replace to="/login" />}
+        />
+        <Route
           path="/profile/:param"
           element={user ? <ProfileMain /> : <Navigate replace to="/login" />}
+        />
+        <Route
+          path="/others/profile/:param"
+          element={<ProfileOther/>}
         />
         <Route
           path="/news"

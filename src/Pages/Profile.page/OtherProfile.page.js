@@ -1,22 +1,15 @@
 import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
-import { ProfileContext } from "../../context/ProfileContext";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
-import InfoBlock from "../../Components/infoBlock.component/InfoBlock.component";
-import UserNameBlock from "../../Components/infoBlock.component/UserNameBlock.componemt";
-import DateBlock from "../../Components/infoBlock.component/DateBlock.component";
+import { Typography } from "@mui/material";
+import ViewInfo from "../../Components/infoBlock.component/ViewInfo.component";
 import moment from "moment";
 import ProfilePictureBlock from "../../Components/infoBlock.component/ProfilePictureBlock.component";
 
-export default function ProfileShow({ id }) {
-  const { profile, getProfile } = useContext(ProfileContext);
-  const { user } = useContext(AuthContext);
-  useEffect(() => {
-    (async () => {
-      await getProfile(user.token);
-    })();
-  }, []);
+
+export default function OtherProfile({profile}) {
+  
 
   return (
     <Box sx={{ width: "100%", mt: 2 }}>
@@ -25,42 +18,32 @@ export default function ProfileShow({ id }) {
       <ProfilePictureBlock profileImage={profile.displayImage} />
 
       <hr />
-      <Box px={{xs:1, sm:2, md:5, lg:10, xl:12}} >
+      <Box px={{ xs: 1, sm: 2, md: 5, lg: 10, xl: 12 }}>
         <Stack spacing={2}>
           <Stack spacing={1} justifyContent="flex-start" alignItems="center">
-            <UserNameBlock
-              dataFN={profile.firstName ? profile.firstName : "Not Set"}
-              dataLN={profile.lastName ? profile.lastName : "Not Set"}
-              infoTitleFN="firstName"
-              infoTitleLN="lastName"
+            <ViewInfo
+              data={`${
+                profile.firstName === "Not Set" &&
+                profile.lastName === "Not Set"
+                  ? ""
+                  : profile.firstName
+              } ${profile.lastName === "Not Set" ? "" : profile.lastName}`}
+              variant="h4"
             />
           </Stack>
-          <hr/>
+          <hr />
           <Stack
             direction={"row"}
             spacing={1}
             justifyContent="flex-start"
             alignItems="center"
           >
-            <InfoBlock
-              title="Bio :"
-              infoTitle="bio"
-              data={profile.bio ? profile.bio : "Not Set"}
-            />
-          </Stack>
-
-          <Stack
-            direction={"row"}
-            spacing={1}
-            justifyContent="flex-start"
-            alignItems="center"
-          >
-            <DateBlock
-              title="D.O.B. :"
-              infoTitle="dob"
-              data={
-                profile.dob ? `${moment(profile.dob).format("LL")}` : "Not Set"
-              }
+            <Typography variant="h6" sx={{ fontWeight: "bold" }}>
+              {`Bio:`}{" "}
+            </Typography>
+            <ViewInfo
+              data={`${profile.bio ? profile.bio : "Not Set"}`}
+              variant="h6"
             />
           </Stack>
 
@@ -70,10 +53,29 @@ export default function ProfileShow({ id }) {
             justifyContent="flex-start"
             alignItems="center"
           >
-            <InfoBlock
-              title="Works As :"
-              infoTitle="profession"
+            <Typography variant="h6" sx={{ fontWeight: "bold" }}>
+              {`D.O.B.:`}{" "}
+            </Typography>
+            <ViewInfo
+              data={`${
+                profile.dob ? moment(profile.dob).format("LL") : "Not Set"
+              }`}
+              variant="h6"
+            />
+          </Stack>
+
+          <Stack
+            direction={"row"}
+            spacing={1}
+            justifyContent="flex-start"
+            alignItems="center"
+          >
+            <Typography variant="h6" sx={{ fontWeight: "bold" }}>
+              {`Works As:`}{" "}
+            </Typography>
+            <ViewInfo
               data={profile.profession ? profile.profession : "Not Set"}
+              variant="h6"
             />
           </Stack>
 
@@ -83,10 +85,12 @@ export default function ProfileShow({ id }) {
             justifyContent="flex-start"
             alignItems="center"
           >
-            <InfoBlock
-              title="Hobby :"
-              infoTitle="hobby"
+            <Typography variant="h6" sx={{ fontWeight: "bold" }}>
+              {`Hobby:`}{" "}
+            </Typography>
+            <ViewInfo
               data={profile.hobby ? profile.hobby : "Not Set"}
+              variant="h6"
             />
           </Stack>
         </Stack>

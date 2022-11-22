@@ -34,9 +34,9 @@ export const registerCall = async (userCredential) => {
 };
 
 export const profileUpdate = async (profile,secret_token) => {
-  console.log({...profile,secret_token: secret_token})
+  console.log({...profile})
   return await axios
-    .post(`${API_URL}/user/profile`,profile,{
+    .post(`${API_URL}/other/profile`,profile,{
       headers: {
       Authorization: `Bearer ${secret_token}`,
     },
@@ -68,6 +68,18 @@ export const profileGet = async (secret_token) => {
 
 }
 
+export const profileGetOther = async (_user_Id) => {
+
+  return await axios
+    .post(`${API_URL}/others/profile`,{_id: _user_Id})
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error)=>{
+      console.log(error.response.data);
+    })
+
+}
 
 export const postAddCall = async (post, secret_token) => {
   console.log({...post, secret_token: secret_token})
@@ -105,8 +117,6 @@ export const postByIdCall = async (id, secret_token) => {
 
 
 export const postListCall = async (secret_token) => {
-
-  console.log(secret_token);
   return await axios
     .get(`${API_URL}/user/post/list`,{
       headers: {
@@ -119,12 +129,11 @@ export const postListCall = async (secret_token) => {
     .catch((error)=>{
       console.log(error.response.data);
     })
-
 }
 
 
 export const commentAddCall = async (post, secret_token) => {
-  console.log({...post, secret_token: secret_token})
+  // console.log({...post, secret_token: secret_token})
   return await axios
     .post(`${API_URL}/user/comment/add`, post, {
       headers: {
@@ -158,8 +167,7 @@ export const commentListCall = async (topicPostId, secret_token) => {
 }
 
 export const profleByIdCall = async (uid, secret_token) => {
-
-  console.log(secret_token);
+  // console.log(secret_token);
   return await axios
     .get(`${API_URL}/user/profile/${uid}`,{
       headers: {
@@ -175,3 +183,122 @@ export const profleByIdCall = async (uid, secret_token) => {
 
 }
 
+export const friendIdsCall = async (secret_token) => {
+  return await axios
+    .get(`${API_URL}/user/friend/ids`,{
+      headers: {
+        Authorization: `Bearer ${secret_token}`,
+      },
+    })
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error)=>{
+      console.log(error.response.data);
+    })
+}
+
+export const friendProfilesCall = async (secret_token) => {
+  return await axios
+    .get(`${API_URL}/user/friend/profiles`,{
+      headers: {
+        Authorization: `Bearer ${secret_token}`,
+      },
+    })
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error)=>{
+      console.log(error.response.data);
+    })
+}
+
+export const friendAddCall = async (uid, secret_token) => {
+  return await axios
+    .post(`${API_URL}/user/friend/add`, {'fid': uid}, {
+      headers: {
+        Authorization: `Bearer ${secret_token}`,
+      },
+    })
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error)=>{
+      console.log(error.response.data);
+    })
+}
+
+export const friendRemoveCall = async (uid, secret_token) => {
+  return await axios
+    .post(`${API_URL}/user/friend/remove`, {'fid': uid}, {
+      headers: {
+        Authorization: `Bearer ${secret_token}`,
+      },
+    })
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error)=>{
+      console.log(error.response.data);
+    })
+}
+
+export const friendEventCall = async (eventId, operation, secret_token) => {
+  return await axios
+    .post(`${API_URL}/user/event/friend`, {'eventId': eventId, 'operation': operation}, {
+      headers: {
+        Authorization: `Bearer ${secret_token}`,
+      },
+    })
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error)=>{
+      console.log(error.response.data);
+    })
+}
+
+export const friendCloseCall = async (eventId, secret_token) => {
+  return await axios
+    .post(`${API_URL}/user/event/close`, {'eventId': eventId}, {
+      headers: {
+        Authorization: `Bearer ${secret_token}`,
+      },
+    })
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error)=>{
+      console.log(error.response.data);
+    })
+}
+
+export const eventCountCall = async (secret_token) => {
+  return await axios
+    .get(`${API_URL}/user/event/count`,{
+      headers: {
+        Authorization: `Bearer ${secret_token}`,
+      },
+    })
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error)=>{
+      console.log(error.response.data);
+    })
+}
+
+export const eventListCall = async (secret_token) => {
+  return await axios
+    .get(`${API_URL}/user/event/list`,{
+      headers: {
+        Authorization: `Bearer ${secret_token}`,
+      },
+    })
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error)=>{
+      console.log(error.response.data);
+    })
+}

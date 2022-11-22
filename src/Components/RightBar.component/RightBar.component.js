@@ -1,98 +1,54 @@
-import * as React from 'react';
+import * as React from "react";
+import { red } from "@mui/material/colors";
 import {
-    Box,
-    ImageList, ImageListItem, ImageListItemBar,
-    Paper,
-    Typography,
-} from '@mui/material';
+  Avatar,
+  Box,
+  ImageList,
+  ImageListItem,
+  ImageListItemBar,
+  Paper,
+  Typography,
+} from "@mui/material";
+import Link from "@mui/material/Link";
 
-export default function RightBar() {
-    return (
-        <Box>
-            <Typography variant="h6" sx={{ mt: 2 }}>
-                User Friends
-            </Typography>
-            <ImageList cols={2} sx={{ mr: 2 }}>
-                {itemData.map((item) => (
-                    <ImageListItem key={item.img} sx={{ mr: 3 }}>
-                        <Paper elevation={3}>
-                            <img
-                                src={`${item.img}?w=128&fit=crop&auto=format`}
-                                srcSet={`${item.img}?w=128&fit=crop&auto=format&dpr=2 2x`}
-                                alt={item.title}
-                                loading="lazy"
-                            />
-                        </Paper>
-                        <ImageListItemBar
-                            title={item.title}
-                            position="below"
-                        />
-                    </ImageListItem>
-                ))}
-            </ImageList>
-        </Box>
-    );
+export default function RightBar({ itemData }) {
+  function Friends() {
+    if (itemData.length > 0) {
+      return (
+        <ImageList cols={2} sx={{ mr: 2 }}>
+          {itemData.map((item) => (
+            <ImageListItem key={item._id} sx={{ mr: 3 }}>
+            {console.log("user friend",item._user_Id)}
+              <Avatar
+                component={Paper}
+                elevation={8}
+                sx={{
+                  bgcolor: red[500],
+                  width: 96,
+                  height: 96,
+                  ml: 2,
+                  borderRadius: 1,
+                }}
+                src={`http://localhost:8800/images/${item.displayImage}`}
+                aria-label=""
+              />
+              <Link href={`/others/profile/${item._user_Id}`}>
+                <ImageListItemBar title={item.displayName} position="below" />
+              </Link>
+            </ImageListItem>
+          ))}
+        </ImageList>
+      );
+    }
+    return "This is empty";
+  }
+
+  return (
+    <Box sx={{ width: "100%" }}>
+      <Typography variant="h6" sx={{ mt: 2 }}>
+        User Friends
+      </Typography>
+      <Friends />
+    </Box>
+  );
 }
-
-const itemData = [
-    {
-        img: 'https://images.unsplash.com/photo-1551963831-b3b1ca40c98e',
-        title: 'Breakfast',
-        author: '@bkristastucchio',
-    },
-    {
-        img: 'https://images.unsplash.com/photo-1551782450-a2132b4ba21d',
-        title: 'Burger',
-        author: '@rollelflex_graphy726',
-    },
-    {
-        img: 'https://images.unsplash.com/photo-1522770179533-24471fcdba45',
-        title: 'Camera',
-        author: '@helloimnik',
-    },
-    {
-        img: 'https://images.unsplash.com/photo-1444418776041-9c7e33cc5a9c',
-        title: 'Coffee',
-        author: '@nolanissac',
-    },
-    {
-        img: 'https://images.unsplash.com/photo-1533827432537-70133748f5c8',
-        title: 'Hats',
-        author: '@hjrc33',
-    },
-    {
-        img: 'https://images.unsplash.com/photo-1558642452-9d2a7deb7f62',
-        title: 'Honey',
-        author: '@arwinneil',
-    },
-    {
-        img: 'https://images.unsplash.com/photo-1516802273409-68526ee1bdd6',
-        title: 'Basketball',
-        author: '@tjdragotta',
-    },
-    {
-        img: 'https://images.unsplash.com/photo-1518756131217-31eb79b20e8f',
-        title: 'Fern',
-        author: '@katie_wasserman',
-    },
-    {
-        img: 'https://images.unsplash.com/photo-1597645587822-e99fa5d45d25',
-        title: 'Mushrooms',
-        author: '@silverdalex',
-    },
-    {
-        img: 'https://images.unsplash.com/photo-1567306301408-9b74779a11af',
-        title: 'Tomato basil',
-        author: '@shelleypauls',
-    },
-    {
-        img: 'https://images.unsplash.com/photo-1471357674240-e1a485acb3e1',
-        title: 'Sea star',
-        author: '@peterlaster',
-    },
-    {
-        img: 'https://images.unsplash.com/photo-1589118949245-7d38baf380d6',
-        title: 'Bike',
-        author: '@southside_customs',
-    },
-];

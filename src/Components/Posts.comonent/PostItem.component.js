@@ -1,13 +1,12 @@
 import * as React from 'react';
 import { red } from '@mui/material/colors';
-import { styled, alpha } from '@mui/material/styles';
+import { alpha } from '@mui/material/styles';
 import {
     Avatar,
     Box,
-    Card, CardActions, CardContent, CardHeader, CardMedia, Collapse,
+    Card, CardActions, CardContent, CardHeader,
     IconButton,
-    Link,
-    Popover,
+    Paper,
     Tooltip,
     Typography
 } from '@mui/material';
@@ -18,45 +17,49 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { profleByIdCall } from "../../API/apiCalls";
 import { AuthContext } from "../../context/AuthContext";
 import CommentDialog from "./CommentDialog.component";
+import AvatarPopover from "./AvatarPopover.component";
+import MoreActionPopover from "./MoreActionPopover.component";
 import moment from 'moment'
 
-export default function PostItem({ post, isMain }) {
-    const [avatarImg, setAvatarImg] = React.useState(null);
-    const [avatarLetter, setAvatarLetter] = React.useState('');
+export default function PostItem({ post, isMain, friends, askings, updateAskings, updateFriends }) {
+    const { user, getUid } = React.useContext(AuthContext);
+    const [profile, setProfile] = React.useState({});
+    const [avatarPopoverAnchor, setAvatarPopoverAnchor] = React.useState(null);
+    const [moreActionPopoverAnchor, setMoreActionPopoverAnchor] = React.useState(null);
     const [dialogOpen, setDialogOpen] = React.useState(false);
-    const [anchorEl, setAnchorEl] = React.useState(null);
-    const { user } = React.useContext(AuthContext);
+    const isSelf = post._user_Id === getUid() ? true : false;
 
     React.useEffect(() => {
         async function fetchData() {
-            let response = await profleByIdCall(post._user_Id, user.token);
-            // console.log(response)
-
-            let s = response.userProfile.firstName ? response.userProfile.firstName : response.user.email;
-            setAvatarLetter(s);
-            // TODO setAvatarImg
+            const got = await profleByIdCall(post._user_Id, user.token);
+            // console.log(got);
+            setProfile(got.userProfile);
         }
         fetchData();
     }, []);
 
-    const MyCard = isMain ? Card : styled(Card)(({ theme }) => ({
-        ':hover': {
-            boxShadow: `0px 0px 0px 8px ${alpha(theme.palette.info.dark, 0.1)}`,
+    const cardSX = {
+        '&:hover': {
+            boxShadow: `0px 0px 0px 8px ${alpha('#777', 0.1)}`,
             backgroundColor: '#f9f9f9',
             cursor: 'pointer',
         }
-    }));
+    }
+    const headerSX = {
+        '.MuiBox-root': {
+            display: 'flex',
+            alignItems: 'center',
+        },
+        '.MuiCardHeader-content': {
+            textAlign: 'left',
+        }
+    }
 
     const postDetail = (e) => {
         if (!isMain) {
             e.preventDefault();
             window.location.href = `/post/${post._id}`;
         }
-    }
-
-    const handleAvatar = (e) => {
-        e.stopPropagation();
-
     }
 
     const handleComment = (e) => {
@@ -77,21 +80,66 @@ export default function PostItem({ post, isMain }) {
 
     }
 
+
+    const openAvatarPopover = (e) => {
+        e.stopPropagation();
+        setAvatarPopoverAnchor(e.currentTarget);
+    }
+    const closeAvatarPopover = (e) => {
+        e.stopPropagation();
+        setAvatarPopoverAnchor(null);
+    };
+
+    const openMoreActionPopover = (e) => {
+        e.stopPropagation();
+        setMoreActionPopoverAnchor(e.currentTarget);
+    };
+    const closeMoreActionPopover = (e) => {
+        e.stopPropagation();
+        setMoreActionPopoverAnchor(null);
+    };
+
     return (
-        <MyCard sx={{ maxWidth: 3450 }} >
+        <Card sx={isMain ? {} : cardSX} >
             <Box onClick={postDetail}>
-                <CardHeader
+                <CardHeader sx={headerSX}
                     avatar={
                         <Box>
-                            <Avatar sx={{ bgcolor: red[500] }} aria-label={avatarLetter} onClick={handleAvatar}>
-                                {avatarLetter.slice(0, 1).toUpperCase()}
+                            <Avatar
+                                component={Paper}
+                                elevation={2}
+                                sx={{ bgcolor: red[500], width: 48, height: 48 }}
+                                src={`http://localhost:8800/images/${profile.displayImage}`}
+                                aria-label={profile.displayName}
+                                onClick={openAvatarPopover}>
                             </Avatar>
+                            <Typography sx={{ ml: 2 }}>{profile.displayName}</Typography>
+                            <AvatarPopover
+                                profile={profile}
+                                anchorEl={avatarPopoverAnchor}
+                                onClose={closeAvatarPopover}
+                                isSelf={isSelf}
+                                askings={askings}
+                                friends={friends}
+                                updateAskings={updateAskings}
+                                updateFriends={updateFriends} />
                         </Box>
                     }
                     action={
-                        <IconButton aria-label="settings">
-                            <MoreVertIcon />
-                        </IconButton>
+                        <Box>
+                            <IconButton id={'more_' + post._id} aria-label="more" onClick={openMoreActionPopover}>
+                                <MoreVertIcon />
+                            </IconButton>
+                            <MoreActionPopover
+                                post={post}
+                                anchorEl={moreActionPopoverAnchor}
+                                onClose={closeMoreActionPopover}
+                                isSelf={isSelf}
+                                askings={askings}
+                                friends={friends}
+                                updateAskings={updateAskings}
+                                updateFriends={updateFriends} />
+                        </Box>
                     }
                     subheader={moment(post.createDate).format('h:mm a, MMM Do')}
                 />
@@ -115,7 +163,7 @@ export default function PostItem({ post, isMain }) {
                         </IconButton>
                     </Tooltip>
                     <Typography sx={{ mr: 2 }}>
-                        {post.countOfLike == 0 ? '' : post.countOfLike}
+                        {post.countOfLike === 0 ? '' : post.countOfLike}
                     </Typography>
                     <Tooltip title="Comment">
                         <IconButton aria-label="comment" onClick={handleComment}>
@@ -123,7 +171,7 @@ export default function PostItem({ post, isMain }) {
                         </IconButton>
                     </Tooltip>
                     <Typography sx={{ mr: 2 }}>
-                        {post.countOfComment == 0 ? '' : post.countOfComment}
+                        {post.countOfComment === 0 ? '' : post.countOfComment}
                     </Typography>
                     <Tooltip title="Share">
                         <IconButton aria-label="share" onClick={handleShare}>
@@ -132,8 +180,8 @@ export default function PostItem({ post, isMain }) {
                     </Tooltip>
                 </CardActions>
             </Box>
-            <CommentDialog isOpen={dialogOpen} closeComment={closeComment} avatar={avatarLetter} post={post} />
-        </MyCard>
+            <CommentDialog isOpen={dialogOpen} closeComment={closeComment} profile={profile} post={post} />
+        </Card>
 
     );
 }

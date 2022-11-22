@@ -15,9 +15,10 @@ export const ProfileContextProvider = ({ children }) => {
 
   const getProfile = async (secret_token) => {
     const got = await profileGet(secret_token);
-    console.log(got);
-    setProfile(got.userProfile);
+    await setProfile(got.userProfile);
   }
+
+
 
   return (
     <ProfileContext.Provider
