@@ -45,7 +45,7 @@ export default function LeftBar() {
               <ListItemIcon>
                 <GroupIcon />
               </ListItemIcon>
-              <ListItemText primary="Groups" />
+              <Link href="/donate"><ListItemText primary="Donate" /></Link>
             </ListItemButton>
           </ListItem>
           <Divider />
@@ -72,7 +72,7 @@ export default function LeftBar() {
               <ListItemIcon>
                 <WorkIcon />
               </ListItemIcon>
-              <ListItemText primary="Jobs" />
+              <Link href="/jobs"><ListItemText primary="Jobs" /></Link>
             </ListItemButton>
           </ListItem>
           <Divider />
