@@ -13,6 +13,7 @@ import ProfileMain from "../../Pages/Profile.page/Profile.Main.Page";
 import News from "../../Pages/News.page/News.page";
 import Events from "../../Pages/Events.page/Events.page";
 import PostDetail from "../../Pages/PostDetail.page/PostDetail.page"
+import ProfileOther from "../../Pages/Profile.page/ProfileOther.page";
 
 import { AuthContext } from "../../context/AuthContext";
 
@@ -48,6 +49,10 @@ export default function PageRoutes() {
         <Route
           path="/profile/:param"
           element={user ? <ProfileMain /> : <Navigate replace to="/login" />}
+        />
+        <Route
+          path="/others/profile/:param"
+          element={<ProfileOther/>}
         />
         <Route
           path="/news"

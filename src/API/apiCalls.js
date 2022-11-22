@@ -34,9 +34,9 @@ export const registerCall = async (userCredential) => {
 };
 
 export const profileUpdate = async (profile,secret_token) => {
-  console.log({...profile,secret_token: secret_token})
+  console.log({...profile})
   return await axios
-    .post(`${API_URL}/user/profile`,profile,{
+    .post(`${API_URL}/other/profile`,profile,{
       headers: {
       Authorization: `Bearer ${secret_token}`,
     },
@@ -68,6 +68,18 @@ export const profileGet = async (secret_token) => {
 
 }
 
+export const profileGetOther = async (_user_Id) => {
+
+  return await axios
+    .post(`${API_URL}/others/profile`,{_id: _user_Id})
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error)=>{
+      console.log(error.response.data);
+    })
+
+}
 
 export const postAddCall = async (post, secret_token) => {
   console.log({...post, secret_token: secret_token})

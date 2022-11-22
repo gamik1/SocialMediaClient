@@ -17,6 +17,8 @@ import ProfileUpdate from "./Profile.page";
 import { Route, useParams } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import { friendProfilesCall } from "../../API/apiCalls";
+import { profileGetOther } from "../../API/apiCalls";
+import OtherProfile from "./OtherProfile.page"
 
 const theme = createTheme();
 
@@ -29,18 +31,24 @@ const Item = styled(Paper)(({ theme }) => ({
     color: theme.palette.text.secondary,
 }));
 
-export default function ProfileMain() {
+export default function ProfileOther() {
     const {param} = useParams();
-    const {profile} = useContext(ProfileContext);
-    console.log("param 11",param);
-    const [current,setCurrent] = useState("show");
+    console.log("param",param);
+    const [profile,setProfile] = useState({});
     const { user } = React.useContext(AuthContext);
     const [friendProfiles, setFriendProfiles] = React.useState([]);
 
+    const loadProfile = async()=> {
+        const response =  await profileGetOther(param);
+        setProfile(response.userProfile);
+    };
+
     React.useEffect(() => {
         loadFriends();
+        loadProfile();
     },[]);
 
+    console.log(profile);
     const loadFriends = async () => {
         let response = await friendProfilesCall(user.token);
         if (response) {
@@ -60,7 +68,7 @@ export default function ProfileMain() {
                         <LeftBar/>
                     </Grid>
                     <Grid item xs={12} md={6}>
-                        {profile !== {} ? param==="" ? <ProfileUpdate/> : <ProfileShow/> : <ProfileUpdate/>}
+                        <OtherProfile profile={profile} />
                     </Grid>
                     <Grid item xs={0} md={3} sx={{ display: { xs: 'none', md: 'flex' } }}>
                         <RightBar itemData={friendProfiles}/>
