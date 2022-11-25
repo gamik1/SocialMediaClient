@@ -36,7 +36,7 @@ export const registerCall = async (userCredential) => {
 export const profileUpdate = async (profile,secret_token) => {
   console.log({...profile})
   return await axios
-    .post(`${API_URL}/other/profile`,profile,{
+    .post(`${API_URL}/user/profile`,profile,{
       headers: {
       Authorization: `Bearer ${secret_token}`,
     },

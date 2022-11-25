@@ -3,7 +3,7 @@ import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
@@ -22,17 +22,20 @@ const Item = styled(Paper)(({ theme }) => ({
 
 export default function BasicGrid() {
   const [data, setData] = useState([]);
-  // const API_KEY = process.env.NEWS_API_KEY;
-  // console.log("newsapi", process.env.REACT_APP_NEWS_API_KEY);
-  axios
+  // // const API_KEY = process.env.NEWS_API_KEY;
+  //  console.log("newsapi", process.env.REACT_APP_NEWS_API_KEY);
+   useEffect(()=>{
+    axios
     .get(
-      `https://newsapi.org/v2/top-headlines?country=us&apiKey=fd4dda2d2051451b8424a24ad7395085`
+      `https://newsapi.org/v2/top-headlines?country=us&apiKey=${process.env.REACT_APP_NEWS_API_KEY}`
     )
 
     .then((response) => {
       console.log(response);
       setData(response.data.articles);
     });
+   },[])
+  
 
   return data.map((value) => {
     return (

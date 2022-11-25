@@ -56,7 +56,7 @@ export default function PageRoutes() {
         />
         <Route
           path="/news"
-          element={user ? <News /> : <Navigate replace to="/news" />}
+          element={user ? <News /> : <Navigate replace to="/login" />}
         />
         <Route 
           path="/post/:id" 
