@@ -22,7 +22,7 @@ export default function ProfileShow({ id }) {
     <Box sx={{ width: "100%", mt: 2 }}>
       <h1>profile</h1>
       <hr />
-      <ProfilePictureBlock profileImage={profile.displayImage} />
+      <ProfilePictureBlock profileImage={profile.displayImage} update={true} />
 
       <hr />
       <Box px={{xs:1, sm:2, md:5, lg:10, xl:12}} >

@@ -8,7 +8,7 @@ import Card from "@mui/material/Card";
 import CardMedia from "@mui/material/CardMedia";
 import { ProfileContext } from "../../context/ProfileContext";
 
-export default function ProfilePictureUpload({ updateEdit }) {
+export default function ProfilePictureUpload({ updateEdit, updatePP}) {
   const [file, setFile] = useState(null);
   const {getProfile} = useContext(ProfileContext);
   const { user } = useContext(AuthContext);
@@ -22,16 +22,16 @@ export default function ProfilePictureUpload({ updateEdit }) {
       data.append("name", fileName);
       data.append("file", file);
       axios
-        .post(`http://localhost:8800/user/upload-profile`, data, {
+        .post(`${process.env.REACT_APP_API_URL}/user/upload-profile`, data, {
           headers: {
             Authorization: `Bearer ${secret_token}`,
           },
         })
         .then((response) => {
-          console.log(response.data);
+          updatePP(response.data.id);
         })
         .catch((error) => {
-          console.log(error.response.data);
+          console.log("error:occured:",error);
         });
     }
     await getProfile(user.token);

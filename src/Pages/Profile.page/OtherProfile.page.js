@@ -1,5 +1,3 @@
-import React, { useContext, useEffect, useState } from "react";
-import { AuthContext } from "../../context/AuthContext";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
 import { Typography } from "@mui/material";
@@ -15,7 +13,7 @@ export default function OtherProfile({profile}) {
     <Box sx={{ width: "100%", mt: 2 }}>
       <h1>profile</h1>
       <hr />
-      <ProfilePictureBlock profileImage={profile.displayImage} />
+      <ProfilePictureBlock profileImage={profile.displayImage} update={false}/>
 
       <hr />
       <Box px={{ xs: 1, sm: 2, md: 5, lg: 10, xl: 12 }}>

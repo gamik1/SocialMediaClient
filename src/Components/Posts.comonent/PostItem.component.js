@@ -109,7 +109,7 @@ export default function PostItem({ post, isMain, friends, askings, updateAskings
                                 component={Paper}
                                 elevation={2}
                                 sx={{ bgcolor: red[500], width: 48, height: 48 }}
-                                src={`http://localhost:8800/images/${profile.displayImage}`}
+                                src={`${process.env.REACT_APP_API_URL}/image/profile/${profile.displayImage}`}
                                 aria-label={profile.displayName}
                                 onClick={openAvatarPopover}>
                             </Avatar>
