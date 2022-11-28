@@ -302,3 +302,19 @@ export const eventListCall = async (secret_token) => {
       console.log(error.response.data);
     })
 }
+
+
+export const userListCall = async (secret_token) => {
+  return await axios
+    .get(`${API_URL}/user/allUsers`,{
+      headers: {
+        Authorization: `Bearer ${secret_token}`,
+      },
+    })
+    .then((response) => {
+      return response.data.users;
+    })
+    .catch((error)=>{
+      console.log(error.response.data);
+    })
+}

@@ -11,6 +11,7 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import nextId from "react-id-generator";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -22,12 +23,13 @@ const Item = styled(Paper)(({ theme }) => ({
 
 export default function BasicGrid() {
   const [data, setData] = useState([]);
+
   // // const API_KEY = process.env.NEWS_API_KEY;
   //  console.log("newsapi", process.env.REACT_APP_NEWS_API_KEY);
    useEffect(()=>{
     axios
     .get(
-      `https://newsapi.org/v2/top-headlines?country=us&apiKey=${process.env.REACT_APP_NEWS_API_KEY}`
+      `https://newsapi.org/v2/top-headlines?country=us&apiKey=fd4dda2d2051451b8424a24ad7395085`
     )
 
     .then((response) => {
@@ -39,7 +41,7 @@ export default function BasicGrid() {
 
   return data.map((value) => {
     return (
-      <Box sx={{ margin:'auto',transform: 'translate(20%, 10%)'}}
+      <Box sx={{ margin:'auto',transform: 'translate(20%, 10%)'}} key={nextId()}
      > 
         <Grid container spacing={2} >
           <Grid item xs={6} >
@@ -47,7 +49,7 @@ export default function BasicGrid() {
               <Card sx={{ width:"100vh" }}>
                 <CardMedia
                   component="img"
-                  alt="green iguana"
+                  alt={`${value.author} - ${value.publishedAt}`}
                   height="140"
                   image={value.urlToImage}
                 />

@@ -110,7 +110,8 @@ export default function PostItem({ post, isMain, friends, askings, updateAskings
                                 elevation={2}
                                 sx={{ bgcolor: red[500], width: 48, height: 48 }}
                                 src={`${process.env.REACT_APP_API_URL}/image/profile/${profile.displayImage}`}
-                                aria-label={profile.displayName}
+                                aria-hidden="true"
+                                alt={`profile pic - ${profile.displayName}`}
                                 onClick={openAvatarPopover}>
                             </Avatar>
                             <Typography sx={{ ml: 2 }}>{profile.displayName}</Typography>

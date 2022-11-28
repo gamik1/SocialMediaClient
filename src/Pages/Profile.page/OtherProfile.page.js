@@ -1,19 +1,17 @@
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
-import { Typography } from "@mui/material";
+import { Typography, Button } from "@mui/material";
 import ViewInfo from "../../Components/infoBlock.component/ViewInfo.component";
 import moment from "moment";
 import ProfilePictureBlock from "../../Components/infoBlock.component/ProfilePictureBlock.component";
+import PersonAddAlt1Icon from "@mui/icons-material/PersonAddAlt1";
 
-
-export default function OtherProfile({profile}) {
-  
-
+export default function OtherProfile({ profile }) {
   return (
     <Box sx={{ width: "100%", mt: 2 }}>
       <h1>profile</h1>
       <hr />
-      <ProfilePictureBlock profileImage={profile.displayImage} update={false}/>
+      <ProfilePictureBlock profileImage={profile.displayImage} update={false} />
 
       <hr />
       <Box px={{ xs: 1, sm: 2, md: 5, lg: 10, xl: 12 }}>
@@ -28,6 +26,9 @@ export default function OtherProfile({profile}) {
               } ${profile.lastName === "Not Set" ? "" : profile.lastName}`}
               variant="h4"
             />
+            <Button variant="outlined" endIcon={<PersonAddAlt1Icon />}>
+              Send friend request
+            </Button>
           </Stack>
           <hr />
           <Stack
