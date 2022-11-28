@@ -65,6 +65,10 @@ export default function EventList({ trigger }) {
             setOpen(false)
         }
 
+        const handleProfile = (e) => {
+            window.location.href = `/others/profile/${event.event.profile._user_Id}`;
+        }
+
         function AlertFuction() {
             if (event.event.eventType === 'friendRequest') {
                 return (
@@ -128,8 +132,9 @@ export default function EventList({ trigger }) {
                                 component={Paper}
                                 elevation={2}
                                 sx={{ bgcolor: red[500], width: 48, height: 48, ml: 2 }}
-                                src={`${process.env.REACT_APP_API_URL}/${event.event.profile.displayImage}`}
+                                src={`${process.env.REACT_APP_API_URL}/image/profile/${event.event.profile.displayImage}`}
                                 aria-label={event.event.profile.displayName}
+                                onClick={handleProfile}
                             />
                         </AlertTitle>
                     </Alert>

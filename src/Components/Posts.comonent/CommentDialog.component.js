@@ -92,7 +92,7 @@ export default function CommentDialog({ isOpen, closeComment, profile, post }) {
                     <CardHeader sx={headerSX}
                         avatar={
                             <Box>
-                                <Avatar sx={{ bgcolor: red[500] }} src={`${process.env.REACT_APP_API_URL}/${profile.displayImage}`} aria-label={profile.displayName} />
+                                <Avatar sx={{ bgcolor: red[500] }} src={`${process.env.REACT_APP_API_URL}/image/profile/${profile.displayImage}`} aria-label={profile.displayName} />
                                 <Typography sx={{ ml: 2 }}>{profile.displayName}</Typography>
                             </Box>
                         }

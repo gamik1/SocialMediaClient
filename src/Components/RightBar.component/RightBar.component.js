@@ -29,7 +29,7 @@ export default function RightBar({ itemData }) {
                   ml: 2,
                   borderRadius: 1,
                 }}
-                src={`${process.env.REACT_APP_API_URL}/${item.displayImage}`}
+                src={`${process.env.REACT_APP_API_URL}/image/profile/${item.displayImage}`}
                 aria-label=""
               />
               <Link href={`/others/profile/${item._user_Id}`}>

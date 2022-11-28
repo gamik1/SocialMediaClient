@@ -16,37 +16,30 @@ import ProfileShow from "./Profile.Show.Page";
 import ProfileUpdate from "./Profile.page";
 import { Route, useParams } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
-import { friendProfilesCall } from "../../API/apiCalls";
+import { friendProfilesCall, friendIdsCall } from "../../API/apiCalls";
 import { profileGetOther } from "../../API/apiCalls";
 import OtherProfile from "./OtherProfile.page"
 
 const theme = createTheme();
 
-const Item = styled(Paper)(({ theme }) => ({
-    backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-    ...theme.typography.body2,
-    padding: theme.spacing(1),
-    textAlign: 'center',
-    width:'100%',
-    color: theme.palette.text.secondary,
-}));
-
 export default function ProfileOther() {
-    const {param} = useParams();
-    console.log("param",param);
-    const [profile,setProfile] = useState({});
+    const { param } = useParams();
+    console.log("param", param);
+    const [profile, setProfile] = useState({});
     const { user } = React.useContext(AuthContext);
     const [friendProfiles, setFriendProfiles] = React.useState([]);
+    const [askings, setAskings] = useState([]);
+    const [friends, setFriends] = useState([]);
 
-    const loadProfile = async()=> {
-        const response =  await profileGetOther(param);
+    const loadProfile = async () => {
+        const response = await profileGetOther(param);
         setProfile(response.userProfile);
     };
 
     React.useEffect(() => {
         loadFriends();
         loadProfile();
-    },[]);
+    }, []);
 
     console.log(profile);
     const loadFriends = async () => {
@@ -57,21 +50,46 @@ export default function ProfileOther() {
         } else {
             console.log("some error occured");
         }
+        response = await friendIdsCall(user.token);
+        if (response.friend) {
+            // console.log(response);
+            await setAskings(() => {
+                return response.friend.askings;
+            });
+            await setFriends(() => {
+                return response.friend.friendIds;
+            });
+        }
+    }
+
+    const updateAskings = (newAskings) => {
+        setAskings(newAskings);
+        loadFriends()
+    }
+
+    const updateFriends = (newFriends) => {
+        setFriends(newFriends);
+        loadFriends()
     }
 
     return (
         <ThemeProvider theme={theme}>
             <ProfileContextProvider>
                 <CssBaseline />
-                <Grid container spacing={3} sx={{px:5}}>
+                <Grid container spacing={3} sx={{ px: 5 }}>
                     <Grid item xs={0} md={3} sx={{ display: { xs: 'none', md: 'flex' } }}>
-                        <LeftBar/>
+                        <LeftBar />
                     </Grid>
                     <Grid item xs={12} md={6}>
-                        <OtherProfile profile={profile} />
+                        <OtherProfile
+                            profile={profile}
+                            askings={askings}
+                            friends={friends}
+                            updateAskings={updateAskings}
+                            updateFriends={updateFriends} />
                     </Grid>
                     <Grid item xs={0} md={3} sx={{ display: { xs: 'none', md: 'flex' } }}>
-                        <RightBar itemData={friendProfiles}/>
+                        <RightBar itemData={friendProfiles} />
                     </Grid>
                 </Grid>
             </ProfileContextProvider>
