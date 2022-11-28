@@ -20,6 +20,7 @@ import Events from "../../Pages/Events.page/Events.page";
 
 import ProfileOther from "../../Pages/Profile.page/ProfileOther.page";
 import { AuthContext } from "../../context/AuthContext";
+import UsersList from "../../Pages/UsersList.page/UsersList.page";
 
 export default function PageRoutes() {
   // const [secretToken, setSecretToken] = useState();
@@ -56,11 +57,15 @@ export default function PageRoutes() {
         />
         <Route
           path="/others/profile/:param"
-          element={<ProfileOther/>}
+          element={user ? <ProfileOther/> : <Navigate replace to="/login" />}
         />
         <Route
           path="/news"
-          element={user ? <News /> : <Navigate replace to="/news" />}
+          element={user ? <News /> : <Navigate replace to="/login" />}
+        />
+        <Route
+          path="/allusers"
+          element={user ? <UsersList /> : <Navigate replace to="/login" />}
         />
         <Route
           path="/jobs"

@@ -1,7 +1,7 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:8800";
-// const API_URL = process.env.API_URL;
+
+const API_URL = process.env.REACT_APP_API_URL;
 
 export const loginCall = async (userCredential, dispatch) => {
   dispatch({ type: "LOGIN_START" });
@@ -36,7 +36,7 @@ export const registerCall = async (userCredential) => {
 export const profileUpdate = async (profile,secret_token) => {
   console.log({...profile})
   return await axios
-    .post(`${API_URL}/other/profile`,profile,{
+    .post(`${API_URL}/user/profile`,profile,{
       headers: {
       Authorization: `Bearer ${secret_token}`,
     },
@@ -297,6 +297,22 @@ export const eventListCall = async (secret_token) => {
     })
     .then((response) => {
       return response.data;
+    })
+    .catch((error)=>{
+      console.log(error.response.data);
+    })
+}
+
+
+export const userListCall = async (secret_token) => {
+  return await axios
+    .get(`${API_URL}/user/allUsers`,{
+      headers: {
+        Authorization: `Bearer ${secret_token}`,
+      },
+    })
+    .then((response) => {
+      return response.data.users;
     })
     .catch((error)=>{
       console.log(error.response.data);

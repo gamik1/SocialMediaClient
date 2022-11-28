@@ -128,7 +128,7 @@ export default function EventList({ trigger }) {
                                 component={Paper}
                                 elevation={2}
                                 sx={{ bgcolor: red[500], width: 48, height: 48, ml: 2 }}
-                                src={`http://localhost:8800/images/${event.event.profile.displayImage}`}
+                                src={`${process.env.REACT_APP_API_URL}/${event.event.profile.displayImage}`}
                                 aria-label={event.event.profile.displayName}
                             />
                         </AlertTitle>

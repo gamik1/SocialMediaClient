@@ -3,7 +3,7 @@ import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
@@ -11,6 +11,7 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import nextId from "react-id-generator";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -22,9 +23,11 @@ const Item = styled(Paper)(({ theme }) => ({
 
 export default function BasicGrid() {
   const [data, setData] = useState([]);
-  // const API_KEY = process.env.NEWS_API_KEY;
-  // console.log("newsapi", process.env.REACT_APP_NEWS_API_KEY);
-  axios
+
+  // // const API_KEY = process.env.NEWS_API_KEY;
+  //  console.log("newsapi", process.env.REACT_APP_NEWS_API_KEY);
+   useEffect(()=>{
+    axios
     .get(
       `https://newsapi.org/v2/top-headlines?country=us&apiKey=cad5152dba2e49c0960439e8b33515b8`
     )
@@ -33,10 +36,16 @@ export default function BasicGrid() {
       console.log(response);
       setData(response.data.articles);
     });
+   },[])
+  
 
   return data.map((value) => {
     return (
-      <Box sx={{ width: "100%" }}
+
+      
+
+      <Box sx={{ margin:'auto',transform: 'translate(20%, 10%)'}} key={nextId()}
+
      > 
         <Grid container>
         <Grid item xs={12} md={3}></Grid>
@@ -45,7 +54,7 @@ export default function BasicGrid() {
               <Card >
                 <CardMedia
                   component="img"
-                  alt="green iguana"
+                  alt={`${value.author} - ${value.publishedAt}`}
                   height="140"
                   image={value.urlToImage}
                 />

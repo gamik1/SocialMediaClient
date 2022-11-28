@@ -4,17 +4,19 @@ import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import PhotoCameraBackOutlinedIcon from "@mui/icons-material/PhotoCameraBackOutlined";
 import { useContext, useState, useEffect } from "react";
-import { ProfileContext } from "../../context/ProfileContext";
 import ProfilePictureUpload from "./ProfilePictureUpload.component";
 import { AuthContext } from "../../context/AuthContext";
 
-export default function ProfilePictureBlock({profileImage}) {
+export default function ProfilePictureBlock({profileImage, update}) {
   const [edit, setEdit] = useState(false);
   const [pp,setPP] = useState(profileImage);
-  const { user } = useContext(AuthContext);
   const updateEdit = (edit) => {
     setEdit(edit);
   };
+
+  const updatePP = (id)=>{
+    setPP(id.toString());
+  }; 
 
   useEffect(()=>{setPP(profileImage)},[profileImage])
   return (
@@ -25,7 +27,7 @@ export default function ProfilePictureBlock({profileImage}) {
       alignItems="center"
     >
       {edit ? (
-        <ProfilePictureUpload updateEdit={updateEdit} />
+        <ProfilePictureUpload updateEdit={updateEdit} updatePP={updatePP} />
       ) : (
         <Stack direction="column" spacing={1}>
           <Card sx={{ maxWidth: 345 }}>
@@ -33,9 +35,10 @@ export default function ProfilePictureBlock({profileImage}) {
               component="img"
               alt="profile pic"
               height={{xs:200,sm:220,md:350,lg:400,xl:400}}
-              image={`http://localhost:8800/images/${pp}`}
+              image={`${process.env.REACT_APP_API_URL}/image/profile/${pp}`}
             />
           </Card>
+          {update && 
           <Button
             variant="outlined"
             endIcon={<PhotoCameraBackOutlinedIcon />}
@@ -45,6 +48,7 @@ export default function ProfilePictureBlock({profileImage}) {
           >
             Update Image
           </Button>
+          }
         </Stack>
       )}
     </Stack>
