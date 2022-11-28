@@ -20,6 +20,7 @@ import { eventCountCall } from "../../API/apiCalls";
 import { AuthContext } from "../../context/AuthContext";
 
 
+
 export default function LeftBar({ showEvent }) {
   const { user } = React.useContext(AuthContext);
   const [evtCount, setEvtCount] = React.useState(0);
@@ -73,11 +74,11 @@ export default function LeftBar({ showEvent }) {
           </ListItem>
           <Divider />
           <ListItem disablePadding>
-            <ListItemButton>
+          <ListItemButton component="a" href="/donate">
               <ListItemIcon>
                 <GroupIcon />
               </ListItemIcon>
-              <Link href="/donate"><ListItemText primary="Donate" /></Link>
+              <ListItemText primary="Donate" />
             </ListItemButton>
           </ListItem>
           <Divider />
@@ -100,11 +101,11 @@ export default function LeftBar({ showEvent }) {
           </ListItem>
           <Divider />
           <ListItem disablePadding>
-            <ListItemButton>
+          <ListItemButton component="a" href="/jobs">
               <ListItemIcon>
                 <WorkIcon />
               </ListItemIcon>
-              <Link href="/jobs"><ListItemText primary="Jobs" /></Link>
+              <ListItemText primary="JObs" />
             </ListItemButton>
           </ListItem>
           <Divider />
