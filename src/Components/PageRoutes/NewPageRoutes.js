@@ -21,6 +21,7 @@ import ProfileShow from "../../Pages/Profile.page/Profile.Show.Page";
 import { NoAuthPages } from "../RouteOutlets.component/NoAuth.component";
 import YesAuthPages from "../RouteOutlets.component/YesAuth.component";
 import OtherProfile from "../../Pages/Profile.page/OtherProfile.page";
+import Donate from "../../Pages/Donation.page/DonateApp";
 
 export default function PageRoutes() {
   // const [secretToken, setSecretToken] = useState();
@@ -49,6 +50,7 @@ export default function PageRoutes() {
           <Route path="userlist" element={<UsersList />} />
           <Route path="post/:id" element={<PosstDetail />} />
           <Route path="events" element={<Events />} />
+          <Route path="donate" element={<Donate />} />
         </Route>
       </Routes>
     </Router>

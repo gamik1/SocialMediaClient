@@ -44,7 +44,7 @@ export default function LeftBar({ showEvent }) {
           </ListItem>
           <Divider />
           <ListItem disablePadding>
-            <ListItemButton>
+            <ListItemButton component="a" href="/user/home">
               <ListItemIcon>
                 <RssFeedIcon />
               </ListItemIcon>
@@ -62,7 +62,7 @@ export default function LeftBar({ showEvent }) {
           </ListItem>
           <Divider />
           <ListItem disablePadding>
-          <ListItemButton component="a" href="/donate">
+          <ListItemButton component="a" href="/user/donate">
               <ListItemIcon>
                 <GroupIcon />
               </ListItemIcon>
@@ -89,7 +89,7 @@ export default function LeftBar({ showEvent }) {
           </ListItem>
           <Divider />
           <ListItem disablePadding>
-          <ListItemButton component="a" href="/jobs">
+          <ListItemButton component="a" >
               <ListItemIcon>
                 <WorkIcon />
               </ListItemIcon>

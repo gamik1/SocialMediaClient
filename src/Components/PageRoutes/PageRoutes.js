@@ -14,7 +14,7 @@ import News from "../../Pages/News.page/News.page";
 
 import PostDetail from "../../Pages/PostDetail.page/PostDetail.page";
 import DonateApp from "../../Pages/Donation.page/DonateApp";
-import Jobs from "../../Pages/Jobs.page/Jobs.page";
+import Jobs from "../../Pages/Jobs.page/jobs.page";
 
 import Events from "../../Pages/Events.page/Events.page";
 
