@@ -21,6 +21,7 @@ import { AuthContext } from "../../context/AuthContext";
 import { ProfileContext } from '../../context/ProfileContext';
 
 
+
 export default function LeftBar({ showEvent }) {
   const { user } = React.useContext(AuthContext);
   const {evtCount, loadEventCount} = React.useContext(ProfileContext);
@@ -61,11 +62,11 @@ export default function LeftBar({ showEvent }) {
           </ListItem>
           <Divider />
           <ListItem disablePadding>
-            <ListItemButton>
+          <ListItemButton component="a" href="/donate">
               <ListItemIcon>
                 <GroupIcon />
               </ListItemIcon>
-              <ListItemText primary="Groups" />
+              <ListItemText primary="Donate" />
             </ListItemButton>
           </ListItem>
           <Divider />
@@ -88,11 +89,11 @@ export default function LeftBar({ showEvent }) {
           </ListItem>
           <Divider />
           <ListItem disablePadding>
-            <ListItemButton>
+          <ListItemButton component="a" href="/jobs">
               <ListItemIcon>
                 <WorkIcon />
               </ListItemIcon>
-              <ListItemText primary="Jobs" />
+              <ListItemText primary="JObs" />
             </ListItemButton>
           </ListItem>
           <Divider />

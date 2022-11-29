@@ -11,10 +11,14 @@ import Success from "../../Pages/Success.page/Success.page";
 import UserHome from "../../Pages/UserHome.page/UserHome.page";
 import ProfileMain from "../../Pages/Profile.page/Profile.Main.Page";
 import News from "../../Pages/News.page/News.page";
-import Events from "../../Pages/Events.page/Events.page";
-import PostDetail from "../../Pages/PostDetail.page/PostDetail.page"
-import ProfileOther from "../../Pages/Profile.page/ProfileOther.page";
 
+import PostDetail from "../../Pages/PostDetail.page/PostDetail.page";
+import DonateApp from "../../Pages/Donation.page/DonateApp";
+import Jobs from "../../Pages/Jobs.page/Jobs.page";
+
+import Events from "../../Pages/Events.page/Events.page";
+
+import ProfileOther from "../../Pages/Profile.page/ProfileOther.page";
 import { AuthContext } from "../../context/AuthContext";
 import UsersList from "../../Pages/UsersList.page/UsersList.page";
 
@@ -63,10 +67,19 @@ export default function PageRoutes() {
           path="/allusers"
           element={user ? <UsersList /> : <Navigate replace to="/login" />}
         />
+        <Route
+          path="/jobs"
+          element={user ? <Jobs /> : <Navigate replace to="/jobs" />}
+        />
+         <Route
+          path="/donate"
+          element={user ? <DonateApp /> : <Navigate replace to="/donate" />}
+        />
         <Route 
           path="/post/:id" 
           element={user? <PostDetail/> : <Navigate replace to="/login" />} 
         />
+       
       </Routes>
     </Router>
   );

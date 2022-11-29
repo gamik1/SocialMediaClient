@@ -139,14 +139,7 @@ export default function BasicStack() {
             <Typography variant="h3">Ping</Typography>
           </Item>
           <Typography variant="body" display="block" mt={3}>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos
-            blanditiis tenetur unde suscipit, quam beatae rerum inventore
-            consectetur, neque doloribus, cupiditate numquam dignissimos laborum
-            fugiat deleniti? Eum quasi quidem quibusdam.Lorem ipsum dolor sit
-            amet, consectetur adipisicing elit. Quos blanditiis tenetur unde
-            suscipit, quam beatae rerum inventore consectetur, neque doloribus,
-            cupiditate numquam dignissimos laborum fugiat deleniti? Eum quasi
-            quidem quibusdam.
+          PING serves as a virtual platform for connectivity. Through this, we can connect with people around the world. In addition to viewing a person's profile, we can also send them a request. Social media platforms are one of the best ways to keep up to date with what is going on in the world. Furthermore, we can make a difference by donating a small amount and making a difference elsewhere through this platform. The blogging process enables people to express themselves by keeping proper language or word choice in mind.
           </Typography>
         </Grid>
       </Grid>
