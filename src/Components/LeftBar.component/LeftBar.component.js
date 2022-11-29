@@ -18,36 +18,24 @@ import EventIcon from '@mui/icons-material/Event';
 import NewspaperIcon from '@mui/icons-material/Newspaper';
 import { eventCountCall } from "../../API/apiCalls";
 import { AuthContext } from "../../context/AuthContext";
+import { ProfileContext } from '../../context/ProfileContext';
 
 
 
 export default function LeftBar({ showEvent }) {
   const { user } = React.useContext(AuthContext);
-  const [evtCount, setEvtCount] = React.useState(0);
+  const {evtCount, loadEventCount} = React.useContext(ProfileContext);
 
-  React.useEffect(() => {
-    if (showEvent) loadData();
-  }, []);
-
-  const loadData = async () => {
-    let response = await eventCountCall(user.token);
-    if (response) {
-      // console.log(response);
-      await setEvtCount(() => {
-        return response.count;
-      });
-
-    } else {
-      console.log("some error occured");
-    }
-  }
+  React.useEffect(()=>{
+    loadEventCount(user.token);
+  },[]);
 
   return (
     <Box sx={{ width: '100%', bgcolor: 'background.paper', mt: 2, ml: 2 }}>
       <nav aria-label="main mailbox folders">
         <List>
           <ListItem disablePadding>
-            <ListItemButton component="a" href="/userHome">
+            <ListItemButton component="a" href="/user/home">
               <ListItemIcon>
                 <HomeIcon />
               </ListItemIcon>
@@ -65,11 +53,11 @@ export default function LeftBar({ showEvent }) {
           </ListItem>
           <Divider />
           <ListItem disablePadding>
-            <ListItemButton>
+            <ListItemButton component="a" href="/user/userlist">
               <ListItemIcon>
                 <ChatIcon />
               </ListItemIcon>
-              <ListItemText primary="Chats" />
+              <ListItemText primary="Search Friends" />
             </ListItemButton>
           </ListItem>
           <Divider />
@@ -110,7 +98,7 @@ export default function LeftBar({ showEvent }) {
           </ListItem>
           <Divider />
           <ListItem disablePadding>
-            <ListItemButton component="a" href="/events">
+            <ListItemButton component="a" href="/user/events">
               <ListItemIcon>
                 <Badge badgeContent={evtCount} color="secondary">
                   <EventIcon color={evtCount > 0 ? "primary" : ''} />
@@ -121,7 +109,7 @@ export default function LeftBar({ showEvent }) {
           </ListItem>
           <Divider />
           <ListItem disablePadding>
-            <ListItemButton component="a" href="/news">
+            <ListItemButton component="a" href="/user/news">
               <ListItemIcon>
                 <NewspaperIcon />
               </ListItemIcon>

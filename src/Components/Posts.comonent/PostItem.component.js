@@ -58,7 +58,7 @@ export default function PostItem({ post, isMain, friends, askings, updateAskings
     const postDetail = (e) => {
         if (!isMain) {
             e.preventDefault();
-            window.location.href = `/post/${post._id}`;
+            window.location.href = `/user/post/${post._id}`;
         }
     }
 

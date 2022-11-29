@@ -13,7 +13,7 @@ import Link from "@mui/material/Link";
 
 export default function RightBar({ itemData }) {
   function Friends() {
-    if (itemData.length > 0) {
+    if (itemData && itemData.length > 0) {
       return (
         <ImageList cols={2} sx={{ mr: 2 }}>
           {itemData.map((item) => (
@@ -29,10 +29,10 @@ export default function RightBar({ itemData }) {
                   ml: 2,
                   borderRadius: 1,
                 }}
-                src={`${process.env.REACT_APP_API_URL}/${item.displayImage}`}
+                src={`${process.env.REACT_APP_API_URL}/image/profile/${item.displayImage}`}
                 aria-label=""
               />
-              <Link href={`/others/profile/${item._user_Id}`}>
+              <Link href={`/user/others/profile/${item._user_Id}`}>
                 <ImageListItemBar title={item.displayName} position="below" />
               </Link>
             </ImageListItem>
@@ -40,7 +40,7 @@ export default function RightBar({ itemData }) {
         </ImageList>
       );
     }
-    return "This is empty";
+    return "You have no friends";
   }
 
   return (

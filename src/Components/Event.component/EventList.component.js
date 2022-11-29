@@ -10,9 +10,11 @@ import {
 } from '@mui/material';
 import { AuthContext } from "../../context/AuthContext";
 import { eventListCall, friendEventCall, friendCloseCall } from "../../API/apiCalls";
+import { ProfileContext } from '../../context/ProfileContext';
 
-export default function EventList({ trigger }) {
+export default function EventList() {
     let [alertList, setAlertList] = useState([]);
+    const {loadFriends, loadEventCount } = useContext(ProfileContext);
     const { user } = useContext(AuthContext);
 
     useEffect(() => {
@@ -39,30 +41,37 @@ export default function EventList({ trigger }) {
             }
         }
 
-        const deleteAlert = (id) => {
-            alertList = alertList.filter((e) => {
+        const deleteAlert = async(id) => {
+            alertList = await alertList.filter((e) => {
                 return e._id !== id
             })
         }
 
         const accept = async () => {
             await friendEventCall(event.event._id, 'accept', user.token)
-            deleteAlert(event.event._id)
-            setOpen(false)
+            await deleteAlert(event.event._id)
+            await setOpen(false)
             await setAlertList(alertList)
-            trigger()
+            await loadFriends(user.token);
+            await loadEventCount();
         }
 
         const reject = async () => {
             await friendEventCall(event.event._id, 'reject', user.token)
-            deleteAlert(event.event._id)
-            setOpen(false)
+            await deleteAlert(event.event._id)
+            await loadEventCount();
+            await setOpen(false)
         }
 
         const close = async () => {
             await friendCloseCall(event.event._id, user.token)
-            deleteAlert(event.event._id)
-            setOpen(false)
+            await deleteAlert(event.event._id)
+            await loadEventCount();
+            await setOpen(false)
+        }
+
+        const handleProfile = (e) => {
+            window.location.href = `/user/others/profile/${event.event.profile._user_Id}`;
         }
 
         function AlertFuction() {
@@ -128,8 +137,9 @@ export default function EventList({ trigger }) {
                                 component={Paper}
                                 elevation={2}
                                 sx={{ bgcolor: red[500], width: 48, height: 48, ml: 2 }}
-                                src={`${process.env.REACT_APP_API_URL}/${event.event.profile.displayImage}`}
+                                src={`${process.env.REACT_APP_API_URL}/image/profile/${event.event.profile.displayImage}`}
                                 aria-label={event.event.profile.displayName}
+                                onClick={handleProfile}
                             />
                         </AlertTitle>
                     </Alert>

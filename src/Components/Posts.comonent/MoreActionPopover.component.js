@@ -4,7 +4,7 @@ import {
     ListItemText,
     Menu, MenuItem,
 } from '@mui/material';
-import Flag from '@mui/icons-material/Flag';
+import AccountCircle from '@mui/icons-material/AccountCircle';
 import PersonAdd from '@mui/icons-material/PersonAdd';
 import PersonRemove from '@mui/icons-material/PersonRemove';
 import ListItemIcon from '@mui/material/ListItemIcon';
@@ -50,9 +50,10 @@ export default function MoreActionPopover({ post, anchorEl, onClose, isSelf, fri
         setAlertMsg(null);
     }
 
-    const handleReport = (e) => {
+    const handleProfile = (e) => {
         e.stopPropagation();
         onClose(e);
+        window.location.href = isSelf ? `/user/profile` : `/user/others/profile/${post._user_Id}`;
     }
 
     function FriendActions() {
@@ -105,11 +106,11 @@ export default function MoreActionPopover({ post, anchorEl, onClose, isSelf, fri
                 }}
             >
                 <FriendActions />
-                <MenuItem key='reportpost' onClick={handleReport}>
+                <MenuItem key='reportpost' onClick={handleProfile}>
                     <ListItemIcon>
-                        <Flag fontSize="small" />
+                        <AccountCircle fontSize="small" />
                     </ListItemIcon>
-                    <ListItemText>Report Post</ListItemText>
+                    <ListItemText>Profile</ListItemText>
                 </MenuItem>
             </Menu>
             <TransitionAlert msg={alertMsg} closeAlert={closeAlert} />

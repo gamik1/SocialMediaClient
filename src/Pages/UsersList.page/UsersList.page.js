@@ -71,9 +71,9 @@ export default function UsersList() {
 
   console.log(filtered);
   return (
-    <Box>
+    <Box sx={{ width: '100%', mt: 2 }}>
       <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
-      <Stack>
+      <Stack spacing={2} sx={{ mb: 4 }}>
       {filtered.map((user) => (
         <UserCard key={user._id}
             uid={user._user_Id._id}
