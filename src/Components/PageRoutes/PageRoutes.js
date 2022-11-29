@@ -14,7 +14,7 @@ import News from "../../Pages/News.page/News.page";
 
 import PostDetail from "../../Pages/PostDetail.page/PostDetail.page";
 import DonateApp from "../../Pages/Donation.page/DonateApp";
-import Jobs from "../../Pages/Jobs.page/jobs.page";
+//import Jobs from "../../Pages/Jobs.page/jobs.page";
 
 import Events from "../../Pages/Events.page/Events.page";
 
@@ -67,10 +67,12 @@ export default function PageRoutes() {
           path="/allusers"
           element={user ? <UsersList /> : <Navigate replace to="/login" />}
         />
-        <Route
-          path="/jobs"
-          element={user ? <Jobs /> : <Navigate replace to="/jobs" />}
-        />
+      {  
+        // <Route
+        //   path="/jobs"
+        //   element={user ? <Jobs /> : <Navigate replace to="/jobs" />}
+        // />
+      }
          <Route
           path="/donate"
           element={user ? <DonateApp /> : <Navigate replace to="/donate" />}
