@@ -32,7 +32,7 @@ export default function RightBar({ itemData }) {
                 src={`${process.env.REACT_APP_API_URL}/image/profile/${item.displayImage}`}
                 aria-label=""
               />
-              <Link href={`/others/profile/${item._user_Id}`}>
+              <Link href={`/user/others/profile/${item._user_Id}`}>
                 <ImageListItemBar title={item.displayName} position="below" />
               </Link>
             </ImageListItem>

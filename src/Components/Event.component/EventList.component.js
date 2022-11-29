@@ -66,7 +66,7 @@ export default function EventList({ trigger }) {
         }
 
         const handleProfile = (e) => {
-            window.location.href = `/others/profile/${event.event.profile._user_Id}`;
+            window.location.href = `/user/others/profile/${event.event.profile._user_Id}`;
         }
 
         function AlertFuction() {

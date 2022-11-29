@@ -72,7 +72,7 @@ export default function BasicStack() {
             </TimelineSeparator>
             <TimelineContent sx={{ py: "24px", px: 2 }}>
               <Typography variant="h6" component="span">
-                <Link href="/Register">CREATE A NEW ACCOUNT</Link>
+                <Link href="/register">CREATE A NEW ACCOUNT</Link>
               </Typography>
             </TimelineContent>
           </TimelineItem>
@@ -100,7 +100,7 @@ export default function BasicStack() {
             </TimelineSeparator>
             <TimelineContent sx={{ py: "21px", px: 2 }}>
               <Typography variant="h6" component="span">
-                FOLLOW A FRIEND
+                YOU CAN ADD A FRIEND AFTER LOGIN
               </Typography>
             </TimelineContent>
           </TimelineItem>
@@ -114,7 +114,7 @@ export default function BasicStack() {
             </TimelineSeparator>
             <TimelineContent sx={{ py: "21px", px: 2 }}>
               <Typography variant="h6" component="span">
-                POST A BLOG
+                YOU CAN POST A BLOG AFTER LOGIN
               </Typography>
             </TimelineContent>
           </TimelineItem>

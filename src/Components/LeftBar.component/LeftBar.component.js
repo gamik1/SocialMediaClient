@@ -46,7 +46,7 @@ export default function LeftBar({ showEvent }) {
       <nav aria-label="main mailbox folders">
         <List>
           <ListItem disablePadding>
-            <ListItemButton component="a" href="/userHome">
+            <ListItemButton component="a" href="/user/home">
               <ListItemIcon>
                 <HomeIcon />
               </ListItemIcon>
@@ -64,11 +64,11 @@ export default function LeftBar({ showEvent }) {
           </ListItem>
           <Divider />
           <ListItem disablePadding>
-            <ListItemButton>
+            <ListItemButton component="a" href="/user/userlist">
               <ListItemIcon>
                 <ChatIcon />
               </ListItemIcon>
-              <ListItemText primary="Chats" />
+              <ListItemText primary="Search Friends" />
             </ListItemButton>
           </ListItem>
           <Divider />
@@ -109,7 +109,7 @@ export default function LeftBar({ showEvent }) {
           </ListItem>
           <Divider />
           <ListItem disablePadding>
-            <ListItemButton component="a" href="/events">
+            <ListItemButton component="a" href="/user/events">
               <ListItemIcon>
                 <Badge badgeContent={evtCount} color="secondary">
                   <EventIcon color={evtCount > 0 ? "primary" : ''} />
@@ -120,7 +120,7 @@ export default function LeftBar({ showEvent }) {
           </ListItem>
           <Divider />
           <ListItem disablePadding>
-            <ListItemButton component="a" href="/news">
+            <ListItemButton component="a" href="/user/news">
               <ListItemIcon>
                 <NewspaperIcon />
               </ListItemIcon>

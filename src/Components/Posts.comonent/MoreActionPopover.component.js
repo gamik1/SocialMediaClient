@@ -53,7 +53,7 @@ export default function MoreActionPopover({ post, anchorEl, onClose, isSelf, fri
     const handleProfile = (e) => {
         e.stopPropagation();
         onClose(e);
-        window.location.href = isSelf ? `/profile/${post._user_Id}` : `/others/profile/${post._user_Id}`;
+        window.location.href = isSelf ? `/user/profile` : `/user/others/profile/${post._user_Id}`;
     }
 
     function FriendActions() {

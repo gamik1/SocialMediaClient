@@ -154,16 +154,18 @@ export default function Register() {
   const alertErr = () => { 
     return(
       <Alert fullWidth severity="error">
-          
           {`${regErr}`}
         </Alert>
     )
   }
 
   useEffect(()=>{
-    checkValidation();
+    if(emailPass.email !== "" & emailPass.password !== ""){
+      checkValidation();
+    }
   },[emailPass]);
 
+  console.log(validation,emailPass);
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
@@ -191,9 +193,9 @@ export default function Register() {
             sx={{ mt: 1 }}
           >
             <TextField
-              error = {validation.email === "Initial" ? false : validation.email === "Valid" ? false : true}
+              error={validation.email === "Initial" ? false : validation.email === "Valid" ? false : true}
               helperText={
-                validation.email === "Valid" ? false : validation.email
+                validation.email === "Initial" ? false : validation.email === "Valid" ? false : validation.email
               }
               variant="filled"
               margin="normal"
