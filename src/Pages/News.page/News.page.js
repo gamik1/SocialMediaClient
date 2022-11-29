@@ -44,7 +44,7 @@ export default function BasicGrid() {
 
       
 
-      <Box sx={{ margin:'auto',transform: 'translate(20%, 10%)'}} key={nextId()}
+      <Box sx={{ margin:'auto'}} key={nextId()}
 
      > 
         <Grid container>
