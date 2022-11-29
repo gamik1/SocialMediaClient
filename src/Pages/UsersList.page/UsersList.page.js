@@ -73,7 +73,7 @@ export default function UsersList() {
   return (
     <Box>
       <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
-      <Stack>
+      <Stack spacing={2} flexDirection="column" sx={{width: "70%" , mx: "auto"}}>
       {filtered.map((user) => (
         <UserCard key={user._id}
             uid={user._user_Id._id}
