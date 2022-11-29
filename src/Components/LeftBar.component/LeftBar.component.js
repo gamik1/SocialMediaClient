@@ -18,28 +18,16 @@ import EventIcon from '@mui/icons-material/Event';
 import NewspaperIcon from '@mui/icons-material/Newspaper';
 import { eventCountCall } from "../../API/apiCalls";
 import { AuthContext } from "../../context/AuthContext";
+import { ProfileContext } from '../../context/ProfileContext';
 
 
 export default function LeftBar({ showEvent }) {
   const { user } = React.useContext(AuthContext);
-  const [evtCount, setEvtCount] = React.useState(0);
+  const {evtCount, loadEventCount} = React.useContext(ProfileContext);
 
-  React.useEffect(() => {
-    if (showEvent) loadData();
-  }, []);
-
-  const loadData = async () => {
-    let response = await eventCountCall(user.token);
-    if (response) {
-      // console.log(response);
-      await setEvtCount(() => {
-        return response.count;
-      });
-
-    } else {
-      console.log("some error occured");
-    }
-  }
+  React.useEffect(()=>{
+    loadEventCount(user.token);
+  },[]);
 
   return (
     <Box sx={{ width: '100%', bgcolor: 'background.paper', mt: 2, ml: 2 }}>

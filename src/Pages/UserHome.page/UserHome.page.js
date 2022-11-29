@@ -6,25 +6,25 @@ import { friendProfilesCall } from "../../API/apiCalls";
 
 export default function Index() {
     const { user } = React.useContext(AuthContext);
-    const [ setFriendProfiles] = React.useState([]);
+    // const [ setFriendProfiles] = React.useState([]);
 
-    React.useEffect(() => {
-        loadFriends();
-    },[]);
+    // React.useEffect(() => {
+    //     loadFriends();
+    // },[]);
 
-    const loadFriends = async () => {
-        let response = await friendProfilesCall(user.token);
-        if (response) {
-            // console.log(response);
-            setFriendProfiles(response.profiles);
-        } else {
-            console.log("some error occured");
-        }
-    }
+    // const loadFriends = async () => {
+    //     let response = await friendProfilesCall(user.token);
+    //     if (response) {
+    //         // console.log(response);
+    //         setFriendProfiles(response.profiles);
+    //     } else {
+    //         console.log("some error occured");
+    //     }
+    // }
     
     return (
         
-                        <Posts trigger={loadFriends}/>
+                        <Posts />
                 
     );
 }

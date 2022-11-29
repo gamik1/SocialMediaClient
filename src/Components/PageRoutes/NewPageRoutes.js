@@ -48,6 +48,7 @@ export default function PageRoutes() {
           <Route path="news" element={<News />} />
           <Route path="userlist" element={<UsersList />} />
           <Route path="post/:id" element={<PosstDetail />} />
+          <Route path="events" element={<Events />} />
         </Route>
       </Routes>
     </Router>

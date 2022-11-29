@@ -13,7 +13,7 @@ import Link from "@mui/material/Link";
 
 export default function RightBar({ itemData }) {
   function Friends() {
-    if (itemData.length > 0) {
+    if (itemData && itemData.length > 0) {
       return (
         <ImageList cols={2} sx={{ mr: 2 }}>
           {itemData.map((item) => (
@@ -40,7 +40,7 @@ export default function RightBar({ itemData }) {
         </ImageList>
       );
     }
-    return "This is empty";
+    return "You have no friends";
   }
 
   return (
