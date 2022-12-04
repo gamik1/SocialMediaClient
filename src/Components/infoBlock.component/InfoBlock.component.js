@@ -31,7 +31,7 @@ export default function InfoBlock({ infoTitle, title, data, variant }) {
           justifyContent="center"
           alignItems="center"
         >
-          <EditProfileInfo infoTitle={infoTitle} infoData={data} updateEdit={updateEdit} />
+          <EditProfileInfo infoTitle={infoTitle} infoData={data === "Not Set" ? "" : data} updateEdit={updateEdit} />
           <IconButton
             aria-label="delete"
             onClick={() => {

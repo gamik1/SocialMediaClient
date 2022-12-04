@@ -35,7 +35,10 @@ export default function DateBlock({ data, infoTitle, title }) {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const response = updateProfile(inputInfo, user.token);
+    if(inputInfo[infoTitle] === ""){
+      alert("please select a date to update");
+    }else{
+      const response = updateProfile(inputInfo, user.token);
     if (response) {
       console.log("profile updated");
     } else {
@@ -44,6 +47,8 @@ export default function DateBlock({ data, infoTitle, title }) {
       alert("could not update");
     }
     setEdit(false);
+    }
+    
   };
 
   return (
@@ -73,7 +78,7 @@ export default function DateBlock({ data, infoTitle, title }) {
             id={infoTitle}
             name={infoTitle}
             autoComplete={infoTitle}
-            value={inputInfo[infoTitle] === "Not Set" ? "" : inputInfo[infoTitle]}
+            value={inputInfo[infoTitle] === "" ? "" : inputInfo[infoTitle]}
             autoFocus
           />
 

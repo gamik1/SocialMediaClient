@@ -27,14 +27,18 @@ export default function EditProfileInfo({ infoTitle, infoData, updateEdit }) {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    const response = updateProfile(inputInfo, user.token);
-    if (response) {
-      console.log("profile updated");
+    if ( inputInfo[infoTitle] === "") {
+      alert("please enter profile data to update");
     } else {
-      console.log("some error occured");
-      alert("could not update");
+      const response = updateProfile(inputInfo, user.token);
+      if (response) {
+        console.log("profile updated");
+      } else {
+        console.log("some error occured");
+        alert("could not update");
+      }
+      updateEdit(false);
     }
-    updateEdit(false);
   };
 
   return (
@@ -51,7 +55,7 @@ export default function EditProfileInfo({ infoTitle, infoData, updateEdit }) {
         id={infoTitle}
         name={infoTitle}
         autoComplete={infoTitle}
-        value={inputInfo[infoTitle] === "Not Set" ? "" : inputInfo[infoTitle]}
+        value={inputInfo[infoTitle]}
         autoFocus
       />
       <IconButton aria-label="delete" onClick={handleSubmit}>
