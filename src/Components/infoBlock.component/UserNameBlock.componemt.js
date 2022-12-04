@@ -26,35 +26,37 @@ export default function UserNameBlock({
   });
   const { updateProfile } = useContext(ProfileContext);
   const { user } = useContext(AuthContext);
-  
-  useEffect(()=>{
+
+  useEffect(() => {
     setInputInfo({
-        [infoTitleFN]: dataFN,
-        [infoTitleLN]: dataLN,
-      });
-  },[dataFN,
-    dataLN])
+      [infoTitleFN]: dataFN,
+      [infoTitleLN]: dataLN,
+    });
+  }, [dataFN, dataLN]);
 
   const handleChange = async (event) => {
     let { name, value } = event.target;
     await setInputInfo((prev) => {
       return { ...prev, [name]: value };
     });
-    console.log(inputInfo)
+    console.log(inputInfo);
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const response = updateProfile(inputInfo, user.token);
-    if (response) {
-      console.log("profile updated");
-      
+    if (inputInfo[infoTitleFN]  === "" || inputInfo[infoTitleLN]) {
+      alert("please enter profile Name to update");
     } else {
-      console.log("some error occured");
-      setInputInfo({ [infoTitleFN]: dataFN, [infoTitleLN]: dataLN });
-      alert("could not update");
+      const response = updateProfile(inputInfo, user.token);
+      if (response) {
+        console.log("profile updated");
+      } else {
+        console.log("some error occured");
+        setInputInfo({ [infoTitleFN]: dataFN, [infoTitleLN]: dataLN });
+        alert("could not update");
+      }
+      setEdit(false);
     }
-    setEdit(false);
   };
 
   return (
@@ -78,7 +80,7 @@ export default function UserNameBlock({
             id={infoTitleFN}
             name={infoTitleFN}
             autoComplete={infoTitleFN}
-            value={inputInfo[infoTitleFN] === "Not Set" ? "" : inputInfo[infoTitleFN]}
+            value={inputInfo[infoTitleFN] === "" ? "" : inputInfo[infoTitleFN]}
             autoFocus
           />
           <TextField
@@ -88,7 +90,7 @@ export default function UserNameBlock({
             id={infoTitleLN}
             name={infoTitleLN}
             autoComplete={infoTitleLN}
-            value={inputInfo[infoTitleLN] === "Not Set" ? "" : inputInfo[infoTitleLN]}
+            value={inputInfo[infoTitleLN] === "" ? "" : inputInfo[infoTitleLN]}
           />
           <IconButton aria-label="delete" onClick={handleSubmit}>
             <SaveIcon />
@@ -110,7 +112,9 @@ export default function UserNameBlock({
           alignItems="center"
         >
           <ViewInfo
-            data={`${inputInfo[infoTitleFN]} ${inputInfo[infoTitleLN] === "Not Set" ? "" : inputInfo[infoTitleLN]}`}
+            data={`${
+              inputInfo[infoTitleFN] === "" ? "Not Set" : inputInfo[infoTitleFN]
+            } ${inputInfo[infoTitleLN] === "" ? "" : inputInfo[infoTitleLN]}`}
             variant="h4"
           />
           <IconButton

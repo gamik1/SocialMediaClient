@@ -29,8 +29,8 @@ export default function ProfileShow({ id }) {
         <Stack spacing={2}>
           <Stack spacing={1} justifyContent="flex-start" alignItems="center">
             <UserNameBlock
-              dataFN={profile.firstName ? profile.firstName : "Not Set"}
-              dataLN={profile.lastName ? profile.lastName : "Not Set"}
+              dataFN={profile.firstName ? profile.firstName : ""}
+              dataLN={profile.lastName ? profile.lastName : ""}
               infoTitleFN="firstName"
               infoTitleLN="lastName"
             />
