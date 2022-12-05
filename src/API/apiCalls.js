@@ -1,7 +1,8 @@
 import axios from "axios";
 
 let API_URL;
-if(process.env.NODE_ENV && process.env.NODE_ENV!== 'production'){
+console.log(process.env.NODE_ENV);
+if(process.env.NODE_ENV === 'development'){
   API_URL = process.env.REACT_APP_API_URL;
 }else{
   API_URL = process.env.REACT_APP_API_URL_PROD;
