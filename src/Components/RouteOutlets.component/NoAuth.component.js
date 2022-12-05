@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { Navigate, useOutlet } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import Navigation from "../Navigation.component/Navigation.component";
+import TopBar from "../TopBar.component/TopBar.component";
 
 export const NoAuthPages = () => {
   const { user } = useContext(AuthContext);
@@ -13,8 +14,9 @@ export const NoAuthPages = () => {
 
   return (
     <div>
-  
-      {outlet}
+     {// <TopBar pages={[{page: "Login", path:"/login"},{page: "Register", path:"/register"}]}/>
+  }
+  {outlet}
     </div>
   );
 };
