@@ -8,6 +8,7 @@ if(process.env.NODE_ENV === 'development'){
 }else{
   API_URL = process.env.REACT_APP_API_URL_PROD;
   console.log("api url prod",process.env.REACT_APP_API_URL_PROD);
+  console.log("api url",process.env.REACT_APP_API_URL);
 }
 
 
