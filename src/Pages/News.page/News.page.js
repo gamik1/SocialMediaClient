@@ -25,43 +25,46 @@ const Item = styled(Paper)(({ theme }) => ({
 export default function BasicGrid() {
   const [data, setData] = useState([]);
 
-  // // const API_KEY = process.env.NEWS_API_KEY;
-  //  console.log("newsapi", process.env.REACT_APP_NEWS_API_KEY);
+  
   useEffect(() => {
     axios
       .get(
-        `https://newsapi.org/v2/top-headlines?country=us&apiKey=fd4dda2d2051451b8424a24ad7395085`
+        `https://api.nytimes.com/svc/mostpopular/v2/viewed/1.json?api-key=${process.env.REACT_APP_NY_NEWS_API_KEY}`
       )
 
       .then((response) => {
-        console.log(response);
-        setData(response.data.articles);
+        console.log(response.data.results)
+        setData(response.data.results);
       });
   }, []);
-
+  
   return (
     <Stack sx={{ width: "100%", mt: 2 }} spacing={2}>
       {data.map((value) => {
+        
         return (
           <Box sx={{ width: "100%", mt: 2 }} key={nextId()}>
             <Card>
-              <CardMedia
+              {
+                value.media.length >= 1
+                &&
+                <CardMedia
                 component="img"
-                alt={`${value.author} - ${value.publishedAt}`}
+                alt={`${value.media[0]["caption"]}`}
                 height="140"
-                image={value.urlToImage}
-              />
+                image={value.media[0]["media-metadata"][2].url}
+              />}
               <CardContent>
                 <Typography gutterBottom variant="h5" component="div">
                   {value.title}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                  {value.description}
+                  {value.abstract}
                 </Typography>
               </CardContent>
               <CardActions>
                 <a href={value.url} target="_blank" rel="noreferrer">
-                  <Button>Learn More</Button>
+                  <Button>Learn More...</Button>
                 </a>
               </CardActions>
             </Card>
@@ -71,3 +74,6 @@ export default function BasicGrid() {
     </Stack>
   );
 }
+
+
+
