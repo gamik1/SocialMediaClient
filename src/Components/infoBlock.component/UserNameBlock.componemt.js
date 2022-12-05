@@ -12,6 +12,8 @@ import CancelPresentationIcon from "@mui/icons-material/CancelPresentation";
 import jwt from "jwt-decode";
 import { ProfileContext } from "../../context/ProfileContext";
 import { AuthContext } from "../../context/AuthContext";
+import validator from "validator";
+import TransitionAlert from "../Posts.comonent/TransitionAlert.component";
 
 export default function UserNameBlock({
   dataFN,
@@ -19,6 +21,7 @@ export default function UserNameBlock({
   infoTitleFN,
   infoTitleLN,
 }) {
+  const [alertMsg, setAlertMsg] = useState(null);
   const [edit, setEdit] = useState(false);
   const [inputInfo, setInputInfo] = useState({
     [infoTitleFN]: dataFN,
@@ -34,18 +37,29 @@ export default function UserNameBlock({
     });
   }, [dataFN, dataLN]);
 
+  const closeAlert = (e) => {
+    e.stopPropagation();
+    setAlertMsg(null);
+  }
+
   const handleChange = async (event) => {
     let { name, value } = event.target;
     await setInputInfo((prev) => {
       return { ...prev, [name]: value };
     });
-    console.log(inputInfo);
+    // console.log(inputInfo);
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    if (inputInfo[infoTitleFN]  === "" || inputInfo[infoTitleLN]) {
+
+    /* if (inputInfo[infoTitleFN]  === "" || inputInfo[infoTitleLN]) {
       alert("please enter profile Name to update");
+    } */ 
+    if (!validator.isAlpha(inputInfo[infoTitleFN])) {
+      setAlertMsg('The first name must contain only letters');
+    } else if (!validator.isAlpha(inputInfo[infoTitleLN])) {
+      setAlertMsg('The last name must contain only letters');
     } else {
       const response = updateProfile(inputInfo, user.token);
       if (response) {
@@ -60,6 +74,7 @@ export default function UserNameBlock({
   };
 
   return (
+    <div>
     <Stack
       direction={"row"}
       spacing={1}
@@ -127,6 +142,9 @@ export default function UserNameBlock({
           </IconButton>
         </Stack>
       )}
+      
     </Stack>
+    <TransitionAlert msg={alertMsg} closeAlert={closeAlert} />
+    </div>
   );
 }
