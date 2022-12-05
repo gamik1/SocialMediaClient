@@ -8,6 +8,7 @@ import jwt from "jwt-decode";
 import { ProfileContext } from "../../context/ProfileContext";
 import { AuthContext } from "../../context/AuthContext";
 import { isEmpty, isName } from "../../Validations/Validators";
+import validator from "validator";
 
 export default function EditProfileInfo({ infoTitle, infoData, updateEdit }) {
   const [inputInfo, setInputInfo] = useState({ [infoTitle]: `${infoData}` });
@@ -27,8 +28,8 @@ export default function EditProfileInfo({ infoTitle, infoData, updateEdit }) {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    if ( inputInfo[infoTitle] === "") {
-      alert("please enter profile data to update");
+    if ( !validator.isAlpha(inputInfo[infoTitle])) {
+      alert(`only text allowed in ${infoTitle}`);
     } else {
       const response = updateProfile(inputInfo, user.token);
       if (response) {

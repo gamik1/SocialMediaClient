@@ -10,6 +10,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import CancelPresentationIcon from "@mui/icons-material/CancelPresentation";
 import { ProfileContext } from "../../context/ProfileContext";
 import { AuthContext } from "../../context/AuthContext";
+import moment from "moment";
 
 export default function DateBlock({ data, infoTitle, title }) {
   const [edit, setEdit] = useState(false);
@@ -73,12 +74,11 @@ export default function DateBlock({ data, infoTitle, title }) {
             required
             onChange={handleChange}
             type="date"
-            defaultValue="Date Of Birth"
             inputProps={{ min: "1950-01-01", max: "2021-12-12" }}
             id={infoTitle}
             name={infoTitle}
             autoComplete={infoTitle}
-            value={inputInfo[infoTitle] === "" ? "" : inputInfo[infoTitle]}
+            value={inputInfo[infoTitle] === "" ? "" : moment(inputInfo[infoTitle]).format("YYYY-MM-DD")}
             autoFocus
           />
 
@@ -103,7 +103,7 @@ export default function DateBlock({ data, infoTitle, title }) {
         >
         
           <ViewInfo
-            data={`${inputInfo[infoTitle]}`}
+            data={`${moment(inputInfo[infoTitle]).format("LL")}`}
             title=""
           />
           <IconButton

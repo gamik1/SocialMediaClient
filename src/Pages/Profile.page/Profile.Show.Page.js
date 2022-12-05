@@ -59,7 +59,7 @@ export default function ProfileShow({ id }) {
               title="D.O.B. :"
               infoTitle="dob"
               data={
-                profile.dob ? `${moment(profile.dob).format("LL")}` : ""
+                profile.dob ? profile.dob : ""
               }
             />
           </Stack>

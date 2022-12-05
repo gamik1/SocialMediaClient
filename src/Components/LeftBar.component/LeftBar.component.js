@@ -70,33 +70,35 @@ export default function LeftBar({ showEvent }) {
               <ListItemText primary="Donate" />
             </ListItemButton>
           </ListItem>
-          <Divider />
-          <ListItem disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                <BookmarkIcon />
-              </ListItemIcon>
-              <ListItemText primary="Bookmarks" />
-            </ListItemButton>
-          </ListItem>
-          <Divider />
-          <ListItem disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                <HelpIcon />
-              </ListItemIcon>
-              <ListItemText primary="Questions" />
-            </ListItemButton>
-          </ListItem>
-          <Divider />
-          <ListItem disablePadding>
-          <ListItemButton component="a" >
-              <ListItemIcon>
-                <WorkIcon />
-              </ListItemIcon>
-              <ListItemText primary="JObs" />
-            </ListItemButton>
-          </ListItem>
+        {  
+          //<Divider />
+        //   <ListItem disablePadding>
+        //     <ListItemButton>
+        //       <ListItemIcon>
+        //         <BookmarkIcon />
+        //       </ListItemIcon>
+        //       <ListItemText primary="Bookmarks" />
+        //     </ListItemButton>
+        //   </ListItem>
+        //   <Divider />
+        //   <ListItem disablePadding>
+        //     <ListItemButton>
+        //       <ListItemIcon>
+        //         <HelpIcon />
+        //       </ListItemIcon>
+        //       <ListItemText primary="Questions" />
+        //     </ListItemButton>
+        //   </ListItem>
+        //   <Divider />
+        //   <ListItem disablePadding>
+        //   <ListItemButton component="a" >
+        //       <ListItemIcon>
+        //         <WorkIcon />
+        //       </ListItemIcon>
+        //       <ListItemText primary="JObs" />
+        //     </ListItemButton>
+        //   </ListItem>
+      }
           <Divider />
           <ListItem disablePadding>
             <ListItemButton component="a" href="/user/events">

@@ -3,20 +3,19 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-import Grid from "@mui/material/Grid";
+
 import Box from "@mui/material/Box";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-//import Typography from '@mui/material/Typography';
+
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Copyright from "../../Components/Copyright.component/Copyright.component";
-import { Routes, Route, useNavigate } from "react-router-dom";
+
 import Logo from "../../Components/Logo.component/Logo.component";
 import { loginCall, registerCall } from "../../API/apiCalls";
 import { AuthContext } from "../../context/AuthContext";
-import Alert from '@mui/material/Alert';
-import AlertTitle from '@mui/material/AlertTitle';
+import Alert from "@mui/material/Alert";
 
+import validator from "validator";
 
 const theme = createTheme({
   palette: {
@@ -39,7 +38,7 @@ export default function Register() {
     confirmPassword: "",
   });
   const [regErr, setRegErr] = useState("");
-  const navigate = useNavigate();
+
   const { isFetching, error, dispatch } = useContext(AuthContext);
   const register = async () => {
     const response = await registerCall(emailPass);
@@ -71,15 +70,13 @@ export default function Register() {
   };
 
   const checkValidation = () => {
-    
     // email validation
-    const emailCond =
-      "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$";
+
     if (!emailPass.email.trim()) {
       setValidation((prev) => {
         return { ...prev, email: "Email is required !!" };
       });
-    } else if (!emailPass.email.match(emailCond)) {
+    } else if (!validator.isEmail(emailPass.email)) {
       setErrors("email", "Please enter a valid email address");
     } else {
       setErrors("email", "Valid");
@@ -151,21 +148,21 @@ export default function Register() {
     }
   };
 
-  const alertErr = () => { 
-    return(
+  const alertErr = () => {
+    return (
       <Alert fullWidth severity="error">
-          {`${regErr}`}
-        </Alert>
-    )
-  }
+        {`${regErr}`}
+      </Alert>
+    );
+  };
 
-  useEffect(()=>{
-    if(emailPass.email !== "" & emailPass.password !== ""){
+  useEffect(() => {
+    if ((emailPass.email !== "") & (emailPass.password !== "")) {
       checkValidation();
     }
-  },[emailPass]);
+  }, [emailPass]);
 
-  console.log(validation,emailPass);
+  console.log(validation, emailPass);
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
@@ -183,9 +180,9 @@ export default function Register() {
           <Typography component="h1" variant="h5">
             Register Now
           </Typography>
-          
-          {regErr !== "" && alertErr() }
-          
+
+          {regErr !== "" && alertErr()}
+
           <Box
             component="form"
             onSubmit={handleSubmit}
@@ -193,9 +190,19 @@ export default function Register() {
             sx={{ mt: 1 }}
           >
             <TextField
-              error={validation.email === "Initial" ? false : validation.email === "Valid" ? false : true}
+              error={
+                validation.email === "Initial"
+                  ? false
+                  : validation.email === "Valid"
+                  ? false
+                  : true
+              }
               helperText={
-                validation.email === "Initial" ? false : validation.email === "Valid" ? false : validation.email
+                validation.email === "Initial"
+                  ? false
+                  : validation.email === "Valid"
+                  ? false
+                  : validation.email
               }
               variant="filled"
               margin="normal"
@@ -210,9 +217,19 @@ export default function Register() {
               value={emailPass.email}
             />
             <TextField
-              error={validation.password === "Initial" ? false : validation.password === "Valid" ? false : true}
+              error={
+                validation.password === "Initial"
+                  ? false
+                  : validation.password === "Valid"
+                  ? false
+                  : true
+              }
               helperText={
-                validation.password === "Initial" ? false : validation.password === "Valid" ? false : validation.password
+                validation.password === "Initial"
+                  ? false
+                  : validation.password === "Valid"
+                  ? false
+                  : validation.password
               }
               variant="filled"
               margin="normal"
@@ -227,10 +244,20 @@ export default function Register() {
               value={emailPass.password}
             />
             <TextField
-            error={validation.confirmPassword === "Initial" ? false : validation.confirmPassword === "Valid" ? false : true}
-            helperText={
-              validation.confirmPassword === "Initial" ? false : validation.confirmPassword === "Valid" ? false : validation.confirmPassword
-            }
+              error={
+                validation.confirmPassword === "Initial"
+                  ? false
+                  : validation.confirmPassword === "Valid"
+                  ? false
+                  : true
+              }
+              helperText={
+                validation.confirmPassword === "Initial"
+                  ? false
+                  : validation.confirmPassword === "Valid"
+                  ? false
+                  : validation.confirmPassword
+              }
               variant="filled"
               margin="normal"
               required
@@ -246,7 +273,7 @@ export default function Register() {
             <Button
               color="buttonPrimary"
               type="submit"
-              size= "large"
+              size="large"
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}

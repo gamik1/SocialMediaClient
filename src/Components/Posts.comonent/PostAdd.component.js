@@ -53,9 +53,10 @@ export default function PostAdd() {
     };
 
     return (
-        <Card sx={{ maxWidth: 3450, mb: 3 }}>
-            <CardContent>
+        <Card aria-label="type your post" sx={{ maxWidth: 3450, mb: 3 }}>
+            <CardContent aria-label="type your post">
                 <TextField
+                    aria-label="new post"
                     id="post-text"
                     name="post-text"
                     label="New Post"

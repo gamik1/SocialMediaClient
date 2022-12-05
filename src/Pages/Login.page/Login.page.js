@@ -28,7 +28,7 @@ const theme = createTheme({
 
 export default function Login({ setToken }) {
   const [emailPass, setEmailPass] = useState({ email: "", password: "" });
-  const navigate = useNavigate();
+
   const { isFetching, error, dispatch } = useContext(AuthContext);
 
   const handleChange = async (event) => {
@@ -101,9 +101,11 @@ export default function Login({ setToken }) {
             </Button>
             <Grid container>
               <Grid item xs={12}>
-                <Link href="#" variant="body2">
-                  Forgot password?
-                </Link>
+               { 
+                // <Link href="#" variant="body2">
+                //   Forgot password?
+                // </Link>
+              }
               </Grid>
               <Grid item xs={12}>
                 <Link href="/register" variant="body2">
