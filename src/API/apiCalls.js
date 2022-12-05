@@ -1,15 +1,6 @@
 import axios from "axios";
 
-let API_URL;
-console.log(process.env.NODE_ENV);
-if(process.env.NODE_ENV === 'development'){
-  console.log("api url",process.env.REACT_APP_API_URL);
-  API_URL = process.env.REACT_APP_API_URL;
-}else{
-  API_URL = process.env.REACT_APP_API_URL_PROD;
-  console.log("api url prod",process.env.REACT_APP_API_URL_PROD);
-  console.log("api url",process.env.REACT_APP_API_URL);
-}
+let API_URL = process.env.REACT_APP_API_URL;
 
 
 export const loginCall = async (userCredential, dispatch) => {
