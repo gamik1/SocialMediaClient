@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 
 import { Route, useParams } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import { friendProfilesCall, friendIdsCall } from "../../API/apiCalls";
 import { profileGetOther } from "../../API/apiCalls";
 import OtherProfile from "./OtherProfile.page";
+import { ProfileContext } from "../../context/ProfileContext";
 
 
 export default function ProfileOther() {
@@ -12,7 +13,7 @@ export default function ProfileOther() {
   console.log("param", param);
   const [profile, setProfile] = useState({});
   const { user } = React.useContext(AuthContext);
-  const [ setFriendProfiles] = React.useState([]);
+  const {loadFriends} = useContext(ProfileContext);
   const [askings, setAskings] = useState([]);
   const [friends, setFriends] = useState([]);
 
@@ -22,20 +23,14 @@ export default function ProfileOther() {
   };
 
   React.useEffect(() => {
-    loadFriends();
+    loadFriendsHere();
     loadProfile();
   }, []);
 
   console.log(profile);
-  const loadFriends = async () => {
-    let response = await friendProfilesCall(user.token);
-    if (response) {
-      // console.log(response);
-      setFriendProfiles(response.profiles);
-    } else {
-      console.log("some error occured");
-    }
-    response = await friendIdsCall(user.token);
+  const loadFriendsHere = async () => {
+    await loadFriends(user.token);
+    let response = await friendIdsCall(user.token);
     if (response.friend) {
       // console.log(response);
       await setAskings(() => {
@@ -47,14 +42,14 @@ export default function ProfileOther() {
     }
   };
 
-  const updateAskings = (newAskings) => {
-    setAskings(newAskings);
-    loadFriends();
+  const updateAskings = async (newAskings) => {
+    await setAskings(newAskings);
+    await loadFriendsHere();
   };
 
-  const updateFriends = (newFriends) => {
-    setFriends(newFriends);
-    loadFriends();
+  const updateFriends = async (newFriends) => {
+    await setFriends(newFriends);
+    await loadFriendsHere();
   };
 
   return (

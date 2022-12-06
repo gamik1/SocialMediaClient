@@ -1,8 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { userListCall } from "../../API/apiCalls";
 import { AuthContext } from "../../context/AuthContext";
-import IconButton from "@mui/material/IconButton";
-import SearchIcon from "@mui/icons-material/Search";
 import TextField from "@mui/material/TextField";
 import {
   Stack,
@@ -30,9 +28,6 @@ const SearchBar = ({ setSearchQuery }) => (
       placeholder="Search..."
       size="small"
     />
-    <IconButton type="submit" aria-label="search">
-      <SearchIcon style={{ fill: "blue" }} />
-    </IconButton>
   </form>
 );
 

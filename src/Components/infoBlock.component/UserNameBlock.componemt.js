@@ -29,6 +29,7 @@ export default function UserNameBlock({
   });
   const { updateProfile } = useContext(ProfileContext);
   const { user } = useContext(AuthContext);
+  const nameRegex = "^[a-zA-Z]+[a-zA-Z ]*$";
 
   useEffect(() => {
     setInputInfo({
@@ -56,9 +57,9 @@ export default function UserNameBlock({
     /* if (inputInfo[infoTitleFN]  === "" || inputInfo[infoTitleLN]) {
       alert("please enter profile Name to update");
     } */ 
-    if (!validator.isAlpha(inputInfo[infoTitleFN])) {
-      setAlertMsg('The first name must contain only letters');
-    } else if (!validator.isAlpha(inputInfo[infoTitleLN])) {
+    if (!inputInfo[infoTitleFN].match(nameRegex)) {
+      setAlertMsg(`The first name must contain only letters,${nameRegex},${inputInfo[infoTitleFN]}`);
+    } else if (!inputInfo[infoTitleFN].match(nameRegex)) {
       setAlertMsg('The last name must contain only letters');
     } else {
       const response = updateProfile(inputInfo, user.token);

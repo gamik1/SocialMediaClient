@@ -17,6 +17,7 @@ export default function EditProfileInfo({ infoTitle, infoData, updateEdit }) {
   const decoded = jwt(user.token);
   const id = decoded.user._id;
   const navigate = useNavigate();
+  const stringRegex = "^[a-zA-Z]+[a-zA-Z ]*$";
 
   const handleChange = async (event) => {
     let { name, value } = event.target;
@@ -28,7 +29,7 @@ export default function EditProfileInfo({ infoTitle, infoData, updateEdit }) {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    if ( !validator.isAlpha(inputInfo[infoTitle])) {
+    if ( !inputInfo[infoTitle].match(stringRegex)) {
       alert(`only text allowed in ${infoTitle}`);
     } else {
       const response = updateProfile(inputInfo, user.token);
