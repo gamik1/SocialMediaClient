@@ -8,15 +8,16 @@ export const NoAuthPages = () => {
   const { user } = useContext(AuthContext);
   const outlet = useOutlet();
 
-//   if (user) {
-//     return <Navigate to="/dashboard/profile" replace />;
-//   }
+  //   if (user) {
+  //     return <Navigate to="/dashboard/profile" replace />;
+  //   }
 
   return (
     <div>
-     {// <TopBar pages={[{page: "Login", path:"/login"},{page: "Register", path:"/register"}]}/>
-  }
-  {outlet}
+      {
+        // <TopBar pages={[{page: "Login", path:"/login"},{page: "Register", path:"/register"}]}/>
+      }
+      {outlet}
     </div>
   );
 };
