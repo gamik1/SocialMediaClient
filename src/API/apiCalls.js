@@ -97,6 +97,22 @@ export const postAddCall = async (post, secret_token) => {
     })
 
 }
+export const postImageAddCall = async (post, secret_token) => {
+  console.log({...post, secret_token: secret_token})
+  return await axios
+    .post(`${API_URL}/user/post/image-post`, post, {
+      headers: {
+        Authorization: `Bearer ${secret_token}`,
+      },
+    })
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error)=>{
+      console.log(error.response.data);
+    })
+
+}
 
 
 export const postByIdCall = async (id, secret_token) => {
@@ -149,6 +165,22 @@ export const commentAddCall = async (post, secret_token) => {
 
 }
 
+export const likeAddCall = async (like, secret_token) => {
+  // console.log({...post, secret_token: secret_token})
+  return await axios
+    .post(`${API_URL}/user/like/add`, {post_id: like}, {
+      headers: {
+        Authorization: `Bearer ${secret_token}`,
+      },
+    })
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error)=>{
+      console.log(error.response.data);
+    })
+
+}
 
 export const commentListCall = async (topicPostId, secret_token) => {
   return await axios

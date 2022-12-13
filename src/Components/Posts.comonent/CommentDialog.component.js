@@ -119,12 +119,6 @@ export default function CommentDialog({ isOpen, closeComment, profile, post }) {
                     />
                 </DialogContent>
                 <DialogActions>
-                    <IconButton aria-label="add a media" sx={{ flexGrow: 0, ml: 4, mr: 4 }}>
-                        <PermMediaIcon color="primary" />
-                    </IconButton>
-                    <IconButton aria-label="emoji" sx={{ flexGrow: 0, mr: 4 }}>
-                        <EmojiEmotionsIcon color="primary" />
-                    </IconButton>
                     <Box sx={{ flexGrow: 1 }} />
                     <Button variant="contained" sx={{ flexGrow: 0, mr: 4 }} onClick={handleComment}>Comment</Button>
                 </DialogActions>

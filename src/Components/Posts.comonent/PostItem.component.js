@@ -5,23 +5,25 @@ import {
     Avatar,
     Box,
     Card, CardActions, CardContent, CardHeader,
+    CardMedia,
     IconButton,
     Paper,
     Tooltip,
     Typography
 } from '@mui/material';
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import CommentIcon from '@mui/icons-material/Comment';
 import ShareIcon from '@mui/icons-material/Share';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-import { profleByIdCall } from "../../API/apiCalls";
+import { likeAddCall, profleByIdCall } from "../../API/apiCalls";
 import { AuthContext } from "../../context/AuthContext";
 import CommentDialog from "./CommentDialog.component";
 import AvatarPopover from "./AvatarPopover.component";
 import MoreActionPopover from "./MoreActionPopover.component";
 import moment from 'moment'
 
-export default function PostItem({ post, isMain, friends, askings, updateAskings, updateFriends }) {
+export default function PostItem({ post, isMain, friends, askings, updateAskings, updateFriends ,loadData}) {
     const { user, getUid } = React.useContext(AuthContext);
     const [profile, setProfile] = React.useState({});
     const [avatarPopoverAnchor, setAvatarPopoverAnchor] = React.useState(null);
@@ -75,9 +77,10 @@ export default function PostItem({ post, isMain, friends, askings, updateAskings
         setDialogOpen(false);
     }
 
-    const handleLike = (e) => {
+    const handleLike = async (e) => {
         e.stopPropagation();
-
+        const like = await likeAddCall(post._id,user.token);
+        loadData();
     }
 
 
@@ -108,13 +111,13 @@ export default function PostItem({ post, isMain, friends, askings, updateAskings
                             <Avatar
                                 component={Paper}
                                 elevation={2}
-                                sx={{ bgcolor: red[500], width: 48, height: 48 }}
+                                sx={{ bgcolor: red[500], width:{xs:30,sm:48,md:56} , height:{xs:30, sm:48, md:56}}}
                                 src={`${process.env.REACT_APP_API_URL}/image/profile/${profile.displayImage}`}
                                 aria-hidden="true"
                                 alt={`profile pic - ${profile.displayName}`}
                                 onClick={openAvatarPopover}>
                             </Avatar>
-                            <Typography sx={{ ml: 2 }}>{profile.displayName}</Typography>
+                            
                             <AvatarPopover
                                 profile={profile}
                                 anchorEl={avatarPopoverAnchor}
@@ -126,6 +129,7 @@ export default function PostItem({ post, isMain, friends, askings, updateAskings
                                 updateFriends={updateFriends} />
                         </Box>
                     }
+                    title={<Typography sx={{ fontSize:{xs:"0.9rem",sm:"1.2rem"} }}>{profile.displayName}</Typography>}
                     action={
                         <Box>
                             <IconButton id={'more_' + post._id} aria-label="more" onClick={openMoreActionPopover}>
@@ -142,14 +146,22 @@ export default function PostItem({ post, isMain, friends, askings, updateAskings
                                 updateFriends={updateFriends} />
                         </Box>
                     }
-                    subheader={moment(post.createDate).format('h:mm a, MMM Do')}
+                    subheader={<Typography sx={{fontSize:{xs:"0.5rem",sm:"0.7rem"} }}>{moment(post.createDate).fromNow()}</Typography>}
                 />
-                {/* <CardMedia
+                {
+                    post.postImage &&
+                
+                    <CardMedia
+                        sx={{padding:1, width: "100%", marginLeft:"auto", marginRight:"auto",
+                        minHeight:"350px",
+                        objectFit: "cover",
+                        objectPosition: "bottom"}}
+                        
                         component="img"
-                        height="294"
-                        image="https://images.unsplash.com/photo-1444418776041-9c7e33cc5a9c"
-                        alt="Paella dish"
-                    /> */}
+                        image={`${process.env.REACT_APP_API_URL}/image/profile/${post.postImage}`}
+                        alt={`${profile.displayName}`}
+                    />
+                }
                 <CardContent sx={{ textAlign: 'left' }}>
                     {post.postContent.split('\n').map((row, i) =>
                         <Typography paragraph sx={{ lineHeight: 1 }} key={i}>
@@ -159,9 +171,18 @@ export default function PostItem({ post, isMain, friends, askings, updateAskings
                 </CardContent>
                 <CardActions disableSpacing>
                     <Tooltip title="Like">
-                        <IconButton aria-label="add to favorites" onClick={handleLike}>
-                            <FavoriteIcon />
-                        </IconButton>
+                        {
+                            post.likes.includes(getUid()) ?
+                                <IconButton aria-label="already liked" onClick={(e)=>{e.stopPropagation(); alert("you already liked this post")}}>
+                                    <FavoriteBorderIcon />
+                                </IconButton> 
+                            :
+                                <IconButton aria-label="like" onClick={handleLike}>
+                                    <FavoriteIcon />
+                                </IconButton>
+                            
+                        }
+                        
                     </Tooltip>
                     <Typography sx={{ mr: 2 }}>
                         {post.countOfLike === 0 ? '' : post.countOfLike}
@@ -174,11 +195,7 @@ export default function PostItem({ post, isMain, friends, askings, updateAskings
                     <Typography sx={{ mr: 2 }}>
                         {post.countOfComment === 0 ? '' : post.countOfComment}
                     </Typography>
-                    <Tooltip title="Share">
-                        <IconButton aria-label="share" onClick={handleShare}>
-                            <ShareIcon />
-                        </IconButton>
-                    </Tooltip>
+                    
                 </CardActions>
             </Box>
             <CommentDialog isOpen={dialogOpen} closeComment={closeComment} profile={profile} post={post} />

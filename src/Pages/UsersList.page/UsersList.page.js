@@ -26,7 +26,7 @@ const SearchBar = ({ setSearchQuery }) => (
       label="Start entering a name"
       variant="outlined"
       placeholder="Search..."
-      size="small"
+      fullWidth
     />
   </form>
 );
@@ -67,13 +67,14 @@ export default function UsersList() {
   console.log(filtered);
   return (
     <Box sx={{ width: '100%', mt: 2 }}>
-      <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
-      <Stack spacing={2} sx={{ mb: 4 }}>
+      <SearchBar sx={{width:"100%" ,mb:2}} searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+      <Stack spacing={2} sx={{ mb: 4, mt:2}}>
       {filtered.map((user) => (
         <UserCard key={user._id}
             uid={user._user_Id._id}
             displayName={`${user.firstName} ${user.lastName}`}
             displayImage={user.displayImage}
+            works={user.profession}
         />
     ))}
       </Stack>

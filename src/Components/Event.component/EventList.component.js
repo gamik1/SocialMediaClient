@@ -53,20 +53,20 @@ export default function EventList() {
             await setOpen(false)
             await setAlertList(alertList)
             await loadFriends(user.token);
-            await loadEventCount();
+            await loadEventCount(user.token);
         }
 
         const reject = async () => {
             await friendEventCall(event.event._id, 'reject', user.token)
             await deleteAlert(event.event._id)
-            await loadEventCount();
+            await loadEventCount(user.token);
             await setOpen(false)
         }
 
         const close = async () => {
             await friendCloseCall(event.event._id, user.token)
             await deleteAlert(event.event._id)
-            await loadEventCount();
+            await loadEventCount(user.token);
             await setOpen(false)
         }
 

@@ -1,0 +1,12 @@
+.postAddImage{
+    position: relative;
+}
+.postImageButton {
+    position: absolute;
+    top: 10%;
+    left: 85%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    border: none;
+    cursor: pointer;
+}

@@ -19,8 +19,8 @@ import Link from "@mui/material/Link";
 import Avatar from '@mui/material/Avatar';
 import Copyright from "../../Components/Copyright.component/Copyright.component";
 import { pink, deepPurple,green } from '@mui/material/colors';
-
-
+import GitHubIcon from '@mui/icons-material/GitHub';
+import LinkedInIcon from '@mui/icons-material/LinkedIn';
 
 const styles = {
   heroContainer: {
@@ -152,6 +152,7 @@ export default function BasicStack() {
             <Typography variant="h2" mt={10}>Our Team</Typography>
           
       <Grid container spacing={1} mt={10}>
+        
         <Grid
           item
           xs={12}
@@ -162,11 +163,16 @@ export default function BasicStack() {
          justifyContent: 'center'}}
           container
           direction="column"
-         
         >
-          <Avatar alt="Isha " sx={{ width:250, height: 250 ,bgcolor: pink[500]}} src="https://cdn3d.iconscout.com/3d/premium/thumb/female-developer-5359992-4492091.png"/>
-         
-        <Link href="https://github.com/ishanegi18" underline="none">Isha Negi
+           
+          <Avatar alt="Gamik " sx={{ width:240, height: 240 }} src="https://i.postimg.cc/MH9QKBYX/Gamik.jpg"/> 
+          <Typography variant="h5" gutterBottom>
+          <br></br>
+          Gamik Budhathoki<br>
+          </br>
+          <Link sx={{textDecoration:"none" , fontSize:"1rem"}} href="mailto:gamiksingz@gmail.com">gamiksingz@gmail.com</Link><br/>
+          Developer
+      </Typography>  <Link href="https://github.com/gamik1" underline="none">Github
 </Link>
         </Grid>
         <Grid
@@ -179,8 +185,16 @@ export default function BasicStack() {
          justifyContent: 'center'}}
           container
           direction="column"
+         
         >
-          <Avatar alt="Gamik " sx={{ width:250, height: 250 ,bgcolor: deepPurple[500]}} src="https://cdn3d.iconscout.com/3d/premium/thumb/web-developer-4788760-3988051.png"/>   <Link href="https://github.com/gamik1" underline="none">Gamik
+          <Avatar alt="Isha " sx={{ width:300, height: 300 ,bgcolor: pink[500]}} src="https://i.postimg.cc/YqYC2Yq9/Isha-Photo-Room.png"/>
+          <Typography variant="h5" gutterBottom>
+          <br></br>
+          Isha Negi <br>
+          </br>Developer
+      </Typography>
+      
+        <Link href="https://github.com/ishanegi18" underline="none"> Github
 </Link>
         </Grid>
         <Grid
@@ -195,7 +209,13 @@ export default function BasicStack() {
           direction="column"
          
         >
-          <Avatar alt="Yang" sx={{ width:250, height: 250 ,bgcolor: green[500]}} src="https://cdn3d.iconscout.com/3d/premium/thumb/web-developer-5019745-4183732.png"/>    <Link href="https://github.com/YangCConestoga" underline="none">Yang
+        
+          <Avatar alt="Yang" sx={{ width:240, height: 240 }} src="https://i.postimg.cc/qBwnLfd0/Yang.jpg"/> 
+          <Typography variant="h5" gutterBottom>
+            <br></br>
+            Yang Cheng<br>
+          </br>Developer
+      </Typography>   <Link href="https://github.com/YangCConestoga" underline="none"> Github 
 </Link>
         </Grid>
       </Grid>

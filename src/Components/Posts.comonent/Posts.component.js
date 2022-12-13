@@ -59,7 +59,8 @@ export default function Posts({ trigger}) {
                         askings={askingFriends}
                         friends={friends}
                         updateAskings={updateAskings}
-                        updateFriends={updateFriends} />
+                        updateFriends={updateFriends}
+                        loadData={loadData} />
                 ))}
             </Stack>
         </Box>

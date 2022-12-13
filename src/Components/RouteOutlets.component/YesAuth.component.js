@@ -51,7 +51,7 @@ export default function ProfileMain() {
         //<TopBar pages={[{page:"Home", path:"/user/home"},{page:"Profile",path:"/user/profile"}]} />
              }
                       <CssBaseline />
-                <Grid container spacing={3} sx={{px:5}}>
+                <Grid container spacing={3} sx={{px:{xs:1,sm:1,md:2}}}>
                     <Grid item xs={0} md={3} sx={{ display: { xs: 'none', md: 'flex' } }}>
                         <LeftBar showEvent={true}/>
                     </Grid>

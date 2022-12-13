@@ -21,7 +21,7 @@ import PersonAddAlt1Icon from "@mui/icons-material/PersonAddAlt1";
 import AccountBoxOutlinedIcon from "@mui/icons-material/AccountBoxOutlined";
 import { minHeight } from "@mui/system";
 
-export default function UserCard({ displayName, displayImage, uid }) {
+export default function UserCard({ displayName, displayImage, uid , works}) {
   const cardSX = {
     "&:hover": {
       boxShadow: `0px 0px 0px 8px ${alpha("#777", 0.1)}`,
@@ -72,6 +72,7 @@ export default function UserCard({ displayName, displayImage, uid }) {
             </Stack>
           }
           title={displayName}
+          subheader={works}
         />
       </Box>
     </Card>
