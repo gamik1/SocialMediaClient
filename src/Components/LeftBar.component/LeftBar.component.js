@@ -28,6 +28,10 @@ export default function LeftBar({ showEvent }) {
   const {evtCount, loadEventCount} = React.useContext(ProfileContext);
 
   React.useEffect(()=>{
+    // const interval = setInterval(() => loadEventCount(user.token), 1000);
+    // return () => {
+    //   clearInterval(interval);
+    // };
     loadEventCount(user.token);
   },[]);
 

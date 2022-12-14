@@ -33,7 +33,7 @@ export default function InfoBlock({ infoTitle, title, data, variant }) {
         >
           <EditProfileInfo infoTitle={infoTitle} infoData={data === "Not Set" ? "" : data} updateEdit={updateEdit} />
           <IconButton
-            aria-label="delete"
+            aria-label="cancel"
             onClick={() => {
               setEdit(false);
             }}
@@ -50,7 +50,7 @@ export default function InfoBlock({ infoTitle, title, data, variant }) {
         >
           <ViewInfo data={`${data}`} variant={variant} />
           <IconButton
-            aria-label="delete"
+            aria-label="edit"
             onClick={() => {
               setEdit(true);
             }}

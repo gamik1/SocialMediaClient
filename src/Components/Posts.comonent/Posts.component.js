@@ -6,7 +6,7 @@ import PostItem from "../../Components/Posts.comonent/PostItem.component";
 import { AuthContext } from "../../context/AuthContext";
 import { postListCall, friendIdsCall } from "../../API/apiCalls";
 
-export default function Posts({ trigger}) {
+export default function Posts({trigger}) {
     const [postList, setPostList] = useState([]);
     const { user, initUid } = useContext(AuthContext);
     const [askingFriends, setAskingFriends] = useState([]);

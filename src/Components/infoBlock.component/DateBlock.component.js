@@ -82,11 +82,11 @@ export default function DateBlock({ data, infoTitle, title }) {
             autoFocus
           />
 
-          <IconButton aria-label="delete" onClick={handleSubmit}>
+          <IconButton aria-label="update" onClick={handleSubmit}>
             <SaveIcon />
           </IconButton>
           <IconButton
-            aria-label="delete"
+            aria-label="cancel"
             onClick={() => {
               setEdit(false);
             }}
@@ -103,7 +103,7 @@ export default function DateBlock({ data, infoTitle, title }) {
         >
         
           <ViewInfo
-            data={`${moment(inputInfo[infoTitle]).format("LL")}`}
+            data={inputInfo[infoTitle] ? `${moment(inputInfo[infoTitle]).format("LL")}` : "Not Set"}
             title=""
           />
           <IconButton

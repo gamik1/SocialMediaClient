@@ -13,10 +13,12 @@ import {
 import { AuthContext } from "../../context/AuthContext";
 import { friendAddCall, friendRemoveCall } from "../../API/apiCalls";
 import TransitionAlert from "./TransitionAlert.component";
+import { ProfileContext } from '../../context/ProfileContext';
 
 export default function AvatarPopover({ profile, anchorEl, onClose, isSelf, friends, askings, updateAskings, updateFriends }) {
 
     const { user } = React.useContext(AuthContext);
+    const {loadFriends} = React.useContext(ProfileContext);
     const [alertMsg, setAlertMsg] = React.useState(null);
     const avatarPopoverOpen = Boolean(anchorEl);
     const avatarPopoverId = avatarPopoverOpen ? 'profile_' + profile._user_Id : undefined;
@@ -46,6 +48,7 @@ export default function AvatarPopover({ profile, anchorEl, onClose, isSelf, frie
             return v !== profile._user_Id;
         });
         updateFriends(friends);
+        loadFriends(user.token);
         setAlertMsg('Your friend has been removed');
     }
 

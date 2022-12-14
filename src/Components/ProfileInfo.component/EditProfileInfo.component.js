@@ -60,7 +60,7 @@ export default function EditProfileInfo({ infoTitle, infoData, updateEdit }) {
         value={inputInfo[infoTitle]}
         autoFocus
       />
-      <IconButton aria-label="delete" onClick={handleSubmit}>
+      <IconButton aria-label="update" onClick={handleSubmit}>
         <SaveIcon />
       </IconButton>
     </Stack>

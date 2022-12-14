@@ -25,7 +25,7 @@ export default function EventList() {
         let response = await eventListCall(user.token);
         if (response) {
             console.log(response.events);
-            setAlertList(response.events);
+            await setAlertList(response.events);
         } else {
             console.log("some error occured");
         }
@@ -50,8 +50,9 @@ export default function EventList() {
         const accept = async () => {
             await setOpen(false)
             await friendEventCall(event.event._id, 'accept', user.token)
-            await deleteAlert(event.event._id)
-            await setAlertList(alertList)
+            // await deleteAlert(event.event._id)
+            // await setAlertList(alertList)
+            await loadData();
             await loadFriends(user.token);
             await loadEventCount(user.token);
         }
@@ -59,14 +60,16 @@ export default function EventList() {
         const reject = async () => {
             await setOpen(false)
             await friendEventCall(event.event._id, 'reject', user.token)
-            await deleteAlert(event.event._id)
+           // await deleteAlert(event.event._id)
+           await loadData();
             await loadEventCount(user.token);   
         }
 
         const close = async () => {
             await setOpen(false)
             await friendCloseCall(event.event._id, user.token)
-            await deleteAlert(event.event._id)
+            //await deleteAlert(event.event._id)
+            await loadData();
             await loadEventCount(user.token);
         }
 

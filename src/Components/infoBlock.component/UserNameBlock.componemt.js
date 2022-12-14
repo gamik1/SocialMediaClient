@@ -41,7 +41,7 @@ export default function UserNameBlock({
   const closeAlert = (e) => {
     e.stopPropagation();
     setAlertMsg(null);
-  }
+  };
 
   const handleChange = async (event) => {
     let { name, value } = event.target;
@@ -56,11 +56,13 @@ export default function UserNameBlock({
 
     /* if (inputInfo[infoTitleFN]  === "" || inputInfo[infoTitleLN]) {
       alert("please enter profile Name to update");
-    } */ 
+    } */
     if (!inputInfo[infoTitleFN].match(nameRegex)) {
-      setAlertMsg(`The first name must contain only letters,${nameRegex},${inputInfo[infoTitleFN]}`);
+      setAlertMsg(
+        `The first name must contain only letters,${nameRegex},${inputInfo[infoTitleFN]}`
+      );
     } else if (!inputInfo[infoTitleFN].match(nameRegex)) {
-      setAlertMsg('The last name must contain only letters');
+      setAlertMsg("The last name must contain only letters");
     } else {
       const response = updateProfile(inputInfo, user.token);
       if (response) {
@@ -76,76 +78,83 @@ export default function UserNameBlock({
 
   return (
     <div>
-    <Stack
-      direction={"row"}
-      spacing={1}
-      justifyContent="flex-start"
-      alignItems="center"
-    >
-      {edit ? (
-        <Stack
-          direction="row"
-          spacing={1}
-          justifyContent="flex-start"
-          alignItems="baseline"
-        >
-          <TextField
-            margin="normal"
-            required
-            onChange={handleChange}
-            id={infoTitleFN}
-            name={infoTitleFN}
-            autoComplete={infoTitleFN}
-            value={inputInfo[infoTitleFN] === "" ? "" : inputInfo[infoTitleFN]}
-            autoFocus
-          />
-          <TextField
-            margin="normal"
-            required
-            onChange={handleChange}
-            id={infoTitleLN}
-            name={infoTitleLN}
-            autoComplete={infoTitleLN}
-            value={inputInfo[infoTitleLN] === "" ? "" : inputInfo[infoTitleLN]}
-          />
-          <IconButton aria-label="delete" onClick={handleSubmit}>
-            <SaveIcon />
-          </IconButton>
-          <IconButton
-            aria-label="delete"
-            onClick={() => {
-              setEdit(false);
-            }}
+      <Stack
+        direction="row"
+        spacing={1}
+        justifyContent="flex-start"
+        alignItems="center"
+      >
+        {edit ? (
+          <Stack
+            direction={{ xs: "column", sm: "column", md: "row" }}
+            spacing={1}
+            justifyContent="flex-start"
+            alignItems="center"
           >
-            <CancelPresentationIcon />
-          </IconButton>
-        </Stack>
-      ) : (
-        <Stack
-          direction="row"
-          spacing={1}
-          justifyContent="flex-start"
-          alignItems="center"
-        >
-          <ViewInfo
-            data={`${
-              inputInfo[infoTitleFN] === "" ? "Not Set" : inputInfo[infoTitleFN]
-            } ${inputInfo[infoTitleLN] === "" ? "" : inputInfo[infoTitleLN]}`}
-            variant="h4"
-          />
-          <IconButton
-            aria-label="delete"
-            onClick={() => {
-              setEdit(true);
-            }}
+            <TextField
+              
+              required
+              onChange={handleChange}
+              id={infoTitleFN}
+              name={infoTitleFN}
+              autoComplete={infoTitleFN}
+              value={
+                inputInfo[infoTitleFN] === "" ? "" : inputInfo[infoTitleFN]
+              }
+              autoFocus
+            />
+            <TextField
+              
+              required
+              onChange={handleChange}
+              id={infoTitleLN}
+              name={infoTitleLN}
+              autoComplete={infoTitleLN}
+              value={
+                inputInfo[infoTitleLN] === "" ? "" : inputInfo[infoTitleLN]
+              }
+            />
+            <div>
+              <IconButton aria-label="update" onClick={handleSubmit}>
+                <SaveIcon />
+              </IconButton>
+              <IconButton
+                aria-label="cancel update"
+                onClick={() => {
+                  setEdit(false);
+                }}
+              >
+                <CancelPresentationIcon />
+              </IconButton>
+            </div>
+          </Stack>
+        ) : (
+          <Stack
+            direction="row"
+            spacing={1}
+            justifyContent="flex-start"
+            alignItems="center"
           >
-            <EditIcon />
-          </IconButton>
-        </Stack>
-      )}
-      
-    </Stack>
-    <TransitionAlert msg={alertMsg} closeAlert={closeAlert} />
+            <ViewInfo
+              data={`${
+                inputInfo[infoTitleFN] === ""
+                  ? "Not Set"
+                  : inputInfo[infoTitleFN]
+              } ${inputInfo[infoTitleLN] === "" ? "" : inputInfo[infoTitleLN]}`}
+              variant="h4"
+            />
+            <IconButton
+              aria-label="delete"
+              onClick={() => {
+                setEdit(true);
+              }}
+            >
+              <EditIcon />
+            </IconButton>
+          </Stack>
+        )}
+      </Stack>
+      <TransitionAlert msg={alertMsg} closeAlert={closeAlert} />
     </div>
   );
 }

@@ -2,7 +2,8 @@ import React, { useContext, useState } from "react";
 import axios from "axios";
 import { AuthContext } from "../../context/AuthContext";
 import Button from "@mui/material/Button";
-import { Typography } from "@mui/material";
+import { Typography,IconButton } from "@mui/material";
+import CancelPresentationIcon from "@mui/icons-material/CancelPresentation";
 import Stack from "@mui/material/Stack";
 import Card from "@mui/material/Card";
 import CardMedia from "@mui/material/CardMedia";
@@ -77,6 +78,14 @@ export default function ProfilePictureUpload({ updateEdit, updatePP}) {
         <Button variant="contained" className="shareButton" type="submit">
           Update
         </Button>
+        <IconButton
+            aria-label="cancel"
+            onClick={() => {
+              updateEdit(false);
+            }}
+          >
+            <CancelPresentationIcon />
+          </IconButton>
       </form>
     </Stack>
   );

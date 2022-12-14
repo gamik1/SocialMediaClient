@@ -1,27 +1,23 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,useContext } from "react";
 import PostDetail from "../../Components/Posts.comonent/PostDetail.component";
 import { Route, useParams } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import { friendProfilesCall } from "../../API/apiCalls";
+import { ProfileContext } from "../../context/ProfileContext";
 
 export default function PostsDetail() {
   const { id } = useParams();
   const { user } = React.useContext(AuthContext);
-  const [setFriendProfiles] = React.useState([]);
+  const {loadFriends} = useContext(ProfileContext);
 
   React.useEffect(() => {
-    loadFriends();
+    loadFriends(user.token);
   }, []);
 
-  const loadFriends = async () => {
-    let response = await friendProfilesCall(user.token);
-    if (response) {
-      // console.log(response);
-      setFriendProfiles(response.profiles);
-    } else {
-      console.log("some error occured");
-    }
-  };
+  const trigger = ()=>{
+    loadFriends(user.token);
+  }
+ 
 
-  return <PostDetail postId={id} trigger={loadFriends} />;
+  return <PostDetail postId={id} trigger={trigger} />;
 }
