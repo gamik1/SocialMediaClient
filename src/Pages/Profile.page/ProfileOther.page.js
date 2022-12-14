@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
-
-import { Route, useParams } from "react-router-dom";
+import jwt from "jwt-decode";
+import { Navigate, Route, useNavigate, useParams } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import { friendProfilesCall, friendIdsCall } from "../../API/apiCalls";
 import { profileGetOther } from "../../API/apiCalls";
@@ -10,9 +10,16 @@ import { ProfileContext } from "../../context/ProfileContext";
 
 export default function ProfileOther() {
   const { param } = useParams();
-  console.log("param", param);
-  const [profile, setProfile] = useState({});
+  console.log("param", param , );
   const { user } = React.useContext(AuthContext);
+  const decoded = jwt(user.token);
+  const id = decoded.user._id;
+  console.log("param", param , id);
+  const navigate = useNavigate();
+  if(id === param){
+    navigate("/user/profile");
+  }
+  const [profile, setProfile] = useState({});
   const {loadFriends} = useContext(ProfileContext);
   const [askings, setAskings] = useState([]);
   const [friends, setFriends] = useState([]);
@@ -25,6 +32,7 @@ export default function ProfileOther() {
   React.useEffect(() => {
     loadFriendsHere();
     loadProfile();
+
   }, []);
 
   console.log(profile);

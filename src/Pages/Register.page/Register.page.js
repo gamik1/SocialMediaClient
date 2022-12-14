@@ -16,6 +16,9 @@ import { AuthContext } from "../../context/AuthContext";
 import Alert from "@mui/material/Alert";
 
 import validator from "validator";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogTitle from "@mui/material/DialogTitle";
 
 const theme = createTheme({
   palette: {
@@ -26,7 +29,12 @@ const theme = createTheme({
   },
 });
 
+
+
+
+
 export default function Register() {
+  const [open, setOpen] = React.useState(false);
   const [validation, setValidation] = useState({
     email: "Initial",
     password: "Initial",
@@ -40,6 +48,35 @@ export default function Register() {
   const [regErr, setRegErr] = useState("");
 
   const { isFetching, error, dispatch } = useContext(AuthContext);
+
+  const handleClose = () => {
+      setOpen(false);
+      loginCall(
+        { email: emailPass.email, password: emailPass.password },dispatch
+      );
+    };
+  function AlertDialog() {
+    return (
+      <div>
+        <Dialog
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+        >
+          <DialogTitle id="alert-dialog-title">
+            {"User Succesfully Registered"}
+          </DialogTitle>
+  
+          <DialogActions>
+            <Button onClick={handleClose}>Close</Button>
+          </DialogActions>
+        </Dialog>
+      </div>
+    );
+  }
+ 
+  
   const register = async () => {
     const response = await registerCall(emailPass);
     if (response) {
@@ -47,11 +84,7 @@ export default function Register() {
         if (response.registerResponse.alreadyUsed) {
           setRegErr("This Email is already used !!");
         } else {
-          alert("Successfully Registered");
-          loginCall(
-            { email: emailPass.email, password: emailPass.password },
-            dispatch
-          );
+          setOpen(true);
         }
       } else {
         setRegErr("some error occured please try again later!!");
@@ -167,6 +200,7 @@ export default function Register() {
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
+        <AlertDialog />
         <Box
           sx={{
             marginTop: 8,
@@ -278,6 +312,7 @@ export default function Register() {
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
               style={{ height: 60 }}
+              disabled={isFetching}
             >
               Sign Up
             </Button>

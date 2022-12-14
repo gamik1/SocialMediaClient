@@ -48,26 +48,26 @@ export default function EventList() {
         }
 
         const accept = async () => {
+            await setOpen(false)
             await friendEventCall(event.event._id, 'accept', user.token)
             await deleteAlert(event.event._id)
-            await setOpen(false)
             await setAlertList(alertList)
             await loadFriends(user.token);
             await loadEventCount(user.token);
         }
 
         const reject = async () => {
+            await setOpen(false)
             await friendEventCall(event.event._id, 'reject', user.token)
             await deleteAlert(event.event._id)
-            await loadEventCount(user.token);
-            await setOpen(false)
+            await loadEventCount(user.token);   
         }
 
         const close = async () => {
+            await setOpen(false)
             await friendCloseCall(event.event._id, user.token)
             await deleteAlert(event.event._id)
             await loadEventCount(user.token);
-            await setOpen(false)
         }
 
         const handleProfile = (e) => {

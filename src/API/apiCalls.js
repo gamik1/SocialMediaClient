@@ -6,13 +6,17 @@ let API_URL = process.env.REACT_APP_API_URL;
 export const loginCall = async (userCredential, dispatch) => {
   dispatch({ type: "LOGIN_START" });
   try {
-    
+    console.log("here");
     const res = await axios.post(`${API_URL}/login`, userCredential);
+   
+    
     dispatch({ type: "LOGIN_SUCCESS", payload: res.data });
     
   } catch (err) {
-    dispatch({ type: "LOGIN_FAILURE", payload: err });
+    console.log(err.response.data);
+    dispatch({ type: "LOGIN_FAILURE", payload: err.response.data });
   }
+  
 };
 
 export const logoutCall = async (dispatch) => {
