@@ -2,6 +2,7 @@ import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
+import Offcanvas from 'react-bootstrap/Offcanvas';
 //import { TbActivity } from "react-icons/tb";
 import Logo from "../Logo.component/Logo.component";
 import jwt from "jwt-decode";
@@ -27,7 +28,7 @@ function Navigation() {
     <Navbar bg="light" expand="lg">
       <Container fliud>
         <Navbar.Brand href="/">
-          <Logo width="50" height="50" />
+          <Logo />
         </Navbar.Brand>
 
         <Navbar.Toggle aria-controls="navbarScroll" />
@@ -37,14 +38,14 @@ function Navigation() {
             style={{ maxHeight: "100px" }}
             navbarScroll
           ></Nav>
-          <Nav className="d-flex" style={{ maxHeight: "100px" }} navbarScroll>
-            {!user ? <Nav.Link href="/login">Login</Nav.Link> : ""}
-            {!user ? <Nav.Link href="/register">Register</Nav.Link> : ""}
-            {user ? <Nav.Link href="/user/home">Home</Nav.Link> : ""}
-            {user ? <Nav.Link href="/user/profile">Profile</Nav.Link> : ""}
+          <Nav className="d-flex text-dark" style={{ maxHeight: "100px" }} navbarScroll>
+            {!user ? <Nav.Link className="text-dark fw-bold" href="/login">Login</Nav.Link> : ""}
+            {!user ? <Nav.Link className="text-dark fw-bold" href="/register">Register</Nav.Link> : ""}
+            {user ? <Nav.Link className="text-dark fw-bold" href="/user/home">Home</Nav.Link> : ""}
+            {user ? <Nav.Link className="text-dark fw-bold" href="/user/profile">Profile</Nav.Link> : ""}
             {user ? (
               <Nav.Link
-                className=".d-none .d-sm-block .d-md-none displayExtra"
+                className=".d-none .d-sm-block .d-md-none displayExtra text-dark fw-bold"
                 href="/user/userlist"
               >
                 Search Friends
@@ -54,7 +55,7 @@ function Navigation() {
             )}
             {user ? (
               <Nav.Link
-                className=".d-none .d-sm-block .d-md-none displayExtra"
+                className=".d-none .d-sm-block .d-md-none displayExtra text-dark fw-bold"
                 href="/user/events"
               >
                 Events
@@ -65,7 +66,7 @@ function Navigation() {
 
             {user ? (
               <Nav.Link
-                className=".d-none .d-sm-block .d-md-none displayExtra"
+                className=".d-none .d-sm-block .d-md-none displayExtra text-dark fw-bold"
                 href="/user/donate"
               >
                 Donate Us
@@ -75,7 +76,7 @@ function Navigation() {
             )}
             {user ? (
               <Nav.Link
-                className=".d-none .d-sm-block .d-md-none displayExtra"
+                className=".d-none .d-sm-block .d-md-none displayExtra text-dark fw-bold"
                 href="/user/news"
               >
                 News
@@ -83,7 +84,7 @@ function Navigation() {
             ) : (
               ""
             )}
-            {user ? <Nav.Link onClick={handleLogout}>Logout</Nav.Link> : ""}
+            {user ? <Nav.Link className="text-dark fw-bold"onClick={handleLogout}>Logout</Nav.Link> : ""}
           </Nav>
         </Navbar.Collapse>
       </Container>

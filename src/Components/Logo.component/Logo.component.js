@@ -5,7 +5,7 @@ export default function Logo() {
   
 
     return (
-      <div className="logo-main" aria-label="ping logo" >
+      <div className="logo-main" aria-label="ping" >
 
       </div>
     )
