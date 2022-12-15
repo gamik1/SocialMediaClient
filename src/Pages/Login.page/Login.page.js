@@ -89,7 +89,7 @@ export default function Login({ setToken }) {
           
           <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>
           { errorMsg !== "" ?
-            <Alert fullWidth severity="error">{errorMsg}</Alert>
+            <Alert severity="error">{errorMsg}</Alert>
             :
             ""
             }

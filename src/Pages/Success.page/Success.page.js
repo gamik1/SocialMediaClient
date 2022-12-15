@@ -191,7 +191,9 @@ export default function BasicStack() {
           <Typography variant="h5" gutterBottom>
           <br></br>
           Isha Negi <br>
-          </br>Developer
+          </br>
+          <Link sx={{textDecoration:"none" , fontSize:"1rem"}} href="mailto:ishanegi18@gmail.com">ishanegi18@gmail.com</Link><br/>
+          Developer
       </Typography>
       
         <Link href="https://github.com/ishanegi18" underline="none"> Github
@@ -214,7 +216,9 @@ export default function BasicStack() {
           <Typography variant="h5" gutterBottom>
             <br></br>
             Yang Cheng<br>
-          </br>Developer
+          </br>
+          <Link sx={{textDecoration:"none" , fontSize:"1rem"}} href="mailto:oceanc2006@gmail.com">oceanc2006@gmail.com</Link><br/>
+          Developer
       </Typography>   <Link href="https://github.com/YangCConestoga" underline="none"> Github 
 </Link>
         </Grid>
