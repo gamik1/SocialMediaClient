@@ -8,6 +8,8 @@ import UserNameBlock from "../../Components/infoBlock.component/UserNameBlock.co
 import DateBlock from "../../Components/infoBlock.component/DateBlock.component";
 import moment from "moment";
 import ProfilePictureBlock from "../../Components/infoBlock.component/ProfilePictureBlock.component";
+import { Typography } from "@mui/material";
+import Geolocation from "../../Components/Geolocation.componemt/Geolocation.component";
 
 export default function ProfileShow({ id }) {
   const { profile, getProfile } = useContext(ProfileContext);
@@ -88,6 +90,14 @@ export default function ProfileShow({ id }) {
               infoTitle="hobby"
               data={profile.hobby ? profile.hobby : "Not Set"}
             />
+          </Stack>
+          <Stack
+            direction={"row"}
+            spacing={1}
+            justifyContent="flex-start"
+            alignItems="center"
+          >
+            <Typography component="p"><Geolocation/></Typography>
           </Stack>
         </Stack>
       </Box>

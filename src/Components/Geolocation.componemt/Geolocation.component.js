@@ -52,9 +52,8 @@ const Geolocation = () => {
     });
   };
   return (
-    <div>
-      <h2>{locAddress}</h2>
-    </div>
+    
+      <>{locAddress != "" ? `login from: ${locAddress}` : ""}</>
   );
 };
 
